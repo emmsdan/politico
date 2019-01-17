@@ -1,0 +1,91 @@
+body {
+  background: rgb(243, 242, 242);
+  margin: 0;
+  font-family: 'Sarabun', sans-serif;
+}
+header a:hover, .active, a {
+  color: rgb(243, 16, 110);
+  text-decoration: none;
+}
+
+header {
+  position: fixed;
+  display: flex;
+  background: #fff;
+  box-shadow: 0px 0px 12px #aaa;
+  height: 20px;
+  padding: 20px 50px;
+  width: calc(100vw - (20px + 55px));
+  overflow: hidden;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 100;
+}
+header img {
+  height: 35px;
+}
+header nav ul{
+  display: flex;
+  list-style: none;
+  text-transform: uppercase;
+}
+header nav ul li {
+  padding: 10px;
+  margin: 4px;
+}
+header a{
+  color: rgb(153, 153, 153);
+}
+
+footer {
+  padding: 10px 0;
+  position: absolute;
+  top: calc(100vh - 60px);
+  width: 100%;
+  box-shadow: -3px -2px 2px rgb(212, 212, 212);
+  text-align: center;
+}
+footer a {
+  margin:0 10px;
+}
+@media all and (min-width: 600px) {
+  footer {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    position: absolute;
+    top: calc(100vh - 60px);
+    width: 100%;
+  }
+}
+
+main {
+  position: relative;
+  top: calc(20px + 55px);
+  padding: 10px;
+  margin: 0 auto;
+  width: 90px;
+}
+
+.toast {
+  display: flex;
+  border-radius: 3px;
+  width: 280px;
+  height: 20px;
+  padding: 10px;
+  margin: 0 auto;
+  margin-top: 66vh;
+  color: #ddd;
+  background: #222222;
+  box-shadow: 0px 0px 12px #bbb;
+  z-index: 1000;
+  justify-content: space-between;
+}
+
+.toast .toast-close {
+  padding: 4px;
+  margin-top: -10px;
+  color: rgb(243, 16, 110);
+  cursor: pointer;
+}
