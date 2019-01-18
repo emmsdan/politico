@@ -1,12 +1,22 @@
 * {
   font-family: 'Sarabun', sans-serif;
 }
+::-webkit-input-placeholder {
+  opacity: 0;
+  transition: inherit;
+}
+input:focus::-webkit-input-placeholder {
+  opacity: 1;
+}
 body {
   background: rgba(248, 248, 248, 0.856);
   margin: 0;
 }
 section, footer {
   display: block;
+}
+input {
+  box-sizing:border-box;
 }
 
 .active, a {
@@ -97,6 +107,10 @@ main {
     margin: 0 auto;
     margin-bottom: 15px;
   }
+}
+.wrapper, .form-fields {
+  margin: 0 auto;
+  width: 90%;
 }
 /** office area **/
 .offices, .parties, .candidate {
@@ -223,4 +237,96 @@ main {
     margin-top: -30px;
     color: rgb(48, 163, 73);
   }
+}
+
+/** forms **/
+.form-fields {
+  padding: 10px;
+  max-width: 300px;
+  height: 300px;
+  background: #fff;
+  box-shadow: 0 0 332px #222;
+  z-index: -100;
+}
+
+.form-fields .fieldset {
+  border: 0;
+}
+.form-fields legend {
+  font-size: 2rem;
+  text-align: center;
+  color: #ccc;
+  padding: 10px 20px;
+  border-bottom: 3px solid #222;
+}
+.field {
+  display: flex;
+  flex-flow: column-reverse;
+  margin-bottom: 1em;
+}
+label, input {
+  transition: all 0.2s;
+  touch-action: manipulation;
+}
+label, .button, button {
+  margin: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 11px;
+  padding-left: 14px ;
+}
+input {
+  width: 100%;
+  min-height: 20px;
+  font-size: 1.5em;
+  border: 0;
+  border-left:13px solid rgba(19, 17, 17, 0.356);
+  border-radius: 0;
+  padding: 0;
+  z-index: 100;
+  background: none;
+}
+
+input:focus {
+  outline: 0;
+  border: 0;
+  border-bottom: 3px solid #666;
+}
+input:placeholder-shown + label {
+  cursor: text;
+  max-width: 66.66%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transform-origin: left bottom;
+  transform: translate(0, 2.125rem) scale(1.5);
+}
+input:not(:placeholder-shown) + label,
+input:focus + label {
+  transform: translate(0, 0) scale(1);
+  cursor: pointer;
+  padding-left: 0px;
+  font-weight: bold;
+  font-size: 15px;
+  padding-left: -10px;
+}
+.button, button {
+  background: rgb(67, 201, 96);
+  color: #fff;
+  font-weight:900;
+  margin: 0;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+input[type='checkbox'], input[type='checkbox'] +  label {
+  margin: 0px;
+  padding: 0px;
+  max-width: 100%;
+  height: auto;
+  float: left;
+}
+
+.centered-text {
+  text-align: center !important;
 }
