@@ -319,7 +319,7 @@ main {
   flex-flow: column-reverse;
   margin-bottom: 1em;
 }
-label, input {
+label, input, option, select {
   transition: all 0.2s;
   touch-action: manipulation;
 }
@@ -330,7 +330,7 @@ label, .button, button {
   font-size: 11px;
   padding-left: 14px ;
 }
-input {
+input, option, select {
   width: 100%;
   min-height: 20px;
   font-size: 1.5em;
@@ -503,6 +503,25 @@ img.profile-pix {
   margin-top: 4px;
   margin-bottom: 0px;
 }
+.profile-card button.vote-user {
+  position: absolute;
+  top: 33%;
+  left: 30%;
+  border-radius: 50%;
+  min-height: 75px;
+  background: rgba(48, 163, 73, 0.682);
+}
+.profile-card button.vote-user:hover,
+.profile-card:hover button.vote-user {
+  background: rgba(48, 163, 73, 0.982);
+}
+.profile-card button.vote-user:hover {
+  box-shadow: 0 0 33px #999;
+}
+.hover-blur:hover img:not(.party){
+  filter: blur(2px);
+}
+
 .padding-10 {
   padding: 10px;
 }

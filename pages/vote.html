@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="canonical" href="./">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="/img/favicon.png"/>
+    <!-- development only area-->
+
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Pragma" content="no-cache" />
+
+    <!-- end of development only area-->
+    <link href="https://fonts.googleapis.com/css?family=Sarabun" rel="stylesheet">
+    <link rel="stylesheet" href="/css/app.css" />
+    <script async defer src="/js/app.js"></script>
+  </head>
+  <body>
+    <header>
+      <a href="/"> <img src="/img/logo.png" alt="politico" /></a>
+      <nav role="navigation">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Admin</a></li>
+          <li><a href="#">Office</a></li>
+          <li><a href="#">Account</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <div class="clear-space"></div>
+      <section class="wrapper flex">
+        <div class="box side-bar centered-text blue-gray-text">
+            <hr />
+          <img src="/img/profile/emmanuel-daniel.jpg" class="profile-pix" />
+          <h2 class="title font-serif p-name"> Emmanuel Daniel</h2>
+          <div class="field">
+            <input class="no-border" id="p-name" placeholder="Emmanuel Daniel" type="hidden">
+          </div>
+          <div class="">
+            <strong>Role:</strong> @politician <br/>
+
+            <span class="block p-email">ecomje@gmail.com</span>
+            <div class="field">
+              <input class="no-border" id="p-email" placeholder="ecomje@gmail.com" type="hidden">
+            </div>
+            <span class="block p-phone">+234 814 546 7267</span>
+            <div class="field">
+              <input class="no-border" id="p-phone" placeholder="08145467267" type="hidden">
+            </div>
+            <button class="button" data-modal="#edit-profile">edit profile</button>
+          </div>
+          <hr />
+        </div>
+        <div class="main">
+          <div class="box">
+            <h3 class="centered-text"> Select office and candidate:</h3>
+            <div class="field" style="max-width: 500px; margin: 0 auto;">
+              <select name="offices" id="offices">
+                <option>State Governor</option>
+                <option>Presidency</option>
+                <option>State</option>
+                <option>Governor</option>
+              </select>
+            </div>
+              <!-- start of proile-cards-->
+
+            <div class="profile flex">
+              <div class="profile-card hover-blur">
+                <img src="/img/profile/emmanuel-daniel.jpg">
+                <img src="/img/pdp.png" alt="pdp party" class="party">
+                <div class="info">
+                  <h1> Emmanuel Daniel </h1>
+                  <p>16th, Feb. 2019</p>
+                  <h5>@Presidency -- <small> Nigeria</small></h5>
+                </div>
+                <button class="button vote-user" onclick="alert('you voted for EmmmsDan')">Vote Now</button>
+              </div>
+              <div class="profile-card">
+                <img src="/img/candidate/3.jpg">
+                <img src="/img/apc.jpg" alt="apc party" class="party">
+                <div class="info">
+                  <h1> Mark Jeremy </h1>
+                  <p>16th, Feb. 2019</p>
+                  <h5>@Senate -- <small> Nigeria</small></h5>
+                </div>
+                <button class="button vote-user" onclick="alert('you voted for EmmmsDan')">Vote Now</button>
+              </div>
+
+              <div class="profile-card">
+                <img src="/img/candidate/5.jpg">
+                <img src="/img/sdp.jpg" alt="sdp party" class="party">
+                <div class="info">
+                  <h1> Isaac Itodo </h1>
+                  <p>16th, Feb. 2019</p>
+                  <h5>@Governor -- <small> lagos state</small></h5>
+                </div>
+                <button class="button vote-user" onclick="alert('you voted for EmmmsDan')">Vote Now</button>
+              </div>
+            </div>
+            <!-- end of proile-cards-->
+          </div>
+        </div>
+      </section>
+    </main>
+    <br/>
+    <div class="toast"> hello I am a toast bar <span class="toast-close">x</span></div>
+
+    <footer>
+      <div>
+      <a href="https://github.com/emmsdan/politico/">Politico</a> was Designed & Developed by <a href="https://twitter.com/emmsdan">Emmanuel Daniel</a>
+      </div>
+    </footer>
+    <!-- modal boxes for extra functionalities -->
+    <div class="modal" id="edit-profile">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+
+        <form action="/pages/user_dashboard.html" class="  no-shadow">
+            <legend>Update Profile</legend>
+            <hr/>
+
+            <div class="field">
+                <input type="text" name="firstname" id="firstname" placeholder="Emmanuel" required>
+                <label for="firstname">First Name:</label>
+              </div>
+
+              <div class="field">
+                <input type="text" name="lastname" id="lastname" placeholder="Daniel" required>
+                <label for="lastname">Last Name:</label>
+              </div>
+
+              <div class="field">
+                <input type="email" name="email" id="email" placeholder="ecomje@gmail.com" required>
+                <label for="email">Email:</label>
+              </div>
+
+              <div class="field">
+                <input type="phone" name="phone" id="phone" placeholder="phone: 08145467267" required>
+                <label for="phone">Phone Number:</label>
+              </div>
+              <button type="submit" class="button">Update Profile</button>
+            </div>
+        </form>      </div>
+    </div>
+  </body>
+  <script>
+  </script>
+</html>
