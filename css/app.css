@@ -340,7 +340,7 @@ label, .button, button {
   font-size: 11px;
   padding-left: 14px ;
 }
-input, option, select {
+input, option, select, textarea {
   width: 100%;
   min-height: 20px;
   font-size: 1.5em;
@@ -393,6 +393,12 @@ input[type='checkbox'], input[type='checkbox'] +  label {
   max-width: 100%;
   height: auto;
   float: left;
+}
+textarea {
+  min-height: 100px;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
 }
 .centered-text {
   text-align: center !important;
