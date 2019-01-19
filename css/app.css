@@ -224,6 +224,16 @@ main {
   width: 100%;
   height: 100px;
 }
+
+.admin .parties-party {
+  height: 150px;
+  width: 150px;
+  margin: 10px;
+}
+.admin .parties-party img  {
+  width: 150px;
+  height: 150px;
+}
 .toast {
   position: fixed;
   display: flex;
