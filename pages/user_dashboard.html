@@ -39,7 +39,8 @@
             <input class="no-border" id="p-name" placeholder="Emmanuel Daniel" type="hidden">
           </div>
           <div class="">
-            <strong>Role:</strong> @politician <br/>
+            <strong>Role:</strong> @politician             <button class="button" data-modal="#contest-election">constest</button>
+            <br/>
 
             <span class="block p-email">ecomje@gmail.com</span>
             <div class="field">
@@ -153,6 +154,34 @@
             </div>
         </form>      </div>
     </div>
+    <div class="modal" id="contest-election">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+
+          <form action="/pages/user_dashboard.html" class="  no-shadow">
+              <legend>Apply to Contest in Election</legend>
+              <hr/>
+              <div class="field">
+                <select type="text" name="office" id="office" required>
+                  <option> Presidency</option>
+                  <option> Governorship</option>
+                  <option> Senate</option>
+                </select>
+                <label for="office">Select Office:</label>
+              </div>
+              <div class="field">
+                <select type="text" name="party" id="party" required>
+                  <option> ADC</option>
+                  <option> Labour Party</option>
+                  <option> KOWA</option>
+                </select>
+                <label for="party">Select Party:</label>
+              </div>
+              <button type="submit" class="button">Submit Application</button>
+            </div>
+          </form>      </div>
+      </div>
+
   </body>
   <script>
   </script>
