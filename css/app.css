@@ -433,6 +433,18 @@ input[type='checkbox'], input[type='checkbox'] +  label {
 .blue-gray-text {
   color: #263238;
 }
+.red {
+  background: rgb(243, 16, 16);
+}
+.red-text {
+  color: rgb(243, 16, 16);
+}
+.blue {
+  background: rgb(16, 77, 243);
+}
+.blue-text {
+  color: rgb(16, 77, 243);
+}
 
 img.profile-pix {
   max-width: 200px;
@@ -549,6 +561,9 @@ img.profile-pix {
 .no-border {
   border: none !important;
 }
+.circle {
+  border-radius: 50%;
+}
 
 .modal {
   position: fixed;
@@ -617,4 +632,8 @@ tr:first-child {
 }
 tr:nth-child(even) {
   background: rgba(202, 202, 202, 0.19);
+}
+td img {
+  width: 50px;
+  height: 50px;
 }
