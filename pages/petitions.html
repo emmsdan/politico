@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="canonical" href="./">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="/img/favicon.png"/>
+    <!-- development only area-->
+
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Pragma" content="no-cache" />
+
+    <!-- end of development only area-->
+    <link href="https://fonts.googleapis.com/css?family=Sarabun" rel="stylesheet">
+    <link rel="stylesheet" href="/css/app.css" />
+    <script async defer src="/js/app.js"></script>
+  </head>
+  <body>
+      <header data-add-file="/header.txt"></header>
+
+    <main>
+      <div class="clear-space"></div>
+      <section class="wrapper flex">
+          <div class="box centered-text">
+              <br/>
+              <a href="admin_dashboard.html" class="button">Back to Dashboard</a>
+              <a href="politician_dashboard.html" class="button-bigger">View Political Parties</a>
+              <a href="office.html" class="button-bigger">View Offices</a>
+              <a href="create-party.html" class="button">Create New Party</a>
+              <br/>
+              <br/>
+          </div>
+          <br/>
+          <br/>
+          <div class="box">
+            <h1>
+                Petitions
+            </h1>
+            <table class="">
+              <tr>
+                <th>ID</th>
+                <th>office type</th>
+                <th>Petiton</th>
+                <th>action</th>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>federal</td>
+                <td>Senate, I get many many many many things to talk about </td>
+                <td>
+                  <a href="#accept" onclick="confirm('Petition sustained')" class="button blue">accept</a>
+                  <a href="#delete" onclick="confirm('Petition rejected')" class="button red">reject</a>
+                </td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>federal</td>
+                <td>Senate, I get many many many many things to talk about </td>
+                <td>
+                  <a href="#accept" onclick="confirm('Petition sustained')" class="button blue">accept</a>
+                  <a href="#delete" onclick="confirm('Petition rejected')" class="button red">reject</a>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+    <br/>
+    <div class="toast"> hello I am a toast bar <span class="toast-close">x</span></div>
+
+    <footer>
+      <div>
+      <a href="https://github.com/emmsdan/politico/">Politico</a> was Designed & Developed by <a href="https://twitter.com/emmsdan">Emmanuel Daniel</a>
+      </div>
+    </footer>
+    <!-- modal boxes for extra functionalities -->
+    <div class="modal" id="edit-profile">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+
+        <form action="/pages/user_dashboard.html" class="  no-shadow">
+            <legend>Update Profile</legend>
+            <hr/>
+
+            <div class="field">
+                <input type="text" name="firstname" id="firstname" placeholder="Emmanuel" required>
+                <label for="firstname">First Name:</label>
+              </div>
+
+              <div class="field">
+                <input type="text" name="lastname" id="lastname" placeholder="Daniel" required>
+                <label for="lastname">Last Name:</label>
+              </div>
+
+              <div class="field">
+                <input type="email" name="email" id="email" placeholder="ecomje@gmail.com" required>
+                <label for="email">Email:</label>
+              </div>
+
+              <div class="field">
+                <input type="phone" name="phone" id="phone" placeholder="phone: 08145467267" required>
+                <label for="phone">Phone Number:</label>
+              </div>
+              <button type="submit" class="button">Update Profile</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </body>
+  <script>
+  </script>
+</html>

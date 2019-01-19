@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="canonical" href="./">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png"/>
+    <!-- development only area-->
+
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Pragma" content="no-cache" />
+
+    <!-- end of development only area-->
+    <link href="https://fonts.googleapis.com/css?family=Sarabun" rel="stylesheet">
+    <link rel="stylesheet" href="./css/app.css" />
+    <script async defer src="js/app.js"></script>
+  </head>
+  <body>
+    <header>
+      <a href="./"> <img src="./img/logo.png" alt="politico" /></a>
+      <nav role="navigation">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Admin</a></li>
+          <li><a href="#">Office</a></li>
+          <li><a href="#">Account</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="call-to-action">
+        <div class="placeholder">
+          <h2>Every Vote Count</h2>
+          <h4>Vote and Be Voted for</h4>
+        </div>
+      </section>
+
+      <section class="wrapper">
+        <form action="/pages/user_dashboard.html" class="form-fields">
+          <fieldset class="fieldset">
+            <legend>Login Below</legend>
+
+            <div class="field">
+              <input type="text" name="username" id="username" placeholder="emmsdan" required>
+              <label for="fullname">Username:</label>
+            </div>
+
+            <div class="field">
+              <input type="password" name="password" id="password" placeholder="Uya73&gaCute" required>
+              <label for="password">password</label>
+            </div>
+
+            <div class="field">
+              <input type="checkbox" name="remember" id="remember" value="remember">
+              <label for="remember" class="centered-text">remember login</label>
+            </div>
+
+            <div class="field">
+                <div>
+                    <a href="./reset-password.html">Forgot Password</a> <br/>
+                    <a href="./signup.html">Create New Account</a>
+                </div>
+                <br/>
+              <button type="submit" class="button">Login</button>
+            </div>
+          </fieldset>
+        </form>
+      </section>
+    </main>
+    <br/>
+    <div class="toast"> hello I am a toast bar <span class="toast-close">x</span></div>
+
+    <footer>
+      <div>
+      <a href="https://github.com/emmsdan/politico/">Politico</a> was Designed & Developed by <a href="https://twitter.com/emmsdan">Emmanuel Daniel</a>
+      </div>
+    </footer>
+
+  </body>
+</html>
