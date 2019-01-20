@@ -1,0 +1,27 @@
+{
+  "name": "politico",
+  "version": "1.0.0",
+  "description": "Politico enables citizens give their mandate to politicians running for different government offices while building trust in the process through transparency",
+  "main": "app.js",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  },
+  "scripts": {
+    "start": "node app",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emmsdan/politico.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/emmsdan/politico/issues"
+  },
+  "homepage": "https://github.com/emmsdan/politico#readme"
+}
