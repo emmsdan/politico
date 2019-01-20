@@ -1,0 +1,25 @@
+{
+  "name": "politico-api-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emmsdan/politico.git"
+  },
+  "author": "emmanuel daniel (emmsdan)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emmsdan/politico/issues"
+  },
+  "homepage": "https://github.com/emmsdan/politico#readme",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "express": "^4.16.4",
+    "mocha": "^5.2.0"
+  }
+}
