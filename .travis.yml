@@ -1,6 +1,21 @@
 language: node_js
 node_js:
   - "stable"
+env:
+  global:
+    - CC_TEST_REPORTER_ID=a555e01df20601f7c00d71df7c26d63e06e340c6c136c2846aa47a33fb53059d
+
 cache:
   directories:
     - "node_modules"
+
+after_script: NODE_ENV=test istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+
+install:
+  - npm install
+
+script: npm test
+
+after_success:
+  -  npm run coverage
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
