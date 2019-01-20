@@ -1,0 +1,226 @@
+* {
+  font-family: 'Sarabun', sans-serif;
+}
+body {
+  background: rgba(248, 248, 248, 0.856);
+  margin: 0;
+}
+section, footer {
+  display: block;
+}
+
+.active, a {
+  color: rgb(243, 16, 110);
+  text-decoration: none;
+}
+
+header a:hover {
+  color: rgba(255, 255, 255, 0.795);
+  text-decoration: none;
+}
+header {
+  position: fixed;
+  top: 0;
+  display: flex;
+  background: rgb(67, 201, 96);
+  box-shadow: 0px 0px 12px rgb(3, 3, 3);
+  height: 20px;
+  padding: 20px 50px;
+  width: calc(100vw - (20px + 55px));
+  overflow: hidden;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 100;
+}
+header img {
+  height: 35px;
+}
+header nav ul{
+  display: flex;
+  list-style: none;
+  text-transform: uppercase;
+}
+header nav ul li {
+  padding: 10px;
+  margin: 4px;
+}
+header a{
+  color: rgb(255, 255, 255);
+}
+
+/** slider **/
+.slider {
+  background: #fff;
+  height: 250px;
+  border-bottom: 20px solid #222222;
+}
+.slider img {
+  width: 100%;
+  height: 100%;
+}
+
+/** footer area **/
+footer {
+  display: block;
+  padding: 10px 0px;
+  position: relative;
+  box-shadow: -3px -2px 2px rgb(212, 212, 212);
+  text-align: center;
+  width: 100%;
+}
+footer a {
+  margin:0 10px;
+}
+
+/** main section **/
+main {
+  margin: 64px auto;
+  display: block;
+}
+
+.summery-card {
+  padding: 0 10px;
+}
+
+.summery-card-heading {
+  text-align: center;
+  color: rgb(83, 80, 80);
+  text-transform: capitalize;
+  font-size: 20px;
+}
+@media all and (min-width: 800px) {
+  .summery-card-heading {
+    text-align: left;
+    border-bottom: 1px inset #ccc;
+    width: 85%;
+    margin: 0 auto;
+    margin-bottom: 15px;
+  }
+}
+/** office area **/
+.offices, .parties, .candidate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 10px;
+  margin: 0 auto;
+  width: 90%;
+}
+.offices_office, .parties-party {
+  margin: 3px;
+  background: #eee;
+  color: #222;
+  width: 200px;
+  height: 280px;
+  overflow: hidden;
+}
+
+.offices_office img{
+  width: 100%;
+  height: 154px;
+}
+.offices_office h3{
+  text-align: center !important;
+  padding: 0px 5px;
+  height: 44px;
+}
+.offices_office_options {
+  padding: 10px;
+  background: #222222;
+  color: #ccc;
+  display: flex;
+  justify-content: space-between;
+}
+.candidate .offices_office{
+  height: auto;
+  overflow: none;
+}
+.candidate h3 {
+  font-size: 16px;
+  height: auto;
+}
+.parties-party {
+  font-size: 20px;
+  text-align: center;
+  text-transform: uppercase;
+  height: 100px;
+  width: 100px;
+}
+.parties-party img  {
+  width: 100%;
+  height: 100px;
+}
+.toast {
+  position: fixed;
+  display: flex;
+  border-radius: 3px;
+  width: 280px;
+  height: 20px;
+  padding: 10px;
+  margin: 0 auto;
+  top: 86vh;
+  right: 10%;
+  color: #ddd;
+  background: #222222;
+  box-shadow: 0px 0px 12px #bbb;
+  z-index: 1000;
+  justify-content: space-between;
+}
+
+.toast .toast-close {
+  padding: 4px;
+  margin-top: -10px;
+  color: rgb(243, 16, 110);
+  cursor: pointer;
+}
+
+.placeholder {
+  max-width: 98%;
+  margin: 0 auto;
+  padding: 10px;
+}
+.call-to-action {
+  margin: 0 auto;
+  width: 90%;
+  text-align: center;
+}
+.call-to-action h2 {
+  font-size: 2rem;
+}
+.call-to-action h4 {
+  font-size: 1.2rem;
+  margin-top: -30px;
+  color: rgb(48, 163, 73);
+}
+.call-to-action a {
+  padding: 20px;
+  width: 200px;
+  margin: -20px auto;
+  margin-bottom: 10px;
+  background: seagreen;
+  color: #fff;
+  display: block;
+}
+
+@media all and (min-width: 610px) {
+  .call-to-action h2 {
+    font-size: 2.1rem;
+  }
+}
+@media all and (min-width: 680px) {
+  .call-to-action h2 {
+    font-size: 2.5rem;
+  }
+}
+@media all and (min-width: 860px) {
+  .call-to-action h2 {
+    font-size: 3rem;
+  }
+  .call-to-action h4 {
+    font-size: 1.6rem;
+    margin-top: -30px;
+    color: rgb(48, 163, 73);
+  }
+}
