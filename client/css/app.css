@@ -163,6 +163,9 @@ main {
     min-width: 68%;
     margin: 5px;
   }
+  .box {
+    display: block;
+  }
 }
 @media all and (min-width: 800px) {
   .main{
