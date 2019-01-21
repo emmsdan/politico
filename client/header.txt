@@ -1,0 +1,10 @@
+<a href="./"> <img src="./img/logo.png" alt="politico" class="logo" /></a>
+<nav role="navigation">
+  <ul>
+    <li><a href="./index.html">Home</a></li>
+    <li><a href="./pages/vote.html">Vote Now</a></li>
+    <li><a href="./pages/admin_dashboard.html">Admin</a></li>
+    <li><a href="./pages/office.html">Office</a></li>
+    <li><a href="./pages/user_dashboard.html">Account</a></li>
+  </ul>
+</nav>
