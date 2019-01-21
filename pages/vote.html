@@ -20,11 +20,10 @@
       <a href="/"> <img src="/img/logo.png" alt="politico" /></a>
       <nav role="navigation">
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/pages/vote.html">Vote Now</a></li>
-          <li><a href="/pages/admin_dashboard.html">Admin</a></li>
-          <li><a href="/pages/office.html">Office</a></li>
-          <li><a href="/pages/user_dashboard.html">Account</a></li>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Admin</a></li>
+          <li><a href="#">Office</a></li>
+          <li><a href="#">Account</a></li>
         </ul>
       </nav>
     </header>
@@ -40,8 +39,7 @@
             <input class="no-border" id="p-name" placeholder="Emmanuel Daniel" type="hidden">
           </div>
           <div class="">
-            <strong>Role:</strong> @administrator
-            <br/>
+            <strong>Role:</strong> @politician <br/>
 
             <span class="block p-email">ecomje@gmail.com</span>
             <div class="field">
@@ -56,87 +54,52 @@
           <hr />
         </div>
         <div class="main">
-          <div class="box centered-text">
-              <br/>
-              <a href="petitions.html" class="button">View Petition</a>
-              <a href="politician_dashboard.html" class="button-bigger">View Political Parties</a>
-              <a href="office.html" class="button-bigger">View Offices</a>
-              <a href="create-party.html" class="button">Create New Party</a>
-              <br/>
-              <br/>
-          </div>
-          <br/>
           <div class="box">
-            <h1>
-              Political Parties
-              <a href="create-party.html" class="button">Create New Party</a>
-            </h1>
-            <table class="">
-              <tr>
-                <th>logo</th>
-                <th>Party Name</th>
-                <th>hqAddress</th>
-                <th>action</th>
-              </tr>
-              <tr>
-                <td><img src="/img/adp.jpg" class="circle"> </td>
-                <td> Action Democratic Party</td>
-                <td>No. 501, Marabawa, Ikeja, Lagos State</td>
-                <td>
-                  <a href="edit-party.html" class="button blue">edit</a>
-                  <a href="#delete" onclick="confirm('delete this party')" class="button red">delete</a>
-                </td>
-              </tr>
-              <tr>
-                <td><img src="/img/adp.jpg" class="circle"> </td>
-                <td> Action Democratic Party</td>
-                <td>No. 501, Marabawa, Ikeja, Lagos State</td>
-                <td>
-                  <a href="edit-party.html" class="button blue">edit</a>
-                  <a href="#delete" onclick="confirm('delete this party')" class="button red">delete</a>
-                </td>
-              </tr>
-              <tr>
-                <td><img src="/img/adp.jpg" class="circle"> </td>
-                <td> Action Democratic Party</td>
-                <td>No. 501, Marabawa, Ikeja, Lagos State</td>
-                <td>
-                  <a href="edit-party.html" class="button blue">edit</a>
-                  <a href="#delete" onclick="confirm('delete this party')" class="button red">delete</a>
-                </td>
-              </tr>
-            </table>
-          </div>
-          <br/>
-          <div class="box">
-            <h1>
-                Government Office
-              <a href="create-office.html" class="button">Create Government Office</a>
-            </h1>
-            <table class="">
-              <tr>
-                <th>ID</th>
-                <th>office type</th>
-                <th>office name</th>
-                <th>action</th>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>federal</td>
-                <td>Senate</td>
-                <td>
-                  <a href="#delete" onclick="confirm('delete this party')" class="button red">delete</a>
-                </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>state</td>
-                <td>house of rep.</td>
-                <td>
-                  <a href="#delete" onclick="confirm('delete this party')" class="button red">delete</a>
-                </td>
-              </tr>
-            </table>
+            <h3 class="centered-text"> Select office and candidate:</h3>
+            <div class="field" style="max-width: 500px; margin: 0 auto;">
+              <select name="offices" id="offices">
+                <option>State Governor</option>
+                <option>Presidency</option>
+                <option>State</option>
+                <option>Governor</option>
+              </select>
+            </div>
+              <!-- start of proile-cards-->
+
+            <div class="profile flex">
+              <div class="profile-card hover-blur">
+                <img src="/img/profile/emmanuel-daniel.jpg">
+                <img src="/img/pdp.png" alt="pdp party" class="party">
+                <div class="info">
+                  <h1> Emmanuel Daniel </h1>
+                  <p>16th, Feb. 2019</p>
+                  <h5>@Presidency -- <small> Nigeria</small></h5>
+                </div>
+                <button class="button vote-user" onclick="alert('you voted for EmmmsDan')">Vote Now</button>
+              </div>
+              <div class="profile-card">
+                <img src="/img/candidate/3.jpg">
+                <img src="/img/apc.jpg" alt="apc party" class="party">
+                <div class="info">
+                  <h1> Mark Jeremy </h1>
+                  <p>16th, Feb. 2019</p>
+                  <h5>@Senate -- <small> Nigeria</small></h5>
+                </div>
+                <button class="button vote-user" onclick="alert('you voted for EmmmsDan')">Vote Now</button>
+              </div>
+
+              <div class="profile-card">
+                <img src="/img/candidate/5.jpg">
+                <img src="/img/sdp.jpg" alt="sdp party" class="party">
+                <div class="info">
+                  <h1> Isaac Itodo </h1>
+                  <p>16th, Feb. 2019</p>
+                  <h5>@Governor -- <small> lagos state</small></h5>
+                </div>
+                <button class="button vote-user" onclick="alert('you voted for EmmmsDan')">Vote Now</button>
+              </div>
+            </div>
+            <!-- end of proile-cards-->
           </div>
         </div>
       </section>
@@ -179,8 +142,7 @@
               </div>
               <button type="submit" class="button">Update Profile</button>
             </div>
-        </form>
-      </div>
+        </form>      </div>
     </div>
   </body>
   <script>
