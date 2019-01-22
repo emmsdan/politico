@@ -28,7 +28,7 @@
             <input class="no-border" id="p-name" placeholder="Emmanuel Daniel" type="hidden">
           </div>
           <div class="">
-            <strong>Role:</strong> @politician             <button class="button" data-modal="#contest-election">constest</button>
+            <strong>Role:</strong> @politician             <button class="button" data-target="contest-election">constest</button>
             <br/>
 
             <span class="block p-email">ecomje@gmail.com</span>
@@ -39,7 +39,7 @@
             <div class="field">
               <input class="no-border" id="p-phone" placeholder="08145467267" type="hidden">
             </div>
-            <button class="button" data-modal="#edit-profile">edit profile</button>
+            <button class="button" data-target="edit-profile">edit profile</button>
           </div>
           <hr />
         </div>
@@ -112,12 +112,13 @@
       </div>
     </footer>
     <!-- modal boxes for extra functionalities -->
-    <div class="modal" id="edit-profile">
+  <!-- The Modal Edit Profile -->
+  <div id="edit-profile" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
 
         <form action="../pages/user_dashboard.html" class="  no-shadow">
-            <legend>Update Profile</legend>
+            <h3>Update Profile</h3>
             <hr/>
 
             <div class="field">
@@ -139,11 +140,17 @@
                 <input type="phone" name="phone" id="phone" placeholder="phone: 08145467267" required>
                 <label for="phone">Phone Number:</label>
               </div>
-              <button type="submit" class="button">Update Profile</button>
+              <div class="field">
+                <input type="file" name="profile-logo" id="profile-logo" accept="image/*" required>
+                <label for="profile-logo">Profile Logo:</label>
+              </div>
+
+              <button type="submit" class="button button-bigger w100">Update Profile</button>
             </div>
-        </form>      </div>
+        </form>
+      </div>
     </div>
-    <div class="modal" id="contest-election">
+        <div class="modal" id="contest-election">
         <div class="modal-content">
           <span class="close">&times;</span>
 
@@ -166,7 +173,8 @@
                 </select>
                 <label for="party">Select Party:</label>
               </div>
-              <button type="submit" class="button">Submit Application</button>
+
+              <button type="submit" class="button button-bigger w100">Update Profile</button>
             </div>
           </form>      </div>
       </div>
