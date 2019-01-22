@@ -64,7 +64,6 @@ header {
   height: 30px;
   padding: 20px 50px;
   width: calc(100vw - (20px + 55px));
-  overflow: hidden;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
@@ -82,9 +81,50 @@ header nav ul{
 header nav ul li {
   padding: 10px;
 }
+header .show-nav {
+  display: none;
+  transition: ease-in 5s;
+}
+@media all and (max-width: 680px) {
+
+  header{
+    width: 100vw;
+    display: block;
+    padding: 20px 0;
+  }
+  .mobile-clear {
+    clear: both;
+  }
+  header .show-nav {
+    display: block;
+    float: right;
+    color: #000000;
+    font-size: 30px;
+    padding: 15px;
+    margin-top: -60px;
+    margin-left: -20px;
+  }
+
+  header nav ul{
+    margin-top: 2px;
+    border-top: 1px solid #cdc;
+    display: none;
+    background: #fff;
+    width: 100%;
+    list-style: none;
+    text-transform: uppercase;
+  }
+  header nav ul li {
+    padding: 10px;
+    border-bottom: 1px solid #b8b7b7;
+    max-width: 80%;
+    text-align: center;
+  }
+}
+
 header a{
   color: #222222;
-  margin-left: 39%;
+  margin: -3px 10px;
 }
 header nav ul li a{
   margin: 0;
@@ -113,8 +153,6 @@ header nav ul li a{
   width: 100vw;
   height: calc(100vh - 60px + 34px );
   position: absolute;
-  background: -moz-linear-gradient(-45deg, #000000 0%, #000000 25%, #1e539e 50%, #ff3083 75%, #7800a8 100%);
-  background: -webkit-linear-gradient(-45deg, #000000 0%, #000000 25%, #1e539e 50%, #ff3083 75%, #7800a8 100%);
   background: linear-gradient(135deg, #000000 0%, #000000 25%, #1e539e 50%, #ff3083 75%, #7800a8 100%);
   position: absolute;
   top: 60px;
@@ -122,8 +160,6 @@ header nav ul li a{
   opacity: 0.4;
 }
 .slider:hover .slider-overlay {
-  background: -moz-linear-gradient(-45deg,  #7800a8 100%, #ff3083 75%, #1e539e 50%,#000000 0%,#000000 25%);
-  background: -webkit-linear-gradient(-45deg,  #7800a8 100%, #ff3083 75%, #1e539e 50%,#000000 0%,#000000 25%);
   background: linear-gradient(135deg,  #7800a8 100%, #ff3083 75%, #1e539e 50%, #000000 0%, #000000 25%);
   opacity: 0.1;
 }

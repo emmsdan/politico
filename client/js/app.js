@@ -81,13 +81,20 @@ const toast = (message='null') => {
   }
 }
 
+/**
+ * show & close mobile navigation
+ * Responsive mobile nav. bar
+*/
+const openNavBar = (menu = null) => {
+  document.querySelector('header nav ul').classList.toggle ('show');
+}
+
 
 /**
  * load file into page
  */
 const loadFile = ()  => {
   const dataAdd = document.querySelectorAll('[data-add-file]');
-  console.log (dataAdd)
   for (let files of dataAdd){
     fetch (files.getAttribute('data-add-file'))
     .then ( (response) => {
