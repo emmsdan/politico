@@ -74,8 +74,4 @@ const loadFile = ()  => {
   }
 };
 
-<<<<<<< HEAD
 loadFile();
-=======
-loadHeader();
->>>>>>> gh-pages
