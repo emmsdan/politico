@@ -13,7 +13,7 @@ window.addEventListener('load', (event) => {
 const slider = () => {
   const sliderImage = document.querySelector('.slider img');
   if (!sliderImage) return;
-  const images = ['./img/nigerians-are-you-ready-to-Vote-in-2015-YouTube.png', './img/nigeria.png',  './img/voting.jpg', './img/nigerians-are-you-ready-to-Vote-in-2015-YouTube.png'];
+  const images = ['./img/nigerians-are-you-ready-to-Vote-in-2015-YouTube.png', './img/nigeria.png',  './img/voting.jpg', './img/nigeriavote.jpg', './img/Voters-Card.jpg', './img/nigerians-are-you-ready-to-Vote-in-2015-YouTube.png'];
   let nextImg = 0;
   const randomImage = (image) => {
     sliderImage.src = image;
@@ -28,24 +28,29 @@ const slider = () => {
   }, 5000)
 }
 
+/**
+ *
+ */
 const modal = () => {
-  const target = document.querySelector('[data-modal]').getAttribute('data-modal');
-  const modal = document.querySelector(target);
-  const trigger = document.querySelector("[data-modal]");
-  const closeButton = document.querySelector(".close");
+  const target = document.querySelector('[data-modal]');
+  if (target) {
+    const modal = document.querySelector(target.getAttribute('data-modal'));
+    const trigger = document.querySelector("[data-modal]");
+    const closeButton = document.querySelector(".close");
 
-    function toggleModal() {
-        modal.classList.toggle("show");
-    }
+      function toggleModal() {
+          modal.classList.toggle("show");
+      }
 
-    const closeOnClick = (event) => {
-        if (event.target === modal) {
-            toggleModal();
-        }
-    }
-    trigger.addEventListener("click", toggleModal);
-    closeButton.addEventListener("click", toggleModal);
-    window.addEventListener("click", closeOnClick);
+      const closeOnClick = (event) => {
+          if (event.target === modal) {
+              toggleModal();
+          }
+      }
+      trigger.addEventListener("click", toggleModal);
+      closeButton.addEventListener("click", toggleModal);
+      window.addEventListener("click", closeOnClick);
+  }
 }
 
 /**
