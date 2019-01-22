@@ -103,13 +103,14 @@ header nav ul li a{
   transform: rotateX(10deg) rotateY(-10deg);
 }
 .slider .placeholder h2, .slider .placeholder h4 {
+  width: 100vw;
   text-shadow: 0 0 12px rgb(59, 59, 59);
 }
 .slider .placeholder h2{
   color: #FFFFFF;
 }
 .slider-overlay {
-  width: 100%;
+  width: 100vw;
   height: calc(100vh - 60px + 34px );
   position: absolute;
   background: -moz-linear-gradient(-45deg, #000000 0%, #000000 25%, #1e539e 50%, #ff3083 75%, #7800a8 100%);
@@ -168,20 +169,28 @@ main {
 .flex {
   display:flex;
   flex-wrap:wrap;
-  margin-right:-15px;
-  margin-left:-15px;
+  margin: 0 auto;
 }
 .wrapper, .form-fields {
+  width: 98%;
   margin: 0 auto;
-  width: 90%;
 }
 
-.box, .form-fields {
+.form-fields {
+  max-width: 350px !important;
   box-shadow: 0px 0px 8px rgb(231, 229, 229);
   padding: 10px;
   background: #fff;
   width: 100%;
   border-radius: 3px;
+}
+.box {
+  background: #fff;
+  padding: 15px 10px;
+  box-shadow: 0 0 3px #ccc;
+  border-radius: 10px;
+  width: 98%;
+  margin: 0 auto;
 }
 .side-bar {
   margin: 5px;
@@ -189,8 +198,13 @@ main {
 }
 @media all and (max-width: 600px) {
   .box, .form-fields {
-    max-width: 270px !important;
+    max-width: 300px !important;
   }
+}
+
+.main{
+  min-width: 100%;
+  margin: 5px;
 }
 @media all and (min-width: 600px) {
   .side-bar {
@@ -291,7 +305,7 @@ main {
   padding: 10px;
   margin: 2px auto;
   top: 86vh;
-  right: 10%;
+  right: 30%;
   color: #ddd;
   background: #222222;
   box-shadow: 0px 0px 12px #bbb;
@@ -358,7 +372,6 @@ main {
 
 /** forms **/
 .form-fields {
-  max-width: 350px;
   box-shadow: 0 0 332px rgb(161, 160, 160);
   z-index: -100;
 }
@@ -369,7 +382,7 @@ main {
 .form-fields legend {
   font-size: 1.5rem;
   text-align: center;
-  color: #ccc;
+  color: #22262e;
   padding: 10px 20px;
   border-bottom: 3px solid #222;
 }
@@ -381,10 +394,29 @@ main {
 label, input, option, select {
   transition: all 0.2s;
   touch-action: manipulation;
+}
+input, option, select {
   height: 40px;
 }
 option, select {
   padding: 15px;
+}
+input, select, textarea {
+  font-size:18px;
+  padding:5px 10px 10px 5px;
+  margin: 0 auto;
+  display:block;
+  width:90%;
+  border:none;
+  border-bottom:1px solid #757575;
+}
+input:focus, textarea:focus, select:focus {
+  outline:none;
+  border-bottom: 4px solid #5264AE;
+}
+textarea {
+  overflow: hidden;
+  height: auto;
 }
 label, .button, button {
   margin: 5px;
@@ -431,14 +463,10 @@ input:focus + label {
 .button, button{
   font-weight:900;
   margin: 0;
-  padding-top: 6px;
-  padding-bottom: 6px;
   border: none;
   border-radius: 38px;
   cursor: pointer;
   background: #17112348;
-}
-.button, button {
   padding: 10px;
   color: #fff;
   background: rgb(67, 201, 96);
@@ -446,6 +474,10 @@ input:focus + label {
 .button-bigger {
   padding: 20px;
 }
+button:hover, .inactive {
+  background-color: rgba(67, 201, 96, 0.418);
+}
+
 input[type='checkbox'], input[type='checkbox'] +  label {
   margin: 0px;
   padding: 0px;
@@ -458,6 +490,15 @@ textarea {
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
   border-right: 1px solid #ccc;
+}
+.center {
+  width: 90%;
+  margin: 0 auto;
+}
+.absolute.center {
+  position: absolute;
+  top: 45%;
+  left:35%
 }
 .centered-text {
   text-align: center !important;
@@ -496,16 +537,16 @@ textarea {
   color: #263238;
 }
 .red {
-  background: #e00f39;
+  background: #fd385f;
 }
 .red-text {
-  color: #e00f39;
+  color: #fd385f;
 }
 .blue {
-  background: rgb(16, 77, 243);
+  background: rgb(75, 121, 247);
 }
 .blue-text {
-  color: rgb(16, 77, 243);
+  color: rgb(75, 121, 247);
 }
 
 img.profile-pix {
@@ -522,18 +563,17 @@ img.profile-pix {
   padding: 10px;
 }
 .profile-card {
-  box-shadow: 0 0 22px #ccc;
   margin: 5px;
-  width: 200px;
+  width: 230px;
   height: 300px;
-  border-radius: 22px;
-  background: #fff;
+  background: rgb(105, 101, 101);
   position: relative;
 }
 .profile-card img {
   width: 100%;
   height: 300px;
   filter: contrast(1.1) brightness(1.1);
+  opacity: 0.7;
 }
 .profile-card .party {
   background: #eee;
@@ -575,15 +615,15 @@ img.profile-pix {
 }
 .profile-card button.vote-user {
   position: absolute;
-  top: 33%;
-  left: 30%;
-  border-radius: 50%;
-  min-height: 75px;
-  background: rgba(48, 163, 73, 0.682);
+  top: 53%;
+  left: 0;
+  background: #06c957da;
+  border-radius: 6px;
+  border: 2px solid #727272;
 }
 .profile-card button.vote-user:hover,
 .profile-card:hover button.vote-user {
-  background: rgba(48, 163, 73, 0.982);
+  background: rgba(138, 136, 136, 0.507);
 }
 .profile-card button.vote-user:hover {
   box-shadow: 0 0 33px #999;
@@ -613,49 +653,53 @@ img.profile-pix {
   border-radius: 50%;
 }
 
+
 .modal {
+  display: none;
   position: fixed;
+  z-index: 9;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  opacity: 0;
-  visibility: hidden;
-  transform: scale(1.1);
-  transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
-  z-index: 1000;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.694);
   cursor: pointer;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between
 }
+
 .modal-content {
-  overflow: hidden;
-  overflow-y: scroll;
-  cursor: default;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  padding: 1rem ;
-  min-width: 250px;
-  max-width: 90%;
-  border-radius: 0.5rem;
+  cursor: auto;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 14px #555;
+  width: auto;
+  min-width: 300px;
 }
-.close {
+
+.modal-content span.close {
+  color: #aaa;
   float: right;
-  width: 1.5rem;
-  line-height: 1.5rem;
-  text-align: center;
-  cursor: pointer;
-  border-radius: 0.25rem;
-  background-color: lightgray;
+  font-weight: bold;
 }
-.close:hover {
-  background-color: darkgray;
+.modal span.close{
+  font-size: 28px;
+}
+
+.modal .close:hover,
+.modal .close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }
 .show {
   opacity: 1;
   visibility: visible;
+  display: block;
   transform: scale(1.0);
   transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
 }
@@ -731,8 +775,9 @@ a[href="https://twitter.com/emmsdan"] {
   font-weight: 900;
   text-transform: uppercase;
 }
-.absolute.center {
-  position: absolute;
-  top: 45%;
-  left:35%
+.w100 {
+  width: 100%;
+}
+.mobile-size {
+  width: 300px;
 }

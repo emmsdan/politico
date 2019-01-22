@@ -32,26 +32,55 @@ const slider = () => {
  *
  */
 const modal = () => {
-  const target = document.querySelector('[data-modal]');
-  if (target) {
-    const modal = document.querySelector(target.getAttribute('data-modal'));
-    const trigger = document.querySelector("[data-modal]");
-    const closeButton = document.querySelector(".close");
-
-      function toggleModal() {
-          modal.classList.toggle("show");
+  var button = document.querySelectorAll("[data-target]");
+  for (let btn of button){
+    btn.addEventListener('click', () => {
+      const modal = document.querySelector(`#${btn.getAttribute('data-target')}`);
+      console.log (btn)
+      modal.style.display = "flex";
+      modal.querySelectorAll('.close').forEach((elem, ind) => {
+        elem.addEventListener('click', () => {
+          modal.style.display = "none";
+        });
+      });
+      window.addEventListener('click', (event) => {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+      });
+      function closeModal () {
+        modal.style.display = "none";
       }
-
-      const closeOnClick = (event) => {
-          if (event.target === modal) {
-              toggleModal();
-          }
-      }
-      trigger.addEventListener("click", toggleModal);
-      closeButton.addEventListener("click", toggleModal);
-      window.addEventListener("click", closeOnClick);
+    });
   }
 }
+
+/**
+ * toast bar for notification
+ */
+
+const toast = (message='null') => {
+  let toastMessage;
+  const toastBox =document.querySelector('.toast')
+  if (toastMessage = document.querySelectorAll(`[data-toast]`)){
+    for (let tMsg of toastMessage){
+      tMsg.addEventListener('click', () => {
+        return toast(tMsg.getAttribute('data-toast'));
+      })
+    }
+  }
+  const toast = (message) => {
+    toastBox.innerHTML = message;
+    toastBox.classList.toggle('show');
+    setTimeout(() => {
+      toastBox.classList.remove("show");
+    }, 5000);
+  }
+  if (message !== 'null'){
+    toast(message);
+  }
+}
+
 
 /**
  * load file into page
