@@ -1,9 +1,3 @@
-window.focus();
-
-window.addEventListener('blur', () => {
-  window.location.reload();
-});
-
 window.addEventListener('load', (event) => {
   slider();
   modal();
