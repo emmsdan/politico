@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="canonical" href="./">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="../img/favicon.png"/>
+    <!-- development only area-->
+
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Pragma" content="no-cache" />
+
+    <!-- end of development only area-->
+    <link href="https://fonts.googleapis.com/css?family=Sarabun" rel="stylesheet">
+    <link rel="stylesheet" href="../css/app.css" />
+    <script async defer src="../js/app.js"></script>
+  </head>
+  <body>
+    <header data-add-file="./header.txt"></header>
+    <main>
+      <div class="clear-space"></div>
+      <section class="wrapper flex">
+        <div class="box side-bar centered-text blue-gray-text">
+            <br/><br/>
+            <hr />
+          <img src="../img/adp.jpg" class="profile-pix" width="300" height="300" />
+          <h2 class="title font-serif p-name">Action Democratic Party (ADP)</h2>
+          <div class="field">
+            <input class="no-border" id="p-name" placeholder="Emmanuel Daniel" type="hidden">
+          </div>
+          <hr />
+        </div>
+        <div class="main">
+          <div class="box">
+              <!-- start of proile-cards-->
+
+            <div class="profile flex">
+              <div class="profile-card">
+                <img src="../img/profile/emmanuel-daniel.jpg">
+                <div class="info">
+                  <h1> Emmanuel Daniel </h1>
+                  <p>16th, Feb. 2019</p>
+                  <h5>@Presidency -- <small> Nigeria</small></h5>
+                </div>
+              </div>
+              <div class="profile-card">
+                <img src="../img/candidate/3.jpg">
+                <div class="info">
+                  <h1> Mark Jeremy </h1>
+                  <p>16th, Feb. 2019</p>
+                  <h5>@Senate -- <small> Nigeria</small></h5>
+                </div>
+              </div>
+
+              <div class="profile-card">
+                <img src="../img/candidate/6.jpg">
+                <div class="info">
+                  <h1> Mark Jeremy </h1>
+                  <p>16th, Feb. 2019</p>
+                  <h5>@Senate -- <small> Nigeria</small></h5>
+                </div>
+              </div>
+
+              <div class="profile-card">
+                <img src="../img/candidate/8.jpg">
+                <div class="info">
+                  <h1> Mark Jeremy </h1>
+                  <p>16th, Feb. 2019</p>
+                  <h5>@Senate -- <small> Nigeria</small></h5>
+                </div>
+              </div>
+
+              <div class="profile-card">
+                <img src="../img/candidate/5.jpg">
+                <div class="info">
+                  <h1> Isaac Itodo </h1>
+                  <p>16th, Feb. 2019</p>
+                  <h5>@Governor -- <small> lagos state</small></h5>
+                </div>
+              </div>
+            </div>
+            <!-- end of proile-cards-->
+          </div>
+        </div>
+      </section>
+    </main>
+    <br/>
+    <div class="toast"> hello I am a toast bar <span class="toast-close">x</span></div>
+
+    <footer>
+      <div>
+      <a href="https://github.com/emmsdan/politico/">Politico</a> was Designed & Developed by <a href="https://twitter.com/emmsdan">Emmanuel Daniel</a>
+      </div>
+    </footer>
+    <!-- modal boxes for extra functionalities -->
+    <div class="modal" id="edit-profile">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+
+        <form action="../pages/user_dashboard.html" class="  no-shadow">
+            <legend>Update Profile</legend>
+            <hr/>
+
+            <div class="field">
+                <input type="text" name="firstname" id="firstname" placeholder="Emmanuel" required>
+                <label for="firstname">First Name:</label>
+              </div>
+
+              <div class="field">
+                <input type="text" name="lastname" id="lastname" placeholder="Daniel" required>
+                <label for="lastname">Last Name:</label>
+              </div>
+
+              <div class="field">
+                <input type="email" name="email" id="email" placeholder="ecomje@gmail.com" required>
+                <label for="email">Email:</label>
+              </div>
+
+              <div class="field">
+                <input type="phone" name="phone" id="phone" placeholder="phone: 08145467267" required>
+                <label for="phone">Phone Number:</label>
+              </div>
+              <button type="submit" class="button">Update Profile</button>
+            </div>
+        </form>      </div>
+    </div>
+  </body>
+  <script>
+  </script>
+</html>
