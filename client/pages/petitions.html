@@ -47,8 +47,8 @@
                 <td>federal</td>
                 <td>Senate, I get many many many many things to talk about </td>
                 <td>
-                  <a href="#accept" onclick="confirm('Petition sustained')" class="button blue">accept</a>
-                  <a href="#delete" onclick="confirm('Petition rejected')" class="button red">reject</a>
+                  <a href="#accept"data-target="acceptAction"class="button blue">accept</a>
+                  <a href="#delete"data-target="rejectAction"class="button red">reject</a>
                 </td>
               </tr>
               <tr>
@@ -56,8 +56,8 @@
                 <td>federal</td>
                 <td>Senate, I get many many many many things to talk about </td>
                 <td>
-                  <a href="#accept" onclick="confirm('Petition sustained')" class="button blue">accept</a>
-                  <a href="#delete" onclick="confirm('Petition rejected')" class="button red">reject</a>
+                  <a href="#accept" data-target="acceptAction" class="button blue">accept</a>
+                  <a href="#delete" data-target="rejectAction" class="button red">reject</a>
                 </td>
               </tr>
             </table>
@@ -74,38 +74,25 @@
       </div>
     </footer>
     <!-- modal boxes for extra functionalities -->
-    <div class="modal" id="edit-profile">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-
-        <form action="../pages/user_dashboard.html" class="  no-shadow">
-            <legend>Update Profile</legend>
-            <hr/>
-
-            <div class="field">
-                <input type="text" name="firstname" id="firstname" placeholder="Emmanuel" required>
-                <label for="firstname">First Name:</label>
-              </div>
-
-              <div class="field">
-                <input type="text" name="lastname" id="lastname" placeholder="Daniel" required>
-                <label for="lastname">Last Name:</label>
-              </div>
-
-              <div class="field">
-                <input type="email" name="email" id="email" placeholder="ecomje@gmail.com" required>
-                <label for="email">Email:</label>
-              </div>
-
-              <div class="field">
-                <input type="phone" name="phone" id="phone" placeholder="phone: 08145467267" required>
-                <label for="phone">Phone Number:</label>
-              </div>
-              <button type="submit" class="button">Update Profile</button>
-            </div>
-        </form>
+    <!-- The Accept Modal  -->
+    <div id="acceptAction" class="modal">
+      <div class="modal-content mobile-size centered-text">
+        <h2> Are you Sure you want to Approve this Petition?</h2>
+        <br />
+        <button class="button-bigger close" onclick="toast('I always Approve the Right thing')"> Approve Now</button>
+        <button class="blue-gray button-bigger close" onclick="toast('')"> Not Now, Cancel</button>
       </div>
     </div>
+    <!-- The Reject Modal  -->
+    <div id="rejectAction" class="modal">
+      <div class="modal-content mobile-size centered-text">
+        <h2> You are about to reject this Petition?</h2>
+        <br />
+        <button class="red button-bigger close" onclick="toast('I love my toat bar')"> Yes Reject</button>
+        <button class="blue-gray button-bigger close"> Not now, Cancel</button>
+      </div>
+    </div>
+
   </body>
   <script>
   </script>

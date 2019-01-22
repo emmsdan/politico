@@ -41,7 +41,7 @@
                   <p>16th, Feb. 2019</p>
                   <h5>@Presidency -- <small> Nigeria</small></h5>
                 </div>
-                <button class="button vote-user" onclick="alert('you voted for EmmmsDan')">Vote Now</button>
+                <button class="button vote-user" data-target="voteAction">Vote Me</button>
               </div>
               <div class="profile-card">
                 <img src="../img/candidate/3.jpg">
@@ -51,7 +51,7 @@
                   <p>16th, Feb. 2019</p>
                   <h5>@Senate -- <small> Nigeria</small></h5>
                 </div>
-                <button class="button vote-user" onclick="alert('you voted for EmmmsDan')">Vote Now</button>
+                <button class="button vote-user" data-target="voteAction">Vote Me</button>
               </div>
 
               <div class="profile-card">
@@ -62,7 +62,7 @@
                   <p>16th, Feb. 2019</p>
                   <h5>@Governor -- <small> lagos state</small></h5>
                 </div>
-                <button class="button vote-user" onclick="alert('you voted for EmmmsDan')">Vote Now</button>
+                <button class="button vote-user" data-target="voteAction">Vote Me</button>
               </div>
             </div>
             <!-- end of proile-cards-->
@@ -77,6 +77,16 @@
       <a href="https://github.com/emmsdan/politico/">Politico</a> was Designed & Developed by <a href="https://twitter.com/emmsdan">Emmanuel Daniel</a>
       </div>
     </footer>
+
+    <!-- The Accept Modal  -->
+    <div id="voteAction" class="modal">
+      <div class="modal-content mobile-size centered-text">
+        <h2> You are about to vote for <small>${{ candidate-name }}</small> </h2>
+        <br />
+        <button class="button-bigger close" onclick="toast('I always Approve the Right thing')"> Yes I Vote</button>
+        <button class="blue-gray button-bigger close" onclick="toast('')"> No, Cancel</button>
+      </div>
+    </div>
   </body>
   <script>
   </script>
