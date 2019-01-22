@@ -92,12 +92,39 @@ header nav ul li a{
 /** slider **/
 .slider {
   background: #fff;
-  height: 250px;
+  height: calc(100vh - 60px + 30px );
   border-bottom: 20px solid #222222;
 }
 .slider img {
   width: 100%;
   height: 100%;
+}
+.slider img:hover {
+  transform: rotateX(10deg) rotateY(-10deg);
+}
+.slider .placeholder h2, .slider .placeholder h4 {
+  text-shadow: 0 0 12px rgb(59, 59, 59);
+}
+.slider .placeholder h2{
+  color: #FFFFFF;
+}
+.slider-overlay {
+  width: 100%;
+  height: calc(100vh - 60px + 34px );
+  position: absolute;
+  background: -moz-linear-gradient(-45deg, #000000 0%, #000000 25%, #1e539e 50%, #ff3083 75%, #7800a8 100%);
+  background: -webkit-linear-gradient(-45deg, #000000 0%, #000000 25%, #1e539e 50%, #ff3083 75%, #7800a8 100%);
+  background: linear-gradient(135deg, #000000 0%, #000000 25%, #1e539e 50%, #ff3083 75%, #7800a8 100%);
+  position: absolute;
+  top: 60px;
+  transition: .5s all;
+  opacity: 0.4;
+}
+.slider:hover .slider-overlay {
+  background: -moz-linear-gradient(-45deg,  #7800a8 100%, #ff3083 75%, #1e539e 50%,#000000 0%,#000000 25%);
+  background: -webkit-linear-gradient(-45deg,  #7800a8 100%, #ff3083 75%, #1e539e 50%,#000000 0%,#000000 25%);
+  background: linear-gradient(135deg,  #7800a8 100%, #ff3083 75%, #1e539e 50%, #000000 0%, #000000 25%);
+  opacity: 0.1;
 }
 
 /** footer area **/
@@ -254,6 +281,8 @@ main {
   height: 150px;
 }
 .toast {
+  visibility: hidden;
+  opacity: 0;
   position: fixed;
   display: flex;
   border-radius: 3px;
@@ -303,6 +332,7 @@ main {
   background: seagreen;
   color: #fff;
   display: block;
+  border-radius: 38px;
 }
 
 @media all and (min-width: 610px) {
@@ -351,6 +381,10 @@ main {
 label, input, option, select {
   transition: all 0.2s;
   touch-action: manipulation;
+  height: 40px;
+}
+option, select {
+  padding: 15px;
 }
 label, .button, button {
   margin: 5px;
@@ -400,6 +434,7 @@ input:focus + label {
   padding-top: 6px;
   padding-bottom: 6px;
   border: none;
+  border-radius: 38px;
   cursor: pointer;
   background: #17112348;
 }
@@ -680,7 +715,6 @@ tr:hover td {
   border-top: 1px solid #22262e;
 }
 a.button {
-  border-radius: 8%;
   border: 2px solid rgb(48, 163, 73);
   background: #fff;
   color: rgb(48, 163, 73);
@@ -696,4 +730,9 @@ a.button {
 a[href="https://twitter.com/emmsdan"] {
   font-weight: 900;
   text-transform: uppercase;
+}
+.absolute.center {
+  position: absolute;
+  top: 45%;
+  left:35%
 }
