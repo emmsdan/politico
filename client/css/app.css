@@ -60,7 +60,7 @@ a.button:hover {
   box-shadow: 0 0 15px #8a8989;
 }
 .active, a, header a:hover {
-  color: #171123;
+  color: rgb(14, 158, 46);
   text-decoration: none;
 }
 @media all and (max-width: 600px) {
@@ -193,7 +193,9 @@ footer {
   width: 100%;
 }
 footer a {
-  margin:0 10px;
+  padding: 5px;
+  display: inline-block !important;
+  text-transform: capitalize;
 }
 
 /** main section **/
@@ -841,10 +843,6 @@ a.button {
   background: none;
 }
 
-a[href="https://twitter.com/emmsdan"] {
-  font-weight: 900;
-  text-transform: uppercase;
-}
 .w100 {
   width: 100%;
 }
