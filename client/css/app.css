@@ -4,7 +4,7 @@
   font-family: 'Varela Round', 'Sarabun', sans-serif;
   --background: rgba(228, 252, 227, 0.425);
 }
-::-webkit-input-placeholder {
+::-webkit-input-placeholder, :-ms-input-placeholder, :-moz-placeholder, ::-moz-placeholder, ::placeholder {
   opacity: 0;
   transition: inherit;
   font-size: 16px !important;
@@ -73,6 +73,7 @@ header img {
   height: 35px;
 }
 header nav ul{
+  margin-top: -10px;
   display: flex;
   list-style: none;
   text-transform: uppercase;
