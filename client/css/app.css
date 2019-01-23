@@ -4,11 +4,6 @@
   font-family: 'Varela Round', 'Sarabun', sans-serif;
   --background: rgba(228, 252, 227, 0.425);
 }
-::-webkit-input-placeholder {
-  opacity: 0;
-  transition: inherit;
-  font-size: 16px !important;
-}
 body {
   background: var(--background);
   margin: 0;
@@ -24,8 +19,31 @@ h3 {
 hr {
   border-color: rgb(238, 237, 237);
 }
-input:focus::-webkit-input-placeholder {
-  opacity: 1;
+
+::placeholder {
+  opacity: 0;
+  transition: inherit;
+  font-size: 16px !important;
+}
+::-moz-placeholder {
+  opacity: 0;
+  transition: inherit;
+  font-size: 16px !important;
+}
+:-ms-input-placeholder {
+  opacity: 0;
+  transition: inherit;
+  font-size: 16px !important;
+}
+:-moz-placeholder{
+  opacity: 0;
+  transition: inherit;
+  font-size: 16px !important;
+}
+::-webkit-input-placeholder {
+  opacity: 0;
+  transition: inherit;
+  font-size: 16px !important;
 }
 section, footer {
   display: block;
@@ -73,6 +91,7 @@ header img {
   height: 35px;
 }
 header nav ul{
+  margin-top: -10px;
   display: flex;
   list-style: none;
   text-transform: uppercase;
@@ -477,6 +496,21 @@ input:focus {
   outline: 0;
   border: 0;
   border-bottom: 3px solid #666;
+}
+input:focus::placeholder{
+  opacity: 1;
+}
+input:focus::-webkit-input-placeholder{
+  opacity: 1;
+}
+input:focus::-moz-placeholder{
+  opacity: 1;
+}
+input:focus:-ms-input-placeholder{
+  opacity: 1;
+}
+input:focus:-moz-placeholder{
+  opacity: 1;
 }
 input:placeholder-shown + label {
   cursor: text;
