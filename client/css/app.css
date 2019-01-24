@@ -201,7 +201,7 @@ header nav ul li a{
   position: absolute;
   background: linear-gradient(135deg, #000000 0%, #000000 25%, #1e539e 50%, #ff3083 75%, #7800a8 100%);
   position: absolute;
-  top: 60px;
+  top: -1px;
   transition: .5s all;
   opacity: 0.4;
 }
