@@ -150,39 +150,44 @@
       </div>
     </div>
 
-<!-- The Modal Edit Profile -->
-<div id="edit-profile" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
+  <!-- The Modal Edit Profile -->
+  <div id="edit-profile" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
 
-    <form action="../pages/user_dashboard.html" class="  no-shadow">
-        <h3>Update Profile</h3>
-        <hr/>
-
-        <div class="field">
-            <input type="text" name="firstname" id="firstname" placeholder="Emmanuel" required>
-            <label for="firstname">First Name:</label>
-          </div>
+      <form action="../pages/user_dashboard.html" class="  no-shadow">
+          <h3>Update Profile</h3>
+          <hr/>
 
           <div class="field">
-            <input type="text" name="lastname" id="lastname" placeholder="Daniel" required>
-            <label for="lastname">Last Name:</label>
-          </div>
+              <input type="text" name="firstname" id="firstname" placeholder="Emmanuel" required>
+              <label for="firstname">First Name:</label>
+            </div>
 
-          <div class="field">
-            <input type="email" name="email" id="email" placeholder="ecomje@gmail.com" required>
-            <label for="email">Email:</label>
-          </div>
+            <div class="field">
+              <input type="text" name="lastname" id="lastname" placeholder="Daniel" required>
+              <label for="lastname">Last Name:</label>
+            </div>
 
-          <div class="field">
-            <input type="phone" name="phone" id="phone" placeholder="phone: 08145467267" required>
-            <label for="phone">Phone Number:</label>
+            <div class="field">
+              <input type="email" name="email" id="email" placeholder="ecomje@gmail.com" required>
+              <label for="email">Email:</label>
+            </div>
+
+            <div class="field">
+              <input type="phone" name="phone" id="phone" placeholder="phone: 08145467267" required>
+              <label for="phone">Phone Number:</label>
+            </div>
+            <div class="field">
+              <input type="file" name="profile-logo" id="profile-logo" accept="image/*" required>
+              <label for="profile-logo">Profile Logo:</label>
+            </div>
+
+            <button type="submit" class="button button-bigger w100">Update Profile</button>
           </div>
-          <button type="submit" class="button button-bigger w100">Update Profile</button>
-        </div>
-    </form>
+      </form>
+    </div>
   </div>
-</div>
   </body>
   <script>
   </script>
