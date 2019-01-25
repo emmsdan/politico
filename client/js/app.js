@@ -26,8 +26,8 @@ const slider = () => {
  *
  */
 const modal = () => {
-  var button = document.querySelectorAll("[data-target]");
-  for (let btn of button){
+  const button = document.querySelectorAll('[data-target]');
+  for (let btn of button) {
     btn.addEventListener('click', () => {
       const modal = document.querySelector(`#${btn.getAttribute('data-target')}`);
       console.log (btn)
@@ -53,25 +53,25 @@ const modal = () => {
  * toast bar for notification
  */
 
-const toast = (message='null') => {
+const toast = (message = 'null') => {
   let toastMessage;
-  const toastBox =document.querySelector('.toast')
+  const toastBox = document.querySelector('.toast');
   if (toastMessage = document.querySelectorAll(`[data-toast]`)){
     for (let tMsg of toastMessage){
       tMsg.addEventListener('click', () => {
         return toast(tMsg.getAttribute('data-toast'));
-      })
+      });
     }
   }
-  const toast = (message) => {
-    toastBox.innerHTML = message;
+  const toastMsg = (msg) => {
+    toastBox.innerHTML = msg;
     toastBox.classList.toggle('show');
     setTimeout(() => {
-      toastBox.classList.remove("show");
+      toastBox.classList.remove('show');
     }, 5000);
-  }
-  if (message !== 'null'){
-    toast(message);
+  };
+  if (message !== 'null') {
+    toastMsg(message);
   }
 }
 
