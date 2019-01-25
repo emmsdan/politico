@@ -4,6 +4,47 @@
   font-family: 'Varela Round', 'Sarabun', sans-serif;
   --background: rgba(228, 252, 227, 0.425);
 }
+/* customize scrollbar for webkit browsers */
+
+::-webkit-scrollbar {
+  width: 7px;
+  cursor: pointer;
+}
+::-webkit-scrollbar-track {
+  background: #78909c ;
+  cursor: pointer;
+}
+::-webkit-scrollbar-track:hover{
+  background: #006064  ;
+  cursor: pointer;
+}
+::-webkit-scrollbar-track:active{
+  background: #263238 ;
+  cursor: pointer;
+}
+::-webkit-scrollbar-thumb {
+  background: #80cbc4;
+  cursor: pointer;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00897b;
+  cursor: pointer;
+}
+
+/**
+  * simple keyframes for animations
+  * may use it within the project
+**/
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 60px; opacity: 0;}
+}
+
 body {
   background: var(--background);
   margin: 0;
@@ -102,7 +143,7 @@ header nav ul li {
 }
 header .show-nav {
   display: none;
-  transition: ease-in 5s;
+  transition: ease 5s;
 }
 header a img {
   margin-left: -50px;
@@ -259,8 +300,12 @@ main {
 }
 .flex {
   display:flex;
-  flex-wrap:wrap;
   margin: 0 auto;
+}
+@media all and (max-width: 700px) {
+  .flex {
+    flex-wrap:wrap;
+  }
 }
 .wrapper, .form-fields {
   width: 98%;
@@ -277,26 +322,25 @@ main {
 }
 .box {
   background: #fff;
-  padding: 15px 10px;
+  padding: 15px 0px;
   box-shadow: 0 0 3px #ccc;
   border-radius: 10px;
   width: 98%;
   margin: 0 auto;
 }
 .side-bar {
-  margin: 5px;
   width: 100%;
   height: fit-content;
+  margin: 5px auto;
 }
 @media all and (max-width: 600px) {
-  .box, .form-fields {
+  .form-fields {
     max-width: 300px !important;
   }
 }
 
 .main{
   min-width: 100%;
-  margin: 5px;
 }
 @media all and (min-width: 600px) {
   .side-bar {
@@ -387,23 +431,23 @@ main {
   height: 150px;
 }
 .toast {
-  visibility: hidden;
-  opacity: 0;
+  z-index: 1001;
+  left: 48%;
+  bottom: 60px;
+  margin-left: -125px;
+  padding: 16px;
+  min-width: 250px;
+  border-radius: 2px;
   position: fixed;
-  display: flex;
-  border-radius: 3px;
-  width: 280px;
-  height: 30px;
-  padding: 10px;
-  margin: 2px auto;
-  top: 86vh;
-  right: 30%;
-  color: #ddd;
-  background: #222222;
-  box-shadow: 0px 0px 12px #bbb;
-  z-index: 1000;
-  justify-content: space-between;
-  align-items: center;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 15px;
+  display: none;
+  transition: ease-in 5s;
+  -webkit-animation: fadein 0.5s,stay 3s 1s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, stay 3s 1s, fadeout 0.5s 4.5s;
 }
 
 .toast .toast-close {
@@ -481,7 +525,7 @@ main {
 .field {
   display: flex;
   flex-flow: column-reverse;
-  margin-bottom: 1em;
+  margin-bottom: .5em;
 }
 label, input, option, select {
   transition: all 0.2s;
@@ -568,6 +612,7 @@ input:focus + label {
   padding-left: -10px;
 }
 .button, button{
+  display: inline-block;
   font-weight:900;
   margin: 0;
   border: none;
@@ -579,18 +624,19 @@ input:focus + label {
   background: rgb(67, 201, 96);
 }
 .button-bigger {
-  padding: 20px;
+  padding: 15px;
 }
 button:hover, .inactive {
   background-color: rgba(67, 201, 96, 0.418);
 }
 
-input[type='checkbox'], input[type='checkbox'] +  label {
-  margin: 0px;
-  padding: 0px;
+input[type='checkbox'] {
+  position: relative;
+  top: -21px;
   max-width: 100%;
-  height: auto;
-  float: left;
+  height: 3px;
+  left: -108px;
+  margin-bottom: 5px;
 }
 textarea {
   min-height: 100px;
@@ -821,8 +867,12 @@ table {
   padding:5px;
   height: 180px;
   max-width: 98%;
+  min-width: 450px;
   width: 100%;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+table {
+  overflow-x: scroll;
 }
 tr {
   width: 100%;
