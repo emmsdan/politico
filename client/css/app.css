@@ -219,15 +219,16 @@ header nav ul li a{
 /** slider **/
 .slider {
   background: #fff;
-  height: calc(100vh - 60px + 30px );
+  height: calc(100vh);
   border-bottom: 20px solid #222222;
+  overflow: hidden;
 }
 .slider img {
   width: 100%;
   height: 100%;
 }
-.slider img:hover {
-  transform: rotateX(10deg) rotateY(-10deg);
+.slider:hover img {
+  transform: rotateY(-10deg) rotateZ(5deg);
 }
 .slider .placeholder h2, .slider .placeholder h4 {
   width: 100vw;
@@ -237,8 +238,8 @@ header nav ul li a{
   color: #FFFFFF;
 }
 .slider-overlay {
-  width: 100vw;
-  height: calc(100vh - 60px + 34px );
+  width: 99vw;
+  height: calc(100vh);
   position: absolute;
   background: linear-gradient(135deg, #000000 0%, #000000 25%, #1e539e 50%, #ff3083 75%, #7800a8 100%);
   position: absolute;
@@ -442,7 +443,6 @@ main {
   background-color: #333;
   color: #fff;
   text-align: center;
-  text-transform: uppercase;
   font-size: 15px;
   display: none;
   transition: ease-in 5s;
