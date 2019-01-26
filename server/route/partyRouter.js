@@ -21,4 +21,12 @@ partyRouter.patch('/:partID/name', (req, res) => {
   party.edit(req, res);
 });
 
+/**
+ * API: Fetch all political parties records.
+ * @access :GET /api/v1/parties/
+ */
+partyRouter.get('/', (req, res) => {
+  party.getAll(req, res);
+});
+
 export default partyRouter;
