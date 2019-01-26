@@ -59,6 +59,39 @@ export default class partyController {
   }
 
   /**
+   * edit a specific political party
+   * @param {*} req
+   * @param {*} res
+   * @returns object;
+   */
+  edit(req, res) {
+    const id = req.params.partID;
+    const name = req.body.name;
+    if (!validator.isInt(id)) {
+      return this.response({
+        status: 404,
+        message: 'please provide a valid party id'
+      }, null, res);
+    }
+    if (!validate.isName(name)) {
+      return this.response({
+        status: 404,
+        message: 'invalid name, supplied'
+      }, null, res);
+    }
+    const parties = this.database.filter(p => p.partyId !== Number(id));
+    const thisParty = this.database.find(p => p.partyId === Number(id));
+    thisParty.name = name;
+    thisParty.updatedOn = new Date().getTime();
+    parties.push(thisParty);
+    this.database = parties;
+    return this.response(null, {
+      status: 200,
+      message: thisParty
+    }, res);
+  }
+
+  /**
    * @description handles response to view
    * @param {null/object} error
    * @param {null/object} success

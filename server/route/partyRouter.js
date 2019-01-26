@@ -13,4 +13,12 @@ partyRouter.post('/', (req, res) => {
   party.create(req, res);
 });
 
+/** *
+ * API: Edit the name of a specific political party.
+ * @access :PATCH  /api/v1/parties/<party-id>/name
+ */
+partyRouter.patch('/:partID/name', (req, res) => {
+  party.edit(req, res);
+});
+
 export default partyRouter;
