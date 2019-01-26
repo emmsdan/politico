@@ -23,7 +23,7 @@ export default class partyController {
   create(req, res) {
     const name = req.body.name || '<help>out';
     const address = req.body.address || '<help>out';
-    const logoUrl = req.body.logoUrl;
+    const logoUrl = req.body.logoUrl || 'null';
     try {
       if (!validate.isAddress(address) || !validate.isName(name)) {
         return this.response({
@@ -33,8 +33,8 @@ export default class partyController {
       }
       if (this.partyExist(name)) {
         return this.response({
-          status: 404,
-          message: 'part already exist'
+          status: 406,
+          message: 'party already exist'
         }, null, res);
       }
       const newParty = {
@@ -66,7 +66,7 @@ export default class partyController {
    */
   edit(req, res) {
     const id = req.params.partID;
-    const name = req.body.name;
+    const name = null || req.body.name;
     if (!validator.isInt(id)) {
       return this.response({
         status: 404,

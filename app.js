@@ -12,7 +12,8 @@ app.use(json());
 app.get('/', (req, res) => {
   res.send('Official App for Politico API');
 });
-app.use('/api/v1/parties', partyRouter)
+app.use('/api/v1/parties', partyRouter);
+
 if (!module.parent) {
   app.listen(port, () => {
     console.log(`Politico API is running on port ${port}`);
