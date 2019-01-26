@@ -22,11 +22,27 @@ partyRouter.patch('/:partID/name', (req, res) => {
 });
 
 /**
+ * API: Fetch a specific political party record
+ * @access :GET /api/v1/parties/<party-id>
+ */
+partyRouter.get('/:partID', (req, res) => {
+  party.get(req, res);
+});
+
+/**
  * API: Fetch all political parties records.
  * @access :GET /api/v1/parties/
  */
 partyRouter.get('/', (req, res) => {
   party.getAll(req, res);
+});
+
+/**
+ * API: Delete a specific political party.
+ * @access :DELETE api/v1/parties/<party-id>
+ */
+partyRouter.delete('/:partID', (req, res) => {
+  party.deleteParties(req, res);
 });
 
 export default partyRouter;

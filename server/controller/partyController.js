@@ -111,6 +111,36 @@ export default class partyController {
   }
 
   /**
+   * delete a political pearties
+   * @param {*} req
+   * @param {*} res
+   * @returns object;
+   */
+  deleteParties(req, res) {
+    const id = req.params.partID;
+    if (!validator.isInt(id)) {
+      return this.response({
+        status: 404,
+        message: 'specify a valid party id.'
+      }, null, res);
+    }
+
+    const party = this.database.filter(p => p.partyId !== Number(id));
+    console.log(party, id);
+    if (party.length !== this.database.length) {
+      this.database = party;
+      return this.response(null, {
+        status: 410,
+        message: { message: 'party delete successfully' }
+      }, res);
+    }
+    return this.response({
+      status: 404,
+      message: 'party id does not exist'
+    }, null, res);
+  }
+
+  /**
    * @description handles response to view
    * @param {null/object} error
    * @param {null/object} success
