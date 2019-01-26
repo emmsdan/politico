@@ -25,7 +25,7 @@ export default class partyController {
     const address = req.body.address || '<help>out';
     const logoUrl = req.body.logoUrl || 'null';
     try {
-      if (!validate.isAddress(address) || !validate.isName(name)) {
+      if (!validate.isAddress(address) || !address || !validate.isName(name) || !name) {
         return this.response({
           status: 406,
           message: 'please check input'
@@ -38,7 +38,7 @@ export default class partyController {
         }, null, res);
       }
       const newParty = {
-        partyId: new Date().getTime(),
+        partyId: req.body.partyID || new Date().getTime(),
         name,
         address,
         logoUrl,
@@ -67,13 +67,14 @@ export default class partyController {
   edit(req, res) {
     const id = req.params.partID;
     const name = null || req.body.name;
-    if (!validator.isInt(id)) {
+    if (!id || !validator.isInt(id)) {
       return this.response({
         status: 404,
         message: 'please provide a valid party id'
       }, null, res);
     }
-    if (!validate.isName(name)) {
+
+    if (!name || !validate.isName(name)) {
       return this.response({
         status: 404,
         message: 'invalid name, supplied'
@@ -81,6 +82,13 @@ export default class partyController {
     }
     const parties = this.database.filter(p => p.partyId !== Number(id));
     const thisParty = this.database.find(p => p.partyId === Number(id));
+    if (!thisParty) {
+      return this.response({
+        status: 404,
+        message: 'no registered party with such ID'
+      }, null, res);
+    }
+
     thisParty.name = name;
     thisParty.updatedOn = new Date().getTime();
     parties.push(thisParty);
@@ -111,6 +119,34 @@ export default class partyController {
   }
 
   /**
+   * get a specific political party
+   * @param {*} req
+   * @param {*} res
+   * @returns object;
+   */
+  get(req, res) {
+    const id = req.params.partID;
+    if (!id || !validator.isInt(id)) {
+      return this.response({
+        status: 404,
+        message: 'please provide a valid party id'
+      }, null, res);
+    }
+
+    const thisParty = this.database.find(p => p.partyId === Number(id));
+    if (!thisParty) {
+      return this.response({
+        status: 404,
+        message: 'no registered party with such ID'
+      }, null, res);
+    }
+    return this.response(null, {
+      status: 200,
+      message: thisParty
+    }, res);
+  }
+
+  /**
    * delete a political pearties
    * @param {*} req
    * @param {*} res
@@ -118,7 +154,7 @@ export default class partyController {
    */
   deleteParties(req, res) {
     const id = req.params.partID;
-    if (!validator.isInt(id)) {
+    if (!validator.isInt(id) || !id) {
       return this.response({
         status: 404,
         message: 'specify a valid party id.'
@@ -126,17 +162,16 @@ export default class partyController {
     }
 
     const party = this.database.filter(p => p.partyId !== Number(id));
-    console.log(party, id);
     if (party.length !== this.database.length) {
       this.database = party;
       return this.response(null, {
         status: 410,
-        message: { message: 'party delete successfully' }
+        message: 'party delete successfully'
       }, res);
     }
     return this.response({
       status: 404,
-      message: 'party id does not exist'
+      message: 'no registered party with such ID'
     }, null, res);
   }
 
