@@ -9,10 +9,18 @@ officeRouter.use(json());
 const office = new officeontroller();
 /**
  * API: create new government office
- * @access :POST /api/v1/parties
+ * @access :POST /api/v1/offices
  */
 officeRouter.post('/', (req, res) => {
   office.create(req, res);
+});
+
+/**
+ * API: Fetch all government offices records.
+ * @access :GET /api/v1/offices/
+ */
+officeRouter.get('/', (req, res) => {
+  office.getAll(req, res);
 });
 
 export default officeRouter;

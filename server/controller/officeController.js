@@ -59,6 +59,25 @@ export default class officeController {
   }
 
   /**
+   * get all government office
+   * @param {*} req
+   * @param {*} res
+   * @returns object;
+   */
+  getAll(req, res) {
+    if (this.database.length >= 1) {
+      return this.response(null, {
+        status: 200,
+        message: this.database
+      }, res);
+    }
+    return this.response({
+      status: 404,
+      message: 'no registered government office'
+    }, null, res);
+  }
+
+  /**
    * @description handles response to view
    * @param {null/object} error
    * @param {null/object} success
