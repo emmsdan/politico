@@ -1,6 +1,6 @@
 import express from 'express';
 import { urlencoded, json } from 'body-parser';
-import config  from './server/config/environment';
+import config from './server/config/environment';
 import partyRouter from './server/route/partyRouter';
 import officeRouter from './server/route/officeRouter';
 

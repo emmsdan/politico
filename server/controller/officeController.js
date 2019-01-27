@@ -21,6 +21,7 @@ export default class officeController {
    * @returns object;
    */
   create(req, res) {
+    console.log (req.body.officeType, req.body.name, 'z4ex5rc6t7vyb8un');
     const name = req.body.name || '<help>out';
     const officeType = req.body.officeType || '<help>out';
     const logoUrl = req.body.logoUrl || 'null';
