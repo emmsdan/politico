@@ -78,6 +78,34 @@ export default class officeController {
   }
 
   /**
+   * get a specific government office
+   * @param {*} req
+   * @param {*} res
+   * @returns object;
+   */
+  get(req, res) {
+    const id = req.params.officeID;
+    if (!id || !validator.isInt(id)) {
+      return this.response({
+        status: 404,
+        message: 'please provide a valid office id'
+      }, null, res);
+    }
+
+    const thisoffice = this.database.find(p => p.officeId === Number(id));
+    if (!thisoffice) {
+      return this.response({
+        status: 404,
+        message: 'no registered office with such ID'
+      }, null, res);
+    }
+    return this.response(null, {
+      status: 200,
+      message: thisoffice
+    }, res);
+  }
+
+  /**
    * @description handles response to view
    * @param {null/object} error
    * @param {null/object} success
