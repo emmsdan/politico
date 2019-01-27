@@ -1,11 +1,10 @@
 import express from 'express';
 import { urlencoded, json } from 'body-parser';
-import config from './server/config/environment';
 import partyRouter from './server/route/partyRouter';
 import officeRouter from './server/route/officeRouter';
 
 const app = express();
-const port = config.port || 8000;
+const port = process.env.port || 8000;
 
 app.use(urlencoded({ extended: true }));
 app.use(json());
