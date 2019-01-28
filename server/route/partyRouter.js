@@ -3,6 +3,8 @@ import { urlencoded, json } from 'body-parser';
 import partyController from '../controller/partyController';
 
 const partyRouter = express.Router();
+partyRouter.use(urlencoded({ extended: true }));
+partyRouter.use(json());
 
 const party = new partyController();
 /**
