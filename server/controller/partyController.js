@@ -70,7 +70,7 @@ export default class partyController {
     if (!id || !validator.isInt(id)) {
       return this.response({
         status: 404,
-        message: 'please provide a valid party id'
+        message: 'no registered party with such ID'
       }, null, res);
     }
 

@@ -2,10 +2,14 @@
   "name": "politico-api",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": "10.13.0",
+    "npm": "6.4.1"
+  },
   "main": "app.js",
   "scripts": {
     "build": "babel ./ -d build",
-    "start": "nodemon --exec babel-node app.js",
+    "start": "babel-node app.js",
     "serve": "node dist/app.js",
     "test": "nyc mocha test/ --compilers js:babel-core/register --exit && nyc report --reporter=text-lcov | coveralls"
   },
