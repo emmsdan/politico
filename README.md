@@ -1,90 +1,15 @@
-# Politico
+# politico
 
 Politico enables citizens give their mandate to politicians running for different government offices while building trust in the process through transparency
+
+## Client
+
+### Andela Developer Challenge
 
 ![commit activities](https://img.shields.io/github/commit-activity/y/emmsdan/politico.svg?colorB=green) ![last commit](https://img.shields.io/github/last-commit/emmsdan/politico/development.svg?colorB=green)
 ![repo size ](https://img.shields.io/github/repo-size/emmsdan/politico.svg?colorB=blue&logo=red)
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/6d39510b9f9799d3e24a/maintainability)](https://codeclimate.com/github/emmsdan/politico/maintainability) [![Build Status](https://travis-ci.org/emmsdan/politico.svg?branch=development)](https://travis-ci.org/emmsdan/politico) [![Coverage Status](https://coveralls.io/repos/github/emmsdan/politico/badge.svg?branch=development)](https://coveralls.io/github/emmsdan/politico?branch=development) [![Test Coverage](https://api.codeclimate.com/v1/badges/6d39510b9f9799d3e24a/test_coverage)](https://codeclimate.com/github/emmsdan/politico/test_coverage)
+[![Build Status](https://travis-ci.org/emmsdan/politico.svg?branch=development)](https://travis-ci.org/emmsdan/politico) [![Coverage Status](https://coveralls.io/repos/github/emmsdan/politico/badge.svg?branch=development)](https://coveralls.io/github/emmsdan/politico?branch=development)
 
-## How it works
-* Users can:
-    * Create a parcel delivery order
-    * Get all parcel delivery orders
-    * Get a specific parcel delivery order
-    * Cancel a parcel delivery order
-
-## Technologies
-  * Nodejs(ES6)
-  * Git
-  * NPM
-  * Express
-  * PostgreSQL
-
-## Linting Library
-  * Eslint (AirBnB)
-
-## Installation
-
-Clone the [repo politico](https://github.com/emmsdan/politico).
-
-```bash
-git clone https://github.com/emmsdan/politico.git
-```
-You can Use the package manager [npm](https://nodejs.org/en/) to Install dependencies.
-
-```bash
-npm install
-```
-
-## Usage
-
-### run server
-```bash
-npm start
-```
-## Test
-  Mocha is the testing framework together with chai assertion library
-
-### run test
-```bash
-npm run test
-```
-### Application Endpoints
-
-| HTTP Request | End Point | Functionality |
-| -------------| -----------| ----------- |
-| **POST** | /auth/signup | Create a user account. |
-| **POST** | /auth/login| Login a user. |
-| **POST** | /auth/reset| Reset user password. |
-| **POST** | /office/<user-id>/register | Register a user as a candidate running for a political office. |
-| **POST** | /votes/ | Vote for a candidate. |
-| **POST** | /office/<office-id>/result | Collate and fetch the result of specific office following a concluded election. |
-| **POST** | /petitions/ | Create petitions challenging the outcome of a concluded election. |
-| **POST** | /votes/ | Vote for a candidate. |
-| **POST** | /parties/ | Create a political party. |
-| **GET** | /parties/|  Fetch all political party |
-| **GET** | /parties/<party-id>|  Fetch specific political party |
-| **PATCH** | /parties/<party-id>/name | Edit the name of a specific political party. |
-| **DELETE** | /parties/<party-id>|  Delete a specific political party. |
-| **POST** | /offices/|  Create a political office. |
-| **GET** | /offices/|  Fetch all political office records |
-| **GET** | /offices/<office-id> |  Fetch all specific political office |
-| - | -|  -|
-
-
-
-Create a political office
-
-
-## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
-
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
-
-## Author
-### Emmanuel Daniel
-You can follow me on [![follow me on twitter](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/emmsdan)
+Follow me on [![follow me on twitter](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/emmsdan)
+[![follow me on facebook](https://img.shields.io/facebook/url/http/shields.io.svg?style=social)](https://twitter.com/emmsdan)
