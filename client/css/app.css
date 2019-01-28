@@ -104,8 +104,25 @@ header .show-nav {
   display: none;
   transition: ease-in 5s;
 }
+header a img {
+  margin-left: -50px;
+}
+
+@media all and (max-width: 780px) {
+  header nav {
+    margin-right: -30px;
+  }
+}
+@media all and (max-width: 680px) {
+  header nav {
+    margin: 0;
+  }
+}
 @media all and (max-width: 680px) {
 
+  header a img {
+    margin-left: 0px;
+  }
   header{
     width: 100vw;
     display: block;
@@ -120,7 +137,7 @@ header .show-nav {
     color: #000000;
     font-size: 30px;
     padding: 15px;
-    margin-top: -60px;
+    margin-top: -20px;
     margin-left: -20px;
   }
 
@@ -140,7 +157,17 @@ header .show-nav {
     text-align: center;
   }
 }
-
+@media all and (max-width: 600px) {
+  header .show-nav {
+    display: block;
+    float: right;
+    color: #000000;
+    font-size: 30px;
+    padding: 15px;
+    margin-top: -60px;
+    margin-left: -20px;
+  }
+}
 header a{
   color: #222222;
   margin: -3px 10px;
@@ -174,7 +201,7 @@ header nav ul li a{
   position: absolute;
   background: linear-gradient(135deg, #000000 0%, #000000 25%, #1e539e 50%, #ff3083 75%, #7800a8 100%);
   position: absolute;
-  top: 60px;
+  top: -1px;
   transition: .5s all;
   opacity: 0.4;
 }
@@ -186,12 +213,15 @@ header nav ul li a{
 /** footer area **/
 footer {
   background: #fff;
-  display: block;
+  display: block !important;
   padding: 10px 0px;
-  position: relative;
   box-shadow: -3px -2px 2px rgb(212, 212, 212);
   text-align: center;
   width: 100%;
+  max-height: 100px;
+  overflow: hidden;
+  position: relative;
+  z-index: 3;
 }
 footer a {
   padding: 5px;
@@ -201,8 +231,11 @@ footer a {
 
 /** main section **/
 main {
+  position: relative;
   margin: 64px auto;
+  margin-bottom: 10px;
   display: block;
+  min-height: calc(100vh - (64px + 64px));
 }
 
 .summery-card {
