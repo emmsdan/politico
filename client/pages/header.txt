@@ -4,6 +4,7 @@
   <ul>
     <li><a href="../index.html">Home</a></li>
     <li><a href="./office.html">Vote Now</a></li>
+    <li><a href="./election-result.html">Results</a></li>
     <li><a href="./admin_dashboard.html">Admin</a></li>
     <li><a href="./office.html">Office</a></li>
     <li><a href="./user_dashboard.html">Account</a></li>

@@ -91,7 +91,7 @@ header img {
   height: 35px;
 }
 header nav ul{
-  margin-top: -10px;
+  margin-top: -7px;
   display: flex;
   list-style: none;
   text-transform: uppercase;
@@ -185,6 +185,7 @@ header nav ul li a{
 
 /** footer area **/
 footer {
+  background: #fff;
   display: block;
   padding: 10px 0px;
   position: relative;
@@ -252,6 +253,7 @@ main {
 .side-bar {
   margin: 5px;
   width: 100%;
+  height: fit-content;
 }
 @media all and (max-width: 600px) {
   .box, .form-fields {
@@ -656,6 +658,7 @@ img.profile-pix {
   border-radius: 50%;
   position: absolute;
   top: 0;
+  left: 0;
 }
 .profile-card .votes, .profile-card .info {
   height: 100px;
@@ -812,8 +815,18 @@ tr:last-child {
   border:none;
 }
 td img {
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
+  margin: 0 4px;
+  padding: 5px;
+  box-shadow: 0 0 10px rgba(160, 158, 158, 0.99) !important;
+}
+td div.election {
+  display: flex;
+  align-self: center;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
 }
 
 td{
@@ -848,4 +861,7 @@ a.button {
 }
 .mobile-size {
   width: 300px;
+}
+.uppercase {
+  text-transform: uppercase;
 }
