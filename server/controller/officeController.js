@@ -1,5 +1,6 @@
 import validator from 'validator';
 import validate from '../helper/validate';
+import responseController from './responseController';
 
 /**
  * officeController
@@ -21,18 +22,16 @@ export default class officeController {
    * @returns object;
    */
   create(req, res) {
-    const name = req.body.name || '<help>out';
-    const officeType = req.body.officeType || '<help>out';
-    const logoUrl = req.body.logoUrl || 'null';
+    const { name, officeType, logoUrl } = req.body;
     try {
       if (!validate.isAddress(officeType) || !officeType || !validate.isName(name) || !name) {
-        return this.response({
+        return responseController.response({
           status: 406,
           message: 'please check input'
         }, null, res);
       }
       if (this.officeExist(name)) {
-        return this.response({
+        return responseController.response({
           status: 406,
           message: 'office already exist'
         }, null, res);
@@ -46,13 +45,13 @@ export default class officeController {
         updatedOn: new Date().getTime()
       };
       this.database.push(newoffice);
-      return this.response(null, {
+      return responseController.response(null, {
         status: 201,
         message: newoffice
       }, res);
     } catch (error) {
-      return this.response({
-        status: error.code,
+      return responseController.response({
+        status: error.code || 404,
         data: error.message
       });
     }
@@ -66,12 +65,12 @@ export default class officeController {
    */
   getAll(req, res) {
     if (this.database.length >= 1) {
-      return this.response(null, {
+      return responseController.response(null, {
         status: 200,
         message: this.database
       }, res);
     }
-    return this.response({
+    return responseController.response({
       status: 404,
       message: 'no registered government office'
     }, null, res);
@@ -86,43 +85,23 @@ export default class officeController {
   get(req, res) {
     const id = req.params.officeID;
     if (!id || !validator.isInt(id)) {
-      return this.response({
+      return responseController.response({
         status: 404,
         message: 'please provide a valid office id'
       }, null, res);
     }
 
-    const thisoffice = this.database.find(p => p.officeId === Number(id));
+    const thisoffice = this.database.find(office => office.officeId === Number(id));
     if (!thisoffice) {
-      return this.response({
+      return responseController.response({
         status: 404,
         message: 'no registered office with such ID'
       }, null, res);
     }
-    return this.response(null, {
+    return responseController.response(null, {
       status: 200,
       message: thisoffice
     }, res);
-  }
-
-  /**
-   * @description handles response to view
-   * @param {null/object} error
-   * @param {null/object} success
-   * @param {object} response
-   * @returns object
-   */
-  response(error, success, response = this.response) {
-    if (error === null) {
-      return response.status(success.status).json({
-        status: success.status,
-        data: [success.message]
-      });
-    }
-    return response.status(error.status).json({
-      status: error.status,
-      error: error.message
-    });
   }
 
   /**
@@ -131,8 +110,8 @@ export default class officeController {
    * @returns boolean
    */
   officeExist(name) {
-    const office = this.database.find(p => p.name === name);
-    if (office) return true;
+    const offices = this.database.find(office => office.name === name);
+    if (offices) return true;
     return false;
   }
 }

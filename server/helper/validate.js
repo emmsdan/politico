@@ -1,3 +1,5 @@
+import validator from 'validator';
+import responseController from '../controller/responseController';
 /**
  * validate custom user input
  */
@@ -20,6 +22,32 @@ class validate {
 	 */
   static isName(name) {
     return (/^[A-Za-z\s]+$/.test(name));
+  }
+
+  /**
+   * @description check if party exist
+   * @param {string} name
+   * @returns boolean
+   */
+  static itExist(data, name) {
+    const found = data.find(element => element.name === name);
+    if (found) return true;
+    return false;
+  }
+
+  /**
+	 *
+	 * @param {string/number} id
+	 * @param {object} response
+	 * @returns object
+	 */
+  static isValidID(id, response) {
+    if (!validator.isInt(id) || !id) {
+      return responseController.response({
+        status: 404,
+        message: 'specify a valid id.'
+      }, null, response);
+    }
   }
 }
 
