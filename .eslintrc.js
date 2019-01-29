@@ -7,6 +7,8 @@ module.exports = {
     "mocha": true
   },
   "rules": {
+    "indent": [2, "tab"],
+    "no-tabs": 0,
     "linebreak-style": 0,
     "one-var": 0,
     "one-var-declaration-per-line": 0,
