@@ -26,8 +26,8 @@ export default class officeController {
     try {
       if (!validate.isAddress(officeType) || !officeType || !validate.isName(name) || !name) {
         return responseController.response({
-          status: 406,
-          message: 'please check input'
+          status: 422,
+          message: 'invalid credentials'
         }, null, res);
       }
       if (this.officeExist(name)) {
