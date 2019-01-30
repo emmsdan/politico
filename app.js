@@ -3,7 +3,6 @@ import express from 'express';
 import { urlencoded, json } from 'body-parser';
 import cookieParser from 'cookie-parser';
 
-import emailController from './server/controller/emailController';
 import partyRouter from './server/route/partyRouter';
 import officeRouter from './server/route/officeRouter';
 

@@ -67,7 +67,6 @@ export default class jwtAuthentication {
    * @param {object} next
    */
   static authenticationLoggedIn(request, response, next) {
-
     response.setHeader('API-Author', 'Emmanuel Daniel. <@emmsdan>');
     response.setHeader('App-Client', 'Andela 21, (Jan 2019)');
     const token = jwtAuthentication.verify(request.cookies['x-token']);
