@@ -1,5 +1,6 @@
 import express from 'express';
 import { urlencoded, json } from 'body-parser';
+import jwtAuth from '../middleware/jwt-authenitcate';
 import officeontroller from '../controller/officeController';
 
 const officeRouter = express.Router();
@@ -11,7 +12,7 @@ const office = new officeontroller();
  * API: create new government office
  * @access :POST /api/v1/offices
  */
-officeRouter.post('/', (req, res) => {
+officeRouter.post('/', jwtAuth.authenticationLoggedIn, (req, res) => {
   office.create(req, res);
 });
 

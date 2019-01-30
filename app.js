@@ -1,15 +1,19 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import { urlencoded, json } from 'body-parser';
+import cookieParser from 'cookie-parser';
+
 import emailController from './server/controller/emailController';
 import partyRouter from './server/route/partyRouter';
 import officeRouter from './server/route/officeRouter';
+
 dotenv.config();
 
 
 const app = express();
 const port = process.env.PORT || 5051;
 
+app.use(cookieParser());
 app.use(urlencoded({ extended: true }));
 app.use(json());
 
