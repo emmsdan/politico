@@ -12,12 +12,25 @@ const port = process.env.PORT || 5051;
 app.use(urlencoded({ extended: true }));
 app.use(json());
 
-app.get('/', (req, res) => {
-  res.send('Official App for Politico API');
-});
-
 app.use('/api/v1/parties', partyRouter);
 app.use('/api/v1/offices', officeRouter);
+
+app.get(['/', '/api/', '/api/v1/', '/api/v2/'], (req, res) => {
+  res.send('Official App for Politico API');
+});
+app.use((req, res) => {
+  res.status(404).json({
+    status: 404,
+    message: 'Oh dear, this link isn’t working. May be',
+    error: [
+      'you mistyped the URL',
+      'you copy-and-paste error',
+      'a broken link',
+      'it was moved or deleted content'
+    ]
+  });
+});
+
 
 if (!module.parent) {
   app.listen(port, () => {

@@ -44,8 +44,8 @@ class validate {
   static isValidID(id, response) {
     if (!validator.isInt(id) || !id) {
       return responseController.response({
-        status: 404,
-        message: 'specify a valid id.'
+        status: 422,
+        message: 'invalid credential for id.'
       }, null, response);
     }
   }

@@ -24,13 +24,13 @@ export default class partyController {
     const { name, address } = fields;
     if (!validate.isAddress(address) || !validate.isName(name) || !name) {
       return responseController.response({
-        status: 406,
-        message: 'please check input'
+        status: 422,
+        message: 'invalid credentials'
       }, null, response);
     }
     if (this.partyExist(name)) {
       return responseController.response({
-        status: 406,
+        status: 409,
         message: 'a party with this name already exist'
       }, null, response);
     }
@@ -62,7 +62,7 @@ export default class partyController {
       }, res);
     } catch (error) {
       return responseController.response({
-        status: error.code,
+        status: error.code || 503,
         data: error.message
       });
     }
@@ -85,7 +85,7 @@ export default class partyController {
     }
     if (!name || !validate.isName(name)) {
       return responseController.response({
-        status: 404,
+        status: 422,
         message: 'invalid name, supplied'
       }, null, res);
     }
