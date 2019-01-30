@@ -1,6 +1,6 @@
 import validator from 'validator';
 import validate from '../helper/validate';
-
+import responseController from './responseController';
 /**
  * partyController
  *
@@ -15,30 +15,40 @@ export default class partyController {
   }
 
   /**
+   *
+   * @param {va} fields
+   * @param {*} response
+   * @returns object;
+   */
+  validatePartyField(fields, response) {
+    const { name, address } = fields;
+    if (!validate.isAddress(address) || !validate.isName(name) || !name) {
+      return responseController.response({
+        status: 406,
+        message: 'please check input'
+      }, null, response);
+    }
+    if (this.partyExist(name)) {
+      return responseController.response({
+        status: 406,
+        message: 'a party with this name already exist'
+      }, null, response);
+    }
+  }
+
+  /**
    * create party
    * @param {*} req
    * @param {*} res
    * @returns object;
    */
   create(req, res) {
-    const name = req.body.name || '<help>out';
-    const address = req.body.address || '<help>out';
-    const logoUrl = req.body.logoUrl || 'null';
+    const { name, logoUrl, address } = req.body;
     try {
-      if (!validate.isAddress(address) || !address || !validate.isName(name) || !name) {
-        return this.response({
-          status: 406,
-          message: 'please check input'
-        }, null, res);
-      }
-      if (this.partyExist(name)) {
-        return this.response({
-          status: 406,
-          message: 'party already exist'
-        }, null, res);
-      }
+      if (this.validatePartyField(req.body, res)) return;
+
       const newParty = {
-        partyId: req.body.partyID || new Date().getTime(),
+        partyId: new Date().getTime(),
         name,
         address,
         logoUrl,
@@ -46,12 +56,12 @@ export default class partyController {
         updatedOn: new Date().getTime()
       };
       this.database.push(newParty);
-      return this.response(null, {
+      return responseController.response(null, {
         status: 201,
         message: newParty
       }, res);
     } catch (error) {
-      return this.response({
+      return responseController.response({
         status: error.code,
         data: error.message
       });
@@ -66,24 +76,23 @@ export default class partyController {
    */
   edit(req, res) {
     const id = req.params.partID;
-    const name = null || req.body.name;
+    const { name } = req.body;
     if (!id || !validator.isInt(id)) {
-      return this.response({
+      return responseController.response({
         status: 404,
         message: 'no registered party with such ID'
       }, null, res);
     }
-
     if (!name || !validate.isName(name)) {
-      return this.response({
+      return responseController.response({
         status: 404,
         message: 'invalid name, supplied'
       }, null, res);
     }
-    const parties = this.database.filter(p => p.partyId !== Number(id));
-    const thisParty = this.database.find(p => p.partyId === Number(id));
+    const parties = this.database.filter(party => party.partyId !== Number(id));
+    const thisParty = this.database.find(party => party.partyId === Number(id));
     if (!thisParty) {
-      return this.response({
+      return responseController.response({
         status: 404,
         message: 'no registered party with such ID'
       }, null, res);
@@ -93,7 +102,7 @@ export default class partyController {
     thisParty.updatedOn = new Date().getTime();
     parties.push(thisParty);
     this.database = parties;
-    return this.response(null, {
+    return responseController.response(null, {
       status: 200,
       message: thisParty
     }, res);
@@ -107,12 +116,12 @@ export default class partyController {
    */
   getAll(req, res) {
     if (this.database.length >= 1) {
-      return this.response(null, {
+      return responseController.response(null, {
         status: 200,
         message: this.database
       }, res);
     }
-    return this.response({
+    return responseController.response({
       status: 404,
       message: 'no registered political party'
     }, null, res);
@@ -127,7 +136,7 @@ export default class partyController {
   get(req, res) {
     const id = req.params.partID;
     if (!id || !validator.isInt(id)) {
-      return this.response({
+      return responseController.response({
         status: 404,
         message: 'please provide a valid party id'
       }, null, res);
@@ -135,12 +144,12 @@ export default class partyController {
 
     const thisParty = this.database.find(p => p.partyId === Number(id));
     if (!thisParty) {
-      return this.response({
+      return responseController.response({
         status: 404,
         message: 'no registered party with such ID'
       }, null, res);
     }
-    return this.response(null, {
+    return responseController.response(null, {
       status: 200,
       message: thisParty
     }, res);
@@ -155,7 +164,7 @@ export default class partyController {
   deleteParties(req, res) {
     const id = req.params.partID;
     if (!validator.isInt(id) || !id) {
-      return this.response({
+      return responseController.response({
         status: 404,
         message: 'specify a valid party id.'
       }, null, res);
@@ -164,35 +173,15 @@ export default class partyController {
     const party = this.database.filter(p => p.partyId !== Number(id));
     if (party.length !== this.database.length) {
       this.database = party;
-      return this.response(null, {
+      return responseController.response(null, {
         status: 410,
         message: 'party delete successfully'
       }, res);
     }
-    return this.response({
+    return responseController.response({
       status: 404,
       message: 'no registered party with such ID'
     }, null, res);
-  }
-
-  /**
-   * @description handles response to view
-   * @param {null/object} error
-   * @param {null/object} success
-   * @param {object} response
-   * @returns object
-   */
-  response(error, success, response = this.response) {
-    if (error === null) {
-      return response.status(success.status).json({
-        status: success.status,
-        data: [success.message]
-      });
-    }
-    return response.status(error.status).json({
-      status: error.status,
-      error: error.message
-    });
   }
 
   /**
