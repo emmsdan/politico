@@ -1,10 +1,11 @@
+import dotenv from 'dotenv';
 import express from 'express';
 import { urlencoded, json } from 'body-parser';
-import dotenv from 'dotenv';
+import emailController from './server/controller/emailController';
 import partyRouter from './server/route/partyRouter';
 import officeRouter from './server/route/officeRouter';
-
 dotenv.config();
+
 
 const app = express();
 const port = process.env.PORT || 5051;
@@ -37,4 +38,5 @@ if (!module.parent) {
     console.log(`Politico API is running on port ${port}`);
   });
 }
+
 export default app;

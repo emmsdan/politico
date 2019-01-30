@@ -1,3 +1,4 @@
+/* eslint-disable guard-for-in */
 import validator from 'validator';
 import responseController from '../controller/responseController';
 /**
@@ -48,6 +49,22 @@ class validate {
         message: 'invalid credential for id.'
       }, null, response);
     }
+  }
+
+  /**
+   *  @example options = {
+   *  find: replaceWith
+   * }
+   * @param {object} options
+   * @param {string} data
+   * @returns object
+   */
+  static replace(options, data) {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const values in options) {
+      data = data.replace(new RegExp(values, 'gi'), options[values]);
+    }
+    return data;
   }
 }
 

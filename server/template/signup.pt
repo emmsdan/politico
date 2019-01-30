@@ -1,0 +1,37 @@
+<div style="background: rgb(232, 255, 237);height: 100%; width: 100%;color:#6f8091;font-family:'Open Sans','Helvetica Neue','Helvetica',Helvetica,Arial,sans-serif;font-size:13px; position: fixed; top: 0; left: 0;">
+    <br/>
+    <br/>
+    <br/>
+    <div style="padding:30px; width: 90%; max-width: 60%; margin: 0 auto;border: 0.4px solid rgb(226, 226, 226); background: #fff;
+      text-align: center;">
+
+        <h1 style=" font-weight: 100;">Welcome to Politico {{ name }}</h1>
+        <h2>{{ message }}</h2>
+        <h3>Remember your vote count, so cast your vote for a new nigeria</h3>
+        <br/>
+        <br/>
+        <a href="{{ host_url }}" style="box-sizing:border-box;border-color:#348eda;font-weight:400;text-decoration:none;display:inline-block;margin:0;color:#ffffff;background-color:#348eda;border:solid 1px #348eda;border-radius:2px;font-size:14px;padding:12px 45px">Vote Now</a>
+
+        <br/>
+        <br/>
+        <br/>
+        <h3>Thanks for joining the new greater nigeria</h3>
+      </div>
+      <style>
+        .placeholder a {
+          padding: 10px;
+          color: #294661;
+        }
+      </style>
+      <div class="placeholder" style="width: 60%; margin: 0 auto;text-align:center; padding: 10px">
+        <strong>
+            © {{ host_title }} by <a href="http://facebook.com/emmsdan">@emmsdan</a>
+        </strong>
+        <br/>
+        <br/>
+        <a href="{{ github }}">Github</a>
+        <a href="{{ facebook }}">Facebook</a>
+        <a href="{{ twitter }}">Twitter</a>
+        <a href="{{ linkedin }}">LinkedIn</a>
+      </div>
+    </div>
