@@ -63,6 +63,7 @@ export default class jwtAuthentication {
       exp: expires || Math.floor(Date.now() / 1000) + ((60 * 60) * 24 * 7), payload
     }, process.env.PrivateKey);
     response.cookie(process.env.TOKEN_NAME, token, { maxAge: 900000, httpOnly: true });
+    return token;
   }
 
   /**
