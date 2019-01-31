@@ -26,7 +26,7 @@ class validate {
   }
 
   /**
-	 * @description allow only number/digit
+	 * @description check if string is digit
 	 * @param {string} string
 	 * @returns boolean
 	 */

@@ -9,7 +9,7 @@ import responseController from './responseController';
  */
 export default class officeController {
   /**
-   * @description create an account for users.
+   * @description view specific office.
    * @since v1.0.0
    * @param {object} request
    * @param {object} response
@@ -17,7 +17,7 @@ export default class officeController {
    * @returns object
    */
   static get(request, response) {
-    try {
+    try{
       if (!validate.isInt(request.params.officeID)) {
         return responseController.response({
           status: 404,
