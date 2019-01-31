@@ -1,7 +1,6 @@
 import bcrypt from 'bcryptjs';
 import validator from 'validator';
 import jwtToken from '../middleware/jwt-authenitcate';
-import validator from 'validator';
 import validate from '../helper/validate';
 import User from '../model/User';
 import emailController from './emailController';
