@@ -3,7 +3,8 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import { urlencoded, json } from 'body-parser';
 
-import authRoutes from './server/route/authRoutes';
+import authRouter from './server/route/authRouter';
+import officeRouter from './server/route/officeRouter';
 
 dotenv.config();
 
@@ -17,7 +18,8 @@ app.use(json());
 /**
  * main api routes
  */
-app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/offices', officeRouter);
 
 app.get(['/', '/api/', '/api/v1/', '/api/v2/'], (req, res) => {
   res.send('Official App for Politico API');
