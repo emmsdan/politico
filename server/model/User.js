@@ -45,5 +45,14 @@ export default class User {
   static async findUser(option) {
     return Database.find(new User().table, option, 'OR');
   }
+
+  /**
+   * login user to database
+   * @param {object} option
+   * @returns promise
+   */
+  static async login(option) {
+    return Database.find(new User().table, option, 'OR');
+  }
 }
 User.init();
