@@ -1,20 +1,23 @@
 import dotenv from 'dotenv';
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import { urlencoded, json } from 'body-parser';
-import emailController from './server/controller/emailController';
-import partyRouter from './server/route/partyRouter';
-import officeRouter from './server/route/officeRouter';
-dotenv.config();
 
+import authRoutes from './server/route/authRoutes';
+
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 5051;
 
+app.use(cookieParser());
 app.use(urlencoded({ extended: true }));
 app.use(json());
 
-app.use('/api/v1/parties', partyRouter);
-app.use('/api/v1/offices', officeRouter);
+/**
+ * main api routes
+ */
+app.use('/api/v1/auth', authRoutes);
 
 app.get(['/', '/api/', '/api/v1/', '/api/v2/'], (req, res) => {
   res.send('Official App for Politico API');
@@ -32,11 +35,9 @@ app.use((req, res) => {
   });
 });
 
-
 if (!module.parent) {
   app.listen(port, () => {
-    console.log(`Politico API is running on port ${port}`);
+    console.log (`Politico API is running on port ${port}`);
   });
 }
-
 export default app;

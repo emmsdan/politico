@@ -5,6 +5,10 @@ env:
   global:
     - CC_TEST_REPORTER_ID=056f071568b921c9b169a9fa374e3487ecb9edbde6de6919197d53e71ac4f5d6
 
+  addons:
+    code_climate:
+      repo_token: 056f071568b921c9b169a9fa374e3487ecb9edbde6de6919197d53e71ac4f5d6
+
 install:
   - npm install
 
