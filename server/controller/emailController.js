@@ -56,6 +56,7 @@ class EmailController {
    */
   static loadDefault(options, file) {
     return validate.ireplace({
+      '{{ resetURl }}': options.resetURL || 'none',
       '{{ host_url }}': process.env.HOST_URL,
       '{{ message }}': options.message,
       '{{ github }}': process.env.github,

@@ -1,9 +1,11 @@
 import bcrypt from 'bcryptjs';
 import jwtToken from '../middleware/jwt-authenitcate';
+import validator from 'validator';
 import validate from '../helper/validate';
 import User from '../model/User';
 import emailController from './emailController';
 import responseController from './responseController';
+import { NONAME } from 'dns';
 
 /**
  * @author Emmanuel Daniel <@emmsdan>
@@ -39,14 +41,45 @@ export default class authController {
       .then((resp) => {
         const generatedToken = jwtToken.generateWithHeader({ email, role: role || 'user', userid }, response);
         authController.sendMail({ name, email, phone, signup: 'true' });
-        return responseController.response({
+        return responseController.response(null, {
           status: 201, message: { token: generatedToken, user: { email, phone, name, userid }, message: 'account created, an email as been sent containin your login details ' }
-        }, null, response);
+        }, response);
       })
       .catch((error) => {
         let errorResponse = `Error: ${error.message}`;
         if (error.message.includes('email')) errorResponse = 'email already exist';
         if (error.message.includes('phone')) errorResponse = 'phone already exist';
+        return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : 'other errors';
+      });
+  }
+
+  /**
+   * @description create an account for users.
+   * @since v1.0.0
+   * @param {object} request
+   * @param {object} response
+   *
+   * @returns object
+   */
+  static setPasswordLink(request, response) {
+    if (!validator.isEmail(request.body.email || '<>')) {
+      responseController.response({
+        status: 422,
+        message: 'invalid credentials'
+      }, null, response);
+    }
+    return User.findUser({ email: request.body.email })
+      .then((resp) => {
+        if (!Array.isArray(resp)) {
+          throw Error('no user with such email');
+        }
+        authController.sendMail({ name: resp[0].name, email: resp[0].email, type: 'reset', message: 'Use the link below to reset password', resetURL: bcrypt.hashSync(new Date().toLocaleDateString(), 2) });
+        return responseController.response(null, {
+          status: 200, message: 'check email for password reset link'
+        }, response);
+      })
+      .catch((error) => {
+        const errorResponse = `Error: ${error.message}`;
         return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : 'other errors';
       });
   }
@@ -61,6 +94,8 @@ export default class authController {
       name, message, email, phone
     } = options;
     emailController.sendGrid({
+      type: options.type || 'signup',
+      resetURL: options.resetURL || 'NONAME',
       to: email,
       from: 'no-reply@andela21.com',
       message: `Hi, ${name}, <br/>  ${signup ? 'You account with Politico.io has been  created. here are your login details' : message} <br/>
