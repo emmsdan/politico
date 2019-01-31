@@ -27,9 +27,10 @@ export default class jwtAuthentication {
     if (stack[0].method !== 'get') {
       let page = '';
       for (page of jwtAuthentication.strictedPage()) {
-        if (path.split('/').contains(page)) {
-          return true;
-        }
+        let paths = path.split('/').find((p) => {
+           return p === page
+        });
+        if (paths) return true;
       }
     }
     return false;
@@ -42,8 +43,26 @@ export default class jwtAuthentication {
    * @param {string} expires
    * @returns string;
    */
-  static generate(payload, expires = Math.floor(Date.now() / 1000) + ((60 * 60) * 24 * 7)) {
-    return jwt.sign({ exp: expires, payload }, process.env.PrivateKey);
+  static generate(payload, expires = null) {
+    return jwt.sign({
+      exp: expires || Math.floor(Date.now() / 1000) + ((60 * 60) * 24 * 7), payload
+    },
+    process.env.PrivateKey);
+  }
+
+  /**
+   * @description generate authentication token
+   * and set cookie,
+   * @expires default after 1 week
+   * @param {object/string} payload
+   * @param {string} expires
+   * @returns string;
+   */
+  static generateWithHeader(payload, response, expires = null) {
+    const token = jwt.sign({
+      exp: expires || Math.floor(Date.now() / 1000) + ((60 * 60) * 24 * 7), payload
+    }, process.env.PrivateKey);
+    response.cookie(process.env.TOKEN_NAME, token, { maxAge: 900000, httpOnly: true });
   }
 
   /**
@@ -70,7 +89,8 @@ export default class jwtAuthentication {
     response.setHeader('API-Author', 'Emmanuel Daniel. <@emmsdan>');
     response.setHeader('App-Client', 'Andela 21, (Jan 2019)');
     const token = jwtAuthentication.verify(request.cookies['x-token']);
-    if ((!token && request.route.stack[0].method !== 'get') || (jwtAuthentication.verifyURL(request) && token.role !== 'admin')) {
+    console.log (request.route.path);
+    if ((!token && request.route.stack[0].method !== 'get') && (jwtAuthentication.verifyURL(request) && token.role !== 'admin')) {
       response.status(401)
         .json({ error: 'Unauthorized', status: 401 });
       response.end();

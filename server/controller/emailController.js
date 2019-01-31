@@ -15,7 +15,7 @@ class EmailController {
 
   /**
  * @description send email
- * @example   emailController.send({
+ * @example   emailController.sendGrid({
     to: 'ecomje@gmail.com',//can be commer seperated
     from: '' [optional]
     message: ` `,
@@ -55,7 +55,7 @@ class EmailController {
    * @returns object
    */
   static loadDefault(options, file) {
-    return validate.replace({
+    return validate.ireplace({
       '{{ host_url }}': process.env.HOST_URL,
       '{{ message }}': options.message,
       '{{ github }}': process.env.github,

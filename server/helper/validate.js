@@ -59,13 +59,39 @@ class validate {
    * @param {string} data
    * @returns object
    */
-  static replace(options, data) {
+  static ireplace(options, data) {
     // eslint-disable-next-line no-restricted-syntax
     for (const values in options) {
       data = data.replace(new RegExp(values, 'gi'), options[values]);
     }
     return data;
   }
-}
 
-export default validate;
+  /**
+   *
+   * @param {object} options
+   * @param {object} response
+   * @returns boolean
+   */
+  static userProfile(options, response) {
+    const { name, email, phone, role } = options;
+    if (!validator.isEmail(email || '<>') || !validator.isNumeric(phone || '<>') || !validate.isName(name || '<>') || !validator.isAlpha(role || 'user')) {
+      return responseController.response({
+        status: 422,
+        message: 'invalid credentials'
+      }, null, response);
+    }
+    return false;
+  }
+
+
+  /**
+   *
+   * @param {*} string
+   * @returns string
+   */
+  static toString(string) {
+    return (`${string}`);
+  }
+}
+module.exports = validate;
