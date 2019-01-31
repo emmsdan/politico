@@ -68,7 +68,7 @@ class validate {
   }
 
   /**
-   *
+   * validate Users Signup
    * @param {object} options
    * @param {object} response
    * @returns boolean
@@ -83,7 +83,6 @@ class validate {
     }
     return false;
   }
-
 
   /**
    *
