@@ -34,5 +34,14 @@ export default class Office {
   static async create(option) {
     return Database.insert(new Office().table, option);
   }
+
+  /**
+   * view all Offices in database
+   * @param {object} option
+   * @returns promise
+   */
+  static async viewAll() {
+    return Database.select(new Office().table);
+  }
 }
 Office.init();

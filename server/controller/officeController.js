@@ -9,7 +9,7 @@ import responseController from './responseController';
  */
 export default class officeController {
   /**
-   * @description view specific office.
+   * @description create an account for users.
    * @since v1.0.0
    * @param {object} request
    * @param {object} response
@@ -26,7 +26,6 @@ export default class officeController {
       }
       return Office.get(request.params.officeID)
         .then((resp) => {
-          console.log(resp)
           if (Array.isArray(resp)) {
             return responseController.response(null, {
               status: 200,
@@ -39,8 +38,7 @@ export default class officeController {
           }, null, response);
         })
         .catch((error) => {
-          console.log(error)
-          let errorResponse = `Error: ${error.message}`;
+          const errorResponse = `Error: ${error.message}`;
           return responseController.response({ status: 432, message: errorResponse }, null, response);
         });
     } catch (error) {
@@ -77,6 +75,35 @@ export default class officeController {
       .catch((error) => {
         let errorResponse = `Error: ${error.message}`;
         if (error.message.includes('name')) errorResponse = 'office already exist';
+        return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : '';
+      });
+  }
+
+  /**
+   * @description get all government offices
+   * @since v1.0.0
+   * @param {object} request
+   * @param {object} response
+   *
+   * @returns object
+   */
+  static getAll(request, response) {
+    return Office.viewAll()
+      .then((resp) => {
+        if (Array.isArray(resp)) {
+          return responseController.response(null, {
+            status: 200,
+            message: resp
+          }, response);
+        }
+        console.log (resp)
+        return responseController.response({
+          status: 404,
+          message: 'no political office in database'
+        }, null, response);
+      })
+      .catch((error) => {
+        let errorResponse = `Error: ${error.message}`;
         return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : '';
       });
   }
