@@ -26,6 +26,15 @@ class validate {
   }
 
   /**
+	 * @description check if string is digit
+	 * @param {string} string
+	 * @returns boolean
+	 */
+  static isInt(string) {
+    return (/^[0-9]+$/i.test(string));
+  }
+
+  /**
    * @description check if party exist
    * @param {string} name
    * @returns boolean
