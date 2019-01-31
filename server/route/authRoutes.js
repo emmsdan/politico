@@ -16,4 +16,12 @@ authRouter.post('/signup', jwtAuth.authenticationLoggedIn, (req, res) => {
   authController.register(req, res);
 });
 
+/**
+ * API: get user reset link
+ * @access :POST /api/v1/auth/reset
+ */
+authRouter.post('/reset', jwtAuth.authenticationLoggedIn, (req, res) => {
+  authController.setPasswordLink(req, res);
+});
+
 export default authRouter;
