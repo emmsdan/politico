@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs';
+import validator from 'validator';
 import jwtToken from '../middleware/jwt-authenitcate';
 import validator from 'validator';
 import validate from '../helper/validate';
@@ -37,13 +38,19 @@ export default class authController {
     const userid = `${new Date().getTime()}`;
     if (validate.userProfile(request.body, response)) return;
     const hashedPass = authController.hashPassword(password);
-    return User.register({ name, email, phone, password: hashedPass, role: role || 'user', userid })
+    return User.register({
+ name, email, phone, password: hashedPass, role: role || 'user', userid
+})
       .then((resp) => {
         const generatedToken = jwtToken.generateWithHeader({ email, role: role || 'user', userid }, response);
-        authController.sendMail({ name, email, phone, signup: 'true' });
-        return responseController.response(null, {
-          status: 201, message: { token: generatedToken, user: { email, phone, name, userid }, message: 'account created, an email as been sent containin your login details ' }
-        }, response);
+        authController.sendMail({
+ name, email, phone, signup: 'true'
+});
+        return responseController.response({
+          status: 201, message: { token: generatedToken, user: {
+ email, phone, name, userid
+}, message: 'account created, an email as been sent containin your login details ' }
+        }, null, response);
       })
       .catch((error) => {
         let errorResponse = `Error: ${error.message}`;
@@ -53,8 +60,9 @@ export default class authController {
       });
   }
 
+
   /**
-   * @description create an account for users.
+   * @description get reset password link users.
    * @since v1.0.0
    * @param {object} request
    * @param {object} response
@@ -103,7 +111,7 @@ export default class authController {
       <ul style="list-style: none">
         <li><strong>Email: ${email} </li>     <li><strong>Phone: ${phone} </li>
       </ui> ` : ''}`,
-      subject: signup ? 'Welcome to Politico: - Registration Succesful' : 'Reset your politico password'
+      subject: signup ? 'Welcome to Politico: - Registration Succesful' : options.subject || 'Reset your politico password'
     });
   }
 }

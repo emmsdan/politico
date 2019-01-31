@@ -17,6 +17,14 @@ authRouter.post('/signup', jwtAuth.authenticationLoggedIn, (req, res) => {
 });
 
 /**
+ * API: login user
+ * @access :POST /api/v1/auth/login
+ */
+authRouter.post('/login', jwtAuth.authenticationLoggedIn, (req, res) => {
+  authController.login(req, res);
+});
+
+/**
  * API: get user reset link
  * @access :POST /api/v1/auth/reset
  */
