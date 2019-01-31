@@ -63,6 +63,7 @@ export default class jwtAuthentication {
       exp: expires || Math.floor(Date.now() / 1000) + ((60 * 60) * 24 * 7), payload
     }, process.env.PrivateKey);
     response.cookie(process.env.TOKEN_NAME, token, { maxAge: 900000, httpOnly: true });
+    return token;
   }
 
   /**
@@ -89,8 +90,7 @@ export default class jwtAuthentication {
     response.setHeader('API-Author', 'Emmanuel Daniel. <@emmsdan>');
     response.setHeader('App-Client', 'Andela 21, (Jan 2019)');
     const token = jwtAuthentication.verify(request.cookies['x-token']);
-    console.log (request.route.path);
-    if ((!token && request.route.stack[0].method !== 'get') && (jwtAuthentication.verifyURL(request) && token.role !== 'admin')) {
+    if ((jwtAuthentication.verifyURL(request) && token.role !== 'admin')) {
       response.status(401)
         .json({ error: 'Unauthorized', status: 401 });
       response.end();
