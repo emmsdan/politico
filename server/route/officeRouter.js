@@ -7,13 +7,12 @@ const officeRouter = express.Router();
 officeRouter.use(urlencoded({ extended: true }));
 officeRouter.use(json());
 
-const office = new officeontroller();
 /**
  * API: create new government office
  * @access :POST /api/v1/offices
  */
-officeRouter.post('/', jwtAuth.authenticationLoggedIn, (req, res) => {
-  office.create(req, res);
+officeRouter.post('/', /* jwtAuth.authenticationLoggedIn, */ (req, res) => {
+  officeontroller.create(req, res);
 });
 
 /**
@@ -21,7 +20,7 @@ officeRouter.post('/', jwtAuth.authenticationLoggedIn, (req, res) => {
  * @access :GET /api/v1/offices/<office-id>
  */
 officeRouter.get('/:officeID', (req, res) => {
-  office.get(req, res);
+  officeontroller.get(req, res);
 });
 
 /**
@@ -29,7 +28,7 @@ officeRouter.get('/:officeID', (req, res) => {
  * @access :GET /api/v1/offices/
  */
 officeRouter.get('/', (req, res) => {
-  office.getAll(req, res);
+  officeontroller.getAll(req, res);
 });
 
 export default officeRouter;

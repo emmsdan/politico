@@ -1,4 +1,4 @@
-import Database from '../model/Database';
+import Database from './Database';
 
 /**
  * @description User Modal
@@ -24,8 +24,8 @@ export default class User {
       { name: 'password', type: 'text' },
       { name: 'role', type: 'string' }
     ])
-      .then((res)=> { console.log(res.command); })
-      .catch((error)=> { console.log(error.message); })
+      .then((res) => { console.log(res.command); })
+      .catch((error) => { console.log(error.message); });
   }
 
   /**

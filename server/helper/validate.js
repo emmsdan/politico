@@ -26,6 +26,15 @@ class validate {
   }
 
   /**
+	 * @description allow only number/digit
+	 * @param {string} string
+	 * @returns boolean
+	 */
+  static isInt(string) {
+    return (/^[0-9]+$/i.test(string));
+  }
+
+  /**
    * @description check if party exist
    * @param {string} name
    * @returns boolean
@@ -74,7 +83,9 @@ class validate {
    * @returns boolean
    */
   static userProfile(options, response) {
-    const { name, email, phone, role } = options;
+    const {
+      name, email, phone, role
+    } = options;
     if (!validator.isEmail(email || '<>') || !validator.isNumeric(phone || '<>') || !validate.isName(name || '<>') || !validator.isAlpha(role || 'user')) {
       return responseController.response({
         status: 422,
@@ -91,6 +102,24 @@ class validate {
    */
   static toString(string) {
     return (`${string}`);
+  }
+
+  /**
+   * @description check if string is url
+   * @originalAauthor Diogo Cardoso
+   *https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
+   * @edited Emmanuel Daniel <@emmsdan>, Made it es6 compactable.
+   * @param {string} str
+   * @returns boolean
+   */
+  static isURL(str) {
+    const pattern = new RegExp('^(https?:\\/\\/)?'
+  + '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'
+  + '((\\d{1,3}\\.){3}\\d{1,3}))'
+  + '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'
+  + '(\\?[;&a-z\\d%_.~+=-]*)?'
+  + '(\\#[-a-z\\d_]*)?$', 'i');
+    return pattern.test(str);
   }
 }
 module.exports = validate;
