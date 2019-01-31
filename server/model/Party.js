@@ -34,5 +34,14 @@ export default class Party {
   static async create(option) {
     return Database.insert(new Party().table, option);
   }
+
+  /**
+   * view all Offices in database
+   * @param {object} option
+   * @returns promise
+   */
+  static async viewAll() {
+    return Database.select(new Party().table);
+  }
 }
 Party.init();
