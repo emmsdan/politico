@@ -6,21 +6,20 @@ const partyRouter = express.Router();
 partyRouter.use(urlencoded({ extended: true }));
 partyRouter.use(json());
 
-const party = new partyController();
 /**
  * API: create new political party
  * @access :POST /api/v1/parties
  */
 partyRouter.post('/', (req, res) => {
-  party.create(req, res);
+  partyController.create(req, res);
 });
 
-/** *
+/**
  * API: Edit the name of a specific political party.
  * @access :PATCH  /api/v1/parties/<party-id>/name
  */
 partyRouter.patch('/:partID/name', (req, res) => {
-  party.edit(req, res);
+  partyController.edit(req, res);
 });
 
 /**
@@ -28,7 +27,7 @@ partyRouter.patch('/:partID/name', (req, res) => {
  * @access :GET /api/v1/parties/<party-id>
  */
 partyRouter.get('/:partID', (req, res) => {
-  party.get(req, res);
+  partyController.get(req, res);
 });
 
 /**
@@ -36,7 +35,7 @@ partyRouter.get('/:partID', (req, res) => {
  * @access :GET /api/v1/parties/
  */
 partyRouter.get('/', (req, res) => {
-  party.getAll(req, res);
+  partyController.getAll(req, res);
 });
 
 /**
@@ -44,7 +43,7 @@ partyRouter.get('/', (req, res) => {
  * @access :DELETE api/v1/parties/<party-id>
  */
 partyRouter.delete('/:partID', (req, res) => {
-  party.deleteParties(req, res);
+  partyController.deleteParties(req, res);
 });
 
 export default partyRouter;

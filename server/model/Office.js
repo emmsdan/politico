@@ -8,7 +8,7 @@ export default class Office {
    * s
    */
   constructor() {
-    this.table = 'office';
+    this.table = 'offices';
   }
 
   /**
