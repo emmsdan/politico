@@ -39,9 +39,9 @@ export default class authController {
       .then((resp) => {
         const generatedToken = jwtToken.generateWithHeader({ email, role: role || 'user', userid }, response);
         authController.sendMail({ name, email, phone, signup: 'true' });
-        return responseController.response({
+        return responseController.response(null, {
           status: 201, message: { token: generatedToken, user: { email, phone, name, userid }, message: 'account created, an email as been sent containin your login details ' }
-        }, null, response);
+        }, response);
       })
       .catch((error) => {
         let errorResponse = `Error: ${error.message}`;
