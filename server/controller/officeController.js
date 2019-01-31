@@ -1,5 +1,5 @@
 import validate from '../helper/validate';
-import Office from '../model/office';
+import Office from '../model/Office';
 import responseController from './responseController';
 
 /**
@@ -17,7 +17,7 @@ export default class officeController {
    * @returns object
    */
   static get(request, response) {
-    try{
+    try {
       if (!validate.isInt(request.params.officeID)) {
         return responseController.response({
           status: 404,
@@ -96,14 +96,13 @@ export default class officeController {
             message: resp
           }, response);
         }
-        console.log (resp)
         return responseController.response({
           status: 404,
           message: 'no political office in database'
         }, null, response);
       })
       .catch((error) => {
-        let errorResponse = `Error: ${error.message}`;
+        const errorResponse = `Error: ${error.message}`;
         return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : '';
       });
   }
