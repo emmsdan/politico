@@ -83,10 +83,6 @@ export default class authController {
     return User.login(options)
       .then((resp) => {
         if (!Array.isArray(resp) || resp[0].password !== hashedPass) {
-          authController.sendMail({
-            name: resp[0].name, email: resp[0].email, message: `Someone attemted to login to your account on: <small style="color: orange"> ${new Date().toDateString()} by ${new Date().toTimeString()}</small>`,
-            subject: 'Attemped Login'
-          });
           throw Error('username/password combination does not match');
         }
         const generatedToken = jwtToken.generateWithHeader({ email: resp[0].email, role: resp[0].role || 'user', userid: resp[0].userid }, response);
