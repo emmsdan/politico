@@ -21,7 +21,7 @@ export default class officeController {
       .then((resp) => {
         if (Array.isArray(resp)) {
           return responseController.response(null, {
-            status: 201,
+            status: 200,
             message: resp
           }, response);
         }
