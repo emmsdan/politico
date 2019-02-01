@@ -24,7 +24,9 @@ export default class partyController {
       }, null, response);
     }
     const partyid = new Date().getTime();
-    const fields = { partyid, name, hqAddress, logoUrl };
+    const fields = {
+ partyid, name, hqAddress, logoUrl 
+};
     return Party.create(fields)
       .then((resp) => {
         if (resp.rowCount > 0) {
@@ -107,5 +109,48 @@ export default class partyController {
     }
   }
 
-
+  /**
+   * @description rename specific office.
+   * @since v1.0.0
+   * @param {object} request
+   * @param {object} response
+   *
+   * @returns object
+   */
+  static edit(request, response) {
+    try {
+      if (!validate.isInt(request.params.partyID)) {
+        return responseController.response({
+          status: 404,
+          message: 'please provide a valid political party id'
+        }, null, response);
+      }
+      if (!validate.isName(request.body.name)) {
+        return responseController.response({
+          status: 422,
+          message: 'invalid credencials. specify new name'
+        }, null, response);
+      }
+      return Party.edit(request.body.name, request.params.partyID)
+        .then((resp) => {
+          if (resp === 'updated') {
+            return responseController.response(null, {
+              status: 200,
+              message: { partyid: request.params.partyID, name: request.body.name }
+            }, response);
+          }
+          return responseController.response({
+            status: 404,
+            message: 'no registered political party with such ID'
+          }, null, response);
+        })
+        .catch((error) => {
+          let errorResponse = `Error: ${error.message}`;
+          if (error.message.includes('name')) errorResponse = 'A Party with this name already exist';
+          return responseController.response({ status: 432, message: errorResponse }, null, response);
+        });
+    } catch (error) {
+      responseController.response({ status: 432, message: error.message }, null, response);
+    }
+  }
 }

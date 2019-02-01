@@ -36,8 +36,7 @@ export default class Party {
   }
 
   /**
-   * view all Offices in database
-   * @param {object} option
+   * view all Partys in database
    * @returns promise
    */
   static async viewAll() {
@@ -45,12 +44,22 @@ export default class Party {
   }
 
   /**
-   * view specific Office in database
-   * @param {object} option
+   * view specific Party in database
+   * @param {object} partyid
    * @returns promise
    */
   static async get(partyid) {
     return Database.find(new Party().table, { partyid });
+  }
+
+  /**
+   * view edit specific Party in database
+   * @param {object} name
+   * @param {object} partyid
+   * @returns promise
+   */
+  static async edit(name, partyid) {
+    return Database.update(new Party().table, { name }, { partyid });
   }
 }
 Party.init();
