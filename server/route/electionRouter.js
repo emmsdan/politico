@@ -24,11 +24,11 @@ electionRouter.post('/office/:userID/register', (req, res) => {
 });
 
 /**
- * API: Fetch all government offices records.
+ * API: vote candidate
  * @access :GET /api/v1/offices/
  */
-electionRouter.get('/', (req, res) => {
-  electionController.getAll(req, res);
+electionRouter.post('/vote', (req, res) => {
+  electionController.vote(req, res);
 });
 
 export default electionRouter;
