@@ -20,10 +20,28 @@ export default class electionController {
     const {
       userid, officeid, comment, evidenceUrl
     } = request.body;
-    if (!validate.isInt(userid) || !validate.isInt(officeid) || !validate.isAddress(comment) || !validate.isURL(evidenceUrl)) {
+    if (!validate.isInt(userid)) {
       return responseController.response({
         status: 422,
-        message: 'invalid credencials. all fields are needed'
+        message: 'empty or incorrect user id'
+      }, null, response);
+    }
+    if (!validate.isInt(officeid)) {
+      return responseController.response({
+        status: 400,
+        message: 'empty or incorrect office id'
+      }, null, response);
+    }
+    if (!validate.isAddress(comment)) {
+      return responseController.response({
+        status: 422,
+        message: 'empty or incorrect body format'
+      }, null, response);
+    }
+    if (!validate.isURL(evidenceUrl)) {
+      return responseController.response({
+        status: 400,
+        message: 'empty or incorrect url format.'
       }, null, response);
     }
     const petitionid = new Date().getTime();
@@ -55,10 +73,22 @@ export default class electionController {
   */
   static registerCandidate(request, response) {
     const { userid, officeid, partyid } = request.body;
-    if (!validate.isInt(userid) || !validate.isInt(officeid) || !validate.isInt(partyid)) {
+    if (!validate.isInt(userid)) {
       return responseController.response({
-        status: 422,
-        message: 'invalid credencials. all fields are needed'
+        status: 400,
+        message: 'empty or incorrect user id format'
+      }, null, response);
+    }
+    if (!validate.isInt(officeid)) {
+      return responseController.response({
+        status: 400,
+        message: 'empty or incorrect office id format'
+      }, null, response);
+    }
+    if (!validate.isInt(partyid)) {
+      return responseController.response({
+        status: 400,
+        message: 'empty or incorrect party id format'
       }, null, response);
     }
     const fields = { candidateid: userid, partyid, officeid };
@@ -75,7 +105,7 @@ export default class electionController {
         let errorResponse = `Error: ${error.message}`;
         if (error.message.includes('userid')) errorResponse = ' user id';
         if (error.message.includes('officeid')) errorResponse = ' office id';
-        if (error.message.includes('partyid')) errorResponse = ' party id';
+        if (error.message.includes('partyid')) errorResponse += ' party id';
         if (error.message.includes('violates foreign')) errorResponse += 'does not exist';
 
         if (error.message.includes('violates unique')) errorResponse = 'already exist';
@@ -94,8 +124,8 @@ export default class electionController {
     const { voter, office, candidate } = request.body;
     if (!validate.isInt(voter) || !validate.isInt(office)) {
       return responseController.response({
-        status: 422,
-        message: 'invalid credencials'
+        status: 400,
+        message: 'empty or incorrect voter id or office id format'
       }, null, response);
     }
     return Database.find('votes', {
@@ -131,10 +161,15 @@ export default class electionController {
    * @return promise;
    */
   static getElectionResult(request, response) {
-    return Election.electionResult().then(resp => responseController.response(null, {
-      status: 200,
-      message: resp
-    }, response));
+    return Election.electionResult()
+      .then(resp => responseController.response(null, {
+        status: 200,
+        message: resp
+      }, response))
+      .catch(error => responseController.response({
+        status: 404,
+        message: error
+      }, null, response));
   }
 
   /**
@@ -147,13 +182,18 @@ export default class electionController {
     if (!validate.isInt(request.params.officeId)) {
       return responseController.response({
         status: 422,
-        message: 'invalid office id.'
+        message: 'incorrect office id format'
       }, null, response);
     }
-    return Election.officeResult(request.params.officeId).then(resp => responseController.response(null, {
-      status: 200,
-      message: resp
-    }, response));
+    return Election.officeResult(request.params.officeId)
+      .then(resp => responseController.response(null, {
+        status: 200,
+        message: resp
+      }, response))
+      .catch(error => responseController.response({
+        status: 404,
+        message: error
+      }, null, response));
   }
 
   /**
@@ -163,9 +203,14 @@ export default class electionController {
   * @return promise;
   */
   static getCandidates(request, response) {
-   return Election.viewCandidates().then(resp =>  responseController.response(null, {
-     status: 200,
-     message: resp
-   }, response));
+    return Election.viewCandidates()
+      .then(resp => responseController.response(null, {
+        status: 200,
+        message: resp
+      }, response))
+      .catch(error => responseController.response({
+        status: 404,
+        message: error
+      }, null, response));
   }
 }

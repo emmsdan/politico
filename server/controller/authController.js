@@ -5,7 +5,6 @@ import validate from '../helper/validate';
 import User from '../model/User';
 import emailController from './emailController';
 import responseController from './responseController';
-import { NONAME } from 'dns';
 
 /**
  * @author Emmanuel Daniel <@emmsdan>
@@ -38,17 +37,22 @@ export default class authController {
     if (validate.userProfile(request.body, response)) return;
     const hashedPass = authController.hashPassword(password);
     return User.register({
- name, email, phone, password: hashedPass, role: role || 'user', userid
-})
+      name, email, phone, password: hashedPass, role: role || 'user', userid
+    })
       .then((resp) => {
         const generatedToken = jwtToken.generateWithHeader({ email, role: role || 'user', userid }, response);
         authController.sendMail({
- name, email, phone, signup: 'true'
-});
+          name, email, phone, signup: 'true', resp
+        });
         return responseController.response({
-          status: 201, message: { token: generatedToken, user: {
- email, phone, name, userid
-}, message: 'account created, an email as been sent containin your login details ' }
+          status: 201,
+          message: {
+            token: generatedToken,
+            user: {
+              email, phone, name, userid
+            },
+            message: 'account created, an email as been sent containin your login details '
+          }
         }, null, response);
       })
       .catch((error) => {
@@ -80,9 +84,11 @@ export default class authController {
         if (!Array.isArray(resp)) {
           throw Error('no user with such email');
         }
-        authController.sendMail({ name: resp[0].name, email: resp[0].email, type: 'reset', message: 'Use the link below to reset password', resetURL: bcrypt.hashSync(new Date().toLocaleDateString(), 2) });
+        authController.sendMail({
+          name: resp[0].name, email: resp[0].email, type: 'reset', message: 'Use the link below to reset password', resetURL: bcrypt.hashSync(new Date().toLocaleDateString(), 2)
+        });
         return responseController.response(null, {
-          status: 200, message: 'check email for password reset link'
+          status: 200, message: 'check your email for password reset link'
         }, response);
       })
       .catch((error) => {
@@ -90,7 +96,6 @@ export default class authController {
         return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : 'other errors';
       });
   }
-
 
   /**
    * @description users can login to account.
@@ -104,8 +109,8 @@ export default class authController {
     const { username, password } = request.body;
     if (!validator.isEmail(username || '<>') && !validator.isNumeric(username || '<>')) {
       return responseController.response({
-        status: 422,
-        message: 'invalid credentials, specify an email or phone number'
+        status: 400,
+        message: 'no email or phone number.'
       }, null, response);
     }
     const hashedPass = authController.hashPassword(password);
@@ -117,7 +122,7 @@ export default class authController {
     return User.login(options)
       .then((resp) => {
         if (!Array.isArray(resp) || resp[0].password !== hashedPass) {
-          throw Error('username/password combination does not match');
+          throw Error('username and password combination does not match');
         }
         const generatedToken = jwtToken.generateWithHeader({ email: resp[0].email, role: resp[0].role || 'user', userid: resp[0].userid }, response);
         return responseController.response(null, {
@@ -127,12 +132,39 @@ export default class authController {
             user: {
               email: resp[0].email, phone: resp[0].phone, name: resp[0].name, userid: resp[0].userid
             },
-            message: 'logged in successfully' }
+            message: 'logged in successfully'
+          }
         }, response);
       })
       .catch((error) => {
-        let errorResponse = `Error: ${error.message}`;
+        const errorResponse = `Error: ${error.message}`;
         return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : 'other errors';
+      });
+  }
+
+  /**
+   *
+   * @param {*} request
+   * @param {*} response
+   * @return promise
+   */
+  static getUsers(request, response) {
+    return User.getAll()
+      .then((resp) => {
+        if (Array.isArray(resp)) {
+          return responseController.response(null, {
+            status: 200,
+            message: resp
+          }, response);
+        }
+        return responseController.response({
+          status: 404,
+          message: 'no registered user found'
+        }, null, response);
+      })
+      .catch((error) => {
+        const errorResponse = `Error: ${error.message}`;
+        return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : '';
       });
   }
 

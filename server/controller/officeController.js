@@ -20,8 +20,8 @@ export default class officeController {
     try {
       if (!validate.isInt(request.params.officeID)) {
         return responseController.response({
-          status: 404,
-          message: 'please provide a valid political office id'
+          status: 400,
+          message: 'incorrect office id format'
         }, null, response);
       }
       return Office.get(request.params.officeID)
@@ -39,7 +39,10 @@ export default class officeController {
         })
         .catch((error) => {
           const errorResponse = `Error: ${error.message}`;
-          return responseController.response({ status: 432, message: errorResponse }, null, response);
+          return responseController.response({
+            status: 432,
+            message: errorResponse
+          }, null, response);
         });
     } catch (error) {
       responseController.response({ status: 432, message: error.message }, null, response);
@@ -55,14 +58,28 @@ export default class officeController {
   */
   static create(request, response) {
     const { type, name, logoUrl } = request.body;
-    if (!validate.isName(name) || !validate.isName(type) || !validate.isURL(logoUrl)) {
+    if (!validate.isName(name)) {
       return responseController.response({
-        status: 422,
-        message: 'invalid credencials. all fields are needed'
+        status: 400,
+        message: 'incorrect name format'
+      }, null, response);
+    }
+    if (!validate.isName(type)) {
+      return responseController.response({
+        status: 400,
+        message: 'incorrect office type format'
+      }, null, response);
+    }
+    if (!validate.isURL(logoUrl)) {
+      return responseController.response({
+        status: 400,
+        message: 'incorrect logo url format'
       }, null, response);
     }
     const officeid = new Date().getTime();
-    const fields = { officeid, name, type, logoUrl };
+    const fields = {
+      officeid, name, type, logoUrl
+    };
     return Office.create(fields)
       .then((resp) => {
         if (resp.rowCount > 0) {
@@ -75,7 +92,7 @@ export default class officeController {
       .catch((error) => {
         let errorResponse = `Error: ${error.message}`;
         if (error.message.includes('name')) errorResponse = 'office already exist';
-        return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : '';
+        return errorResponse ? responseController.response({ status: 400, message: errorResponse }, null, response) : '';
       });
   }
 
@@ -103,7 +120,7 @@ export default class officeController {
       })
       .catch((error) => {
         const errorResponse = `Error: ${error.message}`;
-        return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : '';
+        return errorResponse ? responseController.response({ status: 400, message: errorResponse }, null, response) : '';
       });
   }
 }

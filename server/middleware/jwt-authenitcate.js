@@ -129,9 +129,8 @@ export default class jwtAuthentication {
    * @param {*} next
    */
   static checkisAdmin(type, token, request, response, next) {
-    console.log (token, token.role !== type, jwtAuthentication.verifyURL(request));
     jwtAuthentication.setHeaders(response);
-    if ((jwtAuthentication.verifyURL(request) &&  token.role !== type) || !token) {
+    if ((jwtAuthentication.verifyURL(request) && token.role !== type) || !token) {
       response.status(401)
         .json({ error: 'Unauthorized', status: 401 });
       response.end();

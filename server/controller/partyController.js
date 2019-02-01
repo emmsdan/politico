@@ -67,7 +67,7 @@ export default class partyController {
       })
       .catch((error) => {
         const errorResponse = `Error: ${error.message}`;
-        return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : '';
+        return errorResponse ? responseController.response({ status: 400, message: errorResponse }, null, response) : '';
       });
   }
 
@@ -83,8 +83,8 @@ export default class partyController {
     try {
       if (!validate.isInt(request.params.partyID)) {
         return responseController.response({
-          status: 422,
-          message: 'please provide a valid political party id'
+          status: 400,
+          message: 'incorrect party id format'
         }, null, response);
       }
       return Party.get(request.params.partyID)
@@ -102,7 +102,10 @@ export default class partyController {
         })
         .catch((error) => {
           const errorResponse = `Error: ${error.message}`;
-          return responseController.response({ status: 432, message: errorResponse }, null, response);
+          return responseController.response({
+            status: 400,
+            message: errorResponse
+          }, null, response);
         });
     } catch (error) {
       responseController.response({ status: 432, message: error.message }, null, response);
@@ -121,14 +124,14 @@ export default class partyController {
     try {
       if (!validate.isInt(request.params.partyID)) {
         return responseController.response({
-          status: 422,
-          message: 'please provide a valid political party id'
+          status: 400,
+          message: 'incorrect party id'
         }, null, response);
       }
       if (!validate.isName(request.body.name)) {
         return responseController.response({
-          status: 422,
-          message: 'invalid credencials. specify new name'
+          status: 400,
+          message: 'incorrect name format'
         }, null, response);
       }
       return Party.edit(request.body.name, request.params.partyID)
@@ -147,15 +150,18 @@ export default class partyController {
         .catch((error) => {
           let errorResponse = `Error: ${error.message}`;
           if (error.message.includes('name')) errorResponse = 'A Party with this name already exist';
-          return responseController.response({ status: 432, message: errorResponse }, null, response);
+          return responseController.response({
+            status: 412,
+            message: errorResponse
+          }, null, response);
         });
     } catch (error) {
-      responseController.response({ status: 432, message: error.message }, null, response);
+      responseController.response({ status: 400, message: error.message }, null, response);
     }
   }
 
   /**
-   * @description rename specific office.
+   * @description delete specific parties.
    * @since v1.0.0
    * @param {object} request
    * @param {object} response
@@ -166,8 +172,8 @@ export default class partyController {
     try {
       if (!validate.isInt(request.params.partyID)) {
         return responseController.response({
-          status: 422,
-          message: 'please provide a valid political party id'
+          status: 400,
+          message: 'incorrect party id format'
         }, null, response);
       }
       return Party.delete(request.params.partyID)
