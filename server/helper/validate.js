@@ -83,7 +83,9 @@ class validate {
    * @returns boolean
    */
   static userProfile(options, response) {
-    const { name, email, phone } = options;
+    const {
+      name, email, phone, password
+    } = options;
     if (!validator.isEmail(email || '<>')) {
       return responseController.response({
         status: 400,
@@ -100,6 +102,12 @@ class validate {
       return responseController.response({
         status: 400,
         message: 'empty or incorrect name'
+      }, null, response);
+    }
+    if (!validator.isEmpty(password)) {
+      return responseController.response({
+        status: 400,
+        message: 'password should not be less than 8 characters'
       }, null, response);
     }
     return false;

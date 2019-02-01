@@ -44,7 +44,7 @@ export default class authController {
         authController.sendMail({
           name, email, phone, signup: 'true', resp
         });
-        return responseController.response({
+        return responseController.response(null, {
           status: 201,
           message: {
             token: generatedToken,
@@ -53,13 +53,13 @@ export default class authController {
             },
             message: 'account created, an email as been sent containin your login details '
           }
-        }, null, response);
+        }, response);
       })
       .catch((error) => {
         let errorResponse = `Error: ${error.message}`;
         if (error.message.includes('email')) errorResponse = 'email already exist';
         if (error.message.includes('phone')) errorResponse = 'phone already exist';
-        return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : 'other errors';
+        return errorResponse ? responseController.response({ status: 400, message: errorResponse }, null, response) : 'other errors';
       });
   }
 
@@ -93,7 +93,7 @@ export default class authController {
       })
       .catch((error) => {
         const errorResponse = `Error: ${error.message}`;
-        return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : 'other errors';
+        return errorResponse ? responseController.response({ status: 400, message: errorResponse }, null, response) : 'other errors';
       });
   }
 
@@ -138,7 +138,7 @@ export default class authController {
       })
       .catch((error) => {
         const errorResponse = `Error: ${error.message}`;
-        return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : 'other errors';
+        return errorResponse ? responseController.response({ status: 400, message: errorResponse }, null, response) : 'other errors';
       });
   }
 
@@ -164,7 +164,7 @@ export default class authController {
       })
       .catch((error) => {
         const errorResponse = `Error: ${error.message}`;
-        return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : '';
+        return errorResponse ? responseController.response({ status: 400, message: errorResponse }, null, response) : '';
       });
   }
 
