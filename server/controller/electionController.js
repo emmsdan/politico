@@ -18,8 +18,8 @@ export default class electionController {
   */
   static filePetition(request, response) {
     const {
- userid, officeid, comment, evidenceUrl
-} = request.body;
+      userid, officeid, comment, evidenceUrl
+    } = request.body;
     if (!validate.isInt(userid) || !validate.isInt(officeid) || !validate.isAddress(comment) || !validate.isURL(evidenceUrl)) {
       return responseController.response({
         status: 422,
@@ -28,8 +28,8 @@ export default class electionController {
     }
     const petitionid = new Date().getTime();
     const fields = {
- petitionid, createdBy: userid, officeid, body: comment, evidence: evidenceUrl
-};
+      petitionid, createdBy: userid, officeid, body: comment, evidence: evidenceUrl
+    };
     return Election.createPetition(fields)
       .then((resp) => {
         if (resp.rowCount > 0) {
@@ -122,5 +122,50 @@ export default class electionController {
       const errorResponse = `Error: ${error.message}`;
       return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : '';
     });
+  }
+
+  /**
+   *
+   * @param {*} request
+   * @param {*} response
+   * @return promise;
+   */
+  static getElectionResult(request, response) {
+    return Election.electionResult().then(resp => responseController.response(null, {
+      status: 200,
+      message: resp
+    }, response));
+  }
+
+  /**
+   *
+   * @param {*} request
+   * @param {*} response
+   * @return promise;
+   */
+  static getOfficeResult(request, response) {
+    if (!validate.isInt(request.params.officeId)) {
+      return responseController.response({
+        status: 422,
+        message: 'invalid office id.'
+      }, null, response);
+    }
+    return Election.officeResult(request.params.officeId).then(resp => responseController.response(null, {
+      status: 200,
+      message: resp
+    }, response));
+  }
+
+  /**
+  *
+  * @param {*} request
+  * @param {*} response
+  * @return promise;
+  */
+  static getCandidates(request, response) {
+   return Election.viewCandidates().then(resp =>  responseController.response(null, {
+     status: 200,
+     message: resp
+   }, response));
   }
 }

@@ -25,10 +25,33 @@ electionRouter.post('/office/:userID/register', (req, res) => {
 
 /**
  * API: vote candidate
- * @access :GET /api/v1/offices/
+ * @access :POST /api/v1/vote/
  */
 electionRouter.post('/vote', (req, res) => {
   electionController.vote(req, res);
 });
 
+/**
+ * API: view all candidate
+ * @access :GET /api/v1/candidate
+ */
+electionRouter.get('/candidate', (req, res) => {
+  electionController.getCandidates(req, res);
+});
+
+/**
+ * API: view all election results
+ * @access :GET /api/v1/office/result
+ */
+electionRouter.get('/office/result', (req, res) => {
+  electionController.getElectionResult(req, res);
+});
+
+/**
+ * API: view election results of an office
+ * @access :GET /api/v1/office/<office-id>/result
+ */
+electionRouter.get('/office/:officeId/result', (req, res) => {
+  electionController.getOfficeResult(req, res);
+});
 export default electionRouter;

@@ -59,6 +59,14 @@ export default class Election {
   }
 
   /**
+   * register a user as a candidate
+   * @param {object} option
+   * @returns promise
+   */
+  static async viewCandidates() {
+    return Database.select(new Election().table.candidate);
+  }
+  /**
    * view all petitions
    * @returns promise
    */
@@ -73,6 +81,23 @@ export default class Election {
    */
   static async getPetition(petitionid) {
     return Database.find(new Election().table.petition, { petitionid });
+  }
+
+  /**
+   * view all election result
+   * @returns promise
+   */
+  static async electionResult() {
+    return Database.select(new Election().table.vote);
+  }
+
+  /**
+   * view specific office results
+   * @param {object} office
+   * @returns promise
+   */
+  static async officeResult(office) {
+    return Database.find(new Election().table.vote, { office });
   }
 }
 Election.init();
