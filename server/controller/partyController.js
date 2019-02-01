@@ -68,4 +68,44 @@ export default class partyController {
         return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : '';
       });
   }
+
+  /**
+   * @description view specific office.
+   * @since v1.0.0
+   * @param {object} request
+   * @param {object} response
+   *
+   * @returns object
+   */
+  static get(request, response) {
+    try {
+      if (!validate.isInt(request.params.partyID)) {
+        return responseController.response({
+          status: 404,
+          message: 'please provide a valid political party id'
+        }, null, response);
+      }
+      return Party.get(request.params.partyID)
+        .then((resp) => {
+          if (Array.isArray(resp)) {
+            return responseController.response(null, {
+              status: 200,
+              message: resp
+            }, response);
+          }
+          return responseController.response({
+            status: 404,
+            message: 'no registered political party with such ID'
+          }, null, response);
+        })
+        .catch((error) => {
+          const errorResponse = `Error: ${error.message}`;
+          return responseController.response({ status: 432, message: errorResponse }, null, response);
+        });
+    } catch (error) {
+      responseController.response({ status: 432, message: error.message }, null, response);
+    }
+  }
+
+
 }
