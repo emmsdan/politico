@@ -23,14 +23,14 @@ export default class jwtAuthentication {
    * @returns boolean
    */
   static verifyURL(request) {
-    const { path, stack } = request.route;
+    const { stack } = request.route;
     if (stack[0].method !== 'get') {
-      let page = '';
-      for (page of jwtAuthentication.strictedPage()) {
-        let paths = path.split('/').find((p) => {
-           return p === page
-        });
-        if (paths) return true;
+      let pages = null;
+      jwtAuthentication.strictedPage().forEach((page) => {
+        pages = (request.originalUrl.split('/').includes(page)) ? page : null;
+      });
+      if (pages !== null) {
+        return true;
       }
     }
     return false;
@@ -71,6 +71,20 @@ export default class jwtAuthentication {
    * @param {object/string} token
    * @returns string;
    */
+  static decode(token) {
+    try {
+      if (!token) return false;
+      return jwt.decode(token.toString(), process.env.PrivateKey);
+    } catch (err) {
+      return false;
+    }
+  }
+
+  /**
+   * @description decode generated authentication token
+   * @param {object/string} token
+   * @returns string;
+   */
   static verify(token) {
     try {
       if (!token) return false;
@@ -85,17 +99,52 @@ export default class jwtAuthentication {
    * @param {object} request
    * @param {object} response
    * @param {object} next
+   * @param {object} type
+   * @return {object} object
    */
   static authenticationLoggedIn(request, response, next) {
-    response.setHeader('API-Author', 'Emmanuel Daniel. <@emmsdan>');
-    response.setHeader('App-Client', 'Andela 21, (Jan 2019)');
-    const token = jwtAuthentication.verify(request.cookies['x-token']);
-    if ((jwtAuthentication.verifyURL(request) && token.role !== 'admin')) {
+    const token = jwtAuthentication.decode(request.cookies[process.env.TOKEN_NAME]);
+    return jwtAuthentication.checkisAdmin('user', token, request, response, next);
+  }
+
+  /**
+   * @description authenticate all urls
+   * @param {object} request
+   * @param {object} response
+   * @param {object} next
+   * @param {object} type
+   * @return {object} object
+   */
+  static authenticationLoggedAdmin(request, response, next) {
+    const token = jwtAuthentication.decode(request.cookies[process.env.TOKEN_NAME]);
+    return jwtAuthentication.checkisAdmin('admin', token, request, response, next);
+  }
+
+  /**
+   *
+   * @param {*} type
+   * @param {*} token
+   * @param {*} request
+   * @param {*} response
+   * @param {*} next
+   */
+  static checkisAdmin(type, token, request, response, next) {
+    console.log (token, token.role !== type, jwtAuthentication.verifyURL(request));
+    jwtAuthentication.setHeaders(response);
+    if ((jwtAuthentication.verifyURL(request) &&  token.role !== type) || !token) {
       response.status(401)
         .json({ error: 'Unauthorized', status: 401 });
       response.end();
       return;
     }
     next();
+  }
+
+  /**
+   *
+   */
+  static setHeaders(response) {
+    response.setHeader('API-Author', 'Emmanuel Daniel. <@emmsdan>');
+    response.setHeader('App-Client', 'Andela 21, (Jan 2019)');
   }
 }

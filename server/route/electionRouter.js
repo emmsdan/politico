@@ -2,16 +2,25 @@ import express from 'express';
 import { urlencoded, json } from 'body-parser';
 import jwtAuth from '../middleware/jwt-authenitcate';
 import electionController from '../controller/electionController';
+import authController from '../controller/authController';
 
 const electionRouter = express.Router();
 electionRouter.use(urlencoded({ extended: true }));
 electionRouter.use(json());
 
 /**
+ * API: get all users
+ * @access :GET /api/v1/users
+ */
+electionRouter.get('/users', jwtAuth.authenticationLoggedAdmin, (req, res) => {
+  authController.getUsers(req, res);
+});
+
+/**
  * API: file new petition
  * @access :POST /api/v1/petition
  */
-electionRouter.post('/petition/', /* jwtAuth.authenticationLoggedIn, */ (req, res) => {
+electionRouter.post('/petition/', jwtAuth.authenticationLoggedIn, (req, res) => {
   electionController.filePetition(req, res);
 });
 
@@ -19,7 +28,7 @@ electionRouter.post('/petition/', /* jwtAuth.authenticationLoggedIn, */ (req, re
  * API: register a candidate for election
  * @access :GET /api/v1/office/<user-id>/register
  */
-electionRouter.post('/office/:userID/register', (req, res) => {
+electionRouter.post('/office/:userID/register', jwtAuth.authenticationLoggedIn, (req, res) => {
   electionController.registerCandidate(req, res);
 });
 
@@ -27,7 +36,7 @@ electionRouter.post('/office/:userID/register', (req, res) => {
  * API: vote candidate
  * @access :POST /api/v1/vote/
  */
-electionRouter.post('/vote', (req, res) => {
+electionRouter.post('/vote', jwtAuth.authenticationLoggedIn, (req, res) => {
   electionController.vote(req, res);
 });
 
