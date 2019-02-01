@@ -5,6 +5,7 @@ import { urlencoded, json } from 'body-parser';
 
 import authRouter from './server/route/authRouter';
 import officeRouter from './server/route/officeRouter';
+import partyRouter from './server/route/partyRouter';
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use(json());
  */
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/offices', officeRouter);
+app.use('/api/v1/parties', partyRouter);
 
 app.get(['/', '/api/', '/api/v1/', '/api/v2/'], (req, res) => {
   res.send('Official App for Politico API');

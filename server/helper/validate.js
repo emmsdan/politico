@@ -13,7 +13,7 @@ class validate {
 	 * @returns boolean
 	 */
   static isAddress(address) {
-    return (/^[a-zAZ0-9,.-\s]+$/i.test(address));
+    return address ? (/^[a-zAZ0-9,.-\s]+$/i.test(address)) : false;
   }
 
   /**
@@ -22,7 +22,7 @@ class validate {
 	 * @returns boolean
 	 */
   static isName(name) {
-    return (/^[A-Za-z\s]+$/.test(name));
+    return name ? (/^[A-Za-z\s]+$/.test(name)) : false;
   }
 
   /**
@@ -31,7 +31,7 @@ class validate {
 	 * @returns boolean
 	 */
   static isInt(string) {
-    return (/^[0-9]+$/i.test(string));
+    return string ? (/^[0-9]+$/i.test(string)) : false;
   }
 
   /**
