@@ -190,7 +190,7 @@ export default class Database {
     const res = await db.query(sql);
     await db.end();
     if (res.rowCount < 1) return 'not found';
-    return 'deleted';
+    return 'updated';
   }
 
   /**
