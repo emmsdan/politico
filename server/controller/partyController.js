@@ -40,4 +40,32 @@ export default class partyController {
         return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : '';
       });
   }
+
+  /**
+   * @description get all government offices
+   * @since v1.0.0
+   * @param {object} request
+   * @param {object} response
+   *
+   * @returns object
+   */
+  static getAll(request, response) {
+    return Party.viewAll()
+      .then((resp) => {
+        if (Array.isArray(resp)) {
+          return responseController.response(null, {
+            status: 200,
+            message: resp
+          }, response);
+        }
+        return responseController.response({
+          status: 404,
+          message: 'no political office in database'
+        }, null, response);
+      })
+      .catch((error) => {
+        const errorResponse = `Error: ${error.message}`;
+        return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : '';
+      });
+  }
 }
