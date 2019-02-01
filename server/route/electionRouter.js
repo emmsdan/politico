@@ -16,11 +16,11 @@ electionRouter.post('/petition/', /* jwtAuth.authenticationLoggedIn, */ (req, re
 });
 
 /**
- * API: Fetch a specific government office record
- * @access :GET /api/v1/offices/<office-id>
+ * API: register a candidate for election
+ * @access :GET /api/v1/office/<user-id>/register
  */
-electionRouter.get('/:officeID', (req, res) => {
-  electionController.get(req, res);
+electionRouter.post('/office/:userID/register', (req, res) => {
+  electionController.registerCandidate(req, res);
 });
 
 /**
