@@ -21,7 +21,7 @@ export default class Election {
    */
   static init() {
     Database.rawSql(`
-    CREATE TABLE IF NOT EXISTS ${new Election().table.candidate} (id SERIAL, candidateid numeric, officeid Numeric REFERENCES offices(officeid), party Numeric REFERENCES parties(partyid), createdOn timestamp not null default CURRENT_TIMESTAMP, updatedOn timestamp not null default CURRENT_TIMESTAMP, PRIMARY KEY(candidateid));
+    CREATE TABLE IF NOT EXISTS ${new Election().table.candidate} (id SERIAL, candidateid numeric, officeid Numeric REFERENCES offices(officeid), partyid Numeric REFERENCES parties(partyid), createdOn timestamp not null default CURRENT_TIMESTAMP, updatedOn timestamp not null default CURRENT_TIMESTAMP, PRIMARY KEY(candidateid));
     CREATE TABLE IF NOT EXISTS ${new Election().table.vote} (id SERIAL, voteid numeric,office Numeric REFERENCES offices(officeid), party Numeric REFERENCES parties(partyid), createdOn timestamp not null default CURRENT_TIMESTAMP, updatedOn timestamp not null default CURRENT_TIMESTAMP, PRIMARY KEY(voteid));
 
     CREATE TABLE IF NOT EXISTS ${new Election().table.petition} (id SERIAL, petitionid Numeric, createdBy Numeric, officeid Numeric REFERENCES offices(officeid), title VARCHAR, body TEXT,evidence VARCHAR, createdOn timestamp not null default CURRENT_TIMESTAMP, updatedOn timestamp not null default CURRENT_TIMESTAMP, PRIMARY KEY(petitionid));`)
@@ -36,6 +36,16 @@ export default class Election {
    */
   static async createPetition(option) {
     return Database.insert(new Election().table.petition, option);
+  }
+
+
+  /**
+   * register a user as a candidate
+   * @param {object} option
+   * @returns promise
+   */
+  static async newCandidate(option) {
+    return Database.insert(new Election().table.candidate, option);
   }
 
   /**
