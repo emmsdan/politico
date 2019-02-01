@@ -91,7 +91,7 @@ export default class electionController {
     * @returns promise
     */
   static vote(request, response) {
-    const { voter, office } = request.body;
+    const { voter, office, candidate } = request.body;
     if (!validate.isInt(voter) || !validate.isInt(office)) {
       return responseController.response({
         status: 422,
@@ -102,17 +102,18 @@ export default class electionController {
       voter, office
     }).then((resp) => {
       if (!Array.isArray(resp)) {
-        return Election.newVote({ voter, office })
+        return Election.newVote({ voter, office, candidate })
           .then((res) => {
             if (res.rowCount > 0) {
               responseController.response(null, {
                 status: 201,
-                message: { voter, office }
+                message: { voter, office, candidate }
               }, response);
             }
           })
           .catch((error) => {
-            const errorResponse = `Error: ${error.message}`;
+            let errorResponse = `Error: ${error.message}`;
+            if (error.message.includes('violates foreign key')) errorResponse = 'office/candidate id does not exist';
             return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : '';
           });
       }
