@@ -181,7 +181,7 @@ export default class authController {
       type: options.type || 'signup',
       resetURL: options.resetURL || 'NONAME',
       to: email,
-      from: 'no-reply@andela21.com',
+      from: 'no-rgiteply@andela21.com',
       message: `Hi, ${name}, <br/>  ${signup ? 'You account with Politico.io has been  created. here are your login details' : message} <br/>
       ${signup ? `
       <ul style="list-style: none">

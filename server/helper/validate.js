@@ -54,8 +54,8 @@ class validate {
   static isValidID(id, response) {
     if (!validator.isInt(id) || !id) {
       return responseController.response({
-        status: 422,
-        message: 'invalid credential for id.'
+        status: 400,
+        message: 'empty/incorrect id.'
       }, null, response);
     }
   }
@@ -83,13 +83,23 @@ class validate {
    * @returns boolean
    */
   static userProfile(options, response) {
-    const {
-      name, email, phone, role
-    } = options;
-    if (!validator.isEmail(email || '<>') || !validator.isNumeric(phone || '<>') || !validate.isName(name || '<>') || !validator.isAlpha(role || 'user')) {
+    const { name, email, phone } = options;
+    if (!validator.isEmail(email || '<>')) {
       return responseController.response({
-        status: 422,
-        message: 'invalid credentials'
+        status: 400,
+        message: 'empty or incorrect email'
+      }, null, response);
+    }
+    if (!validator.isNumeric(phone || '<>')) {
+      return responseController.response({
+        status: 400,
+        message: 'empty or incorrect phone'
+      }, null, response);
+    }
+    if (!validate.isName(name || '<>')) {
+      return responseController.response({
+        status: 400,
+        message: 'empty or incorrect name'
       }, null, response);
     }
     return false;

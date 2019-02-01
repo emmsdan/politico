@@ -22,7 +22,7 @@ export default class electionController {
     } = request.body;
     if (!validate.isInt(userid)) {
       return responseController.response({
-        status: 422,
+        status: 400,
         message: 'empty or incorrect user id'
       }, null, response);
     }
@@ -34,7 +34,7 @@ export default class electionController {
     }
     if (!validate.isAddress(comment)) {
       return responseController.response({
-        status: 422,
+        status: 400,
         message: 'empty or incorrect body format'
       }, null, response);
     }
@@ -181,7 +181,7 @@ export default class electionController {
   static getOfficeResult(request, response) {
     if (!validate.isInt(request.params.officeId)) {
       return responseController.response({
-        status: 422,
+        status: 400,
         message: 'incorrect office id format'
       }, null, response);
     }
