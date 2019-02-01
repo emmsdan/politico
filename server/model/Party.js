@@ -61,5 +61,15 @@ export default class Party {
   static async edit(name, partyid) {
     return Database.update(new Party().table, { name }, { partyid });
   }
+
+  /**
+   * view cand delete specific Party in database
+   * @param {object} name
+   * @param {object} partyid
+   * @returns promise
+   */
+  static async delete(partyid) {
+    return Database.deleteRow(new Party().table, { partyid });
+  }
 }
 Party.init();

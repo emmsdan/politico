@@ -25,8 +25,8 @@ export default class partyController {
     }
     const partyid = new Date().getTime();
     const fields = {
- partyid, name, hqAddress, logoUrl 
-};
+      partyid, name, hqAddress, logoUrl
+    };
     return Party.create(fields)
       .then((resp) => {
         if (resp.rowCount > 0) {
@@ -83,7 +83,7 @@ export default class partyController {
     try {
       if (!validate.isInt(request.params.partyID)) {
         return responseController.response({
-          status: 404,
+          status: 422,
           message: 'please provide a valid political party id'
         }, null, response);
       }
@@ -121,7 +121,7 @@ export default class partyController {
     try {
       if (!validate.isInt(request.params.partyID)) {
         return responseController.response({
-          status: 404,
+          status: 422,
           message: 'please provide a valid political party id'
         }, null, response);
       }
@@ -149,6 +149,41 @@ export default class partyController {
           if (error.message.includes('name')) errorResponse = 'A Party with this name already exist';
           return responseController.response({ status: 432, message: errorResponse }, null, response);
         });
+    } catch (error) {
+      responseController.response({ status: 432, message: error.message }, null, response);
+    }
+  }
+
+  /**
+   * @description rename specific office.
+   * @since v1.0.0
+   * @param {object} request
+   * @param {object} response
+   *
+   * @returns object
+   */
+  static deleteParties(request, response) {
+    try {
+      if (!validate.isInt(request.params.partyID)) {
+        return responseController.response({
+          status: 422,
+          message: 'please provide a valid political party id'
+        }, null, response);
+      }
+      return Party.delete(request.params.partyID)
+        .then((resp) => {
+          if (resp === 'deleted') {
+            return responseController.response(null, {
+              status: 410,
+              message: 'party deleted from record.'
+            }, response);
+          }
+          return responseController.response({
+            status: 404,
+            message: 'no registered political party with such ID'
+          }, null, response);
+        })
+        .catch(error => responseController.response({ status: 432, message: `Error: ${error.message}` }, null, response));
     } catch (error) {
       responseController.response({ status: 432, message: error.message }, null, response);
     }

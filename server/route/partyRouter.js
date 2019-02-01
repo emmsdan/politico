@@ -42,7 +42,7 @@ partyRouter.get('/', (req, res) => {
  * API: Delete a specific political party.
  * @access :DELETE api/v1/parties/<party-id>
  */
-partyRouter.delete('/:partID', (req, res) => {
+partyRouter.delete('/:partyID', (req, res) => {
   partyController.deleteParties(req, res);
 });
 
