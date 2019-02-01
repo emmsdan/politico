@@ -55,15 +55,15 @@ export default class Database {
    * @param {string} table
    * @param {object} columns
    */
-  static async create(table, columns) {
+  static async create(table, columns, directSql = '') {
     // check for empty fields
-    if (!columns || !Array.isArray(columns)) throw Error('columns must be specified and should be an Array of Objects [{}]');
+    if ((!columns || !Array.isArray(columns)) && directSql === '') throw Error('columns must be specified and should be an Array of Objects [{}]');
     let fields = '';
     for (const field of columns) {
       fields += `${field.name} ${Database.columnType(field.type, field.key || 'none')}, `;
     }
 
-    const sql = `CREATE TABLE IF NOT EXISTS ${table.toLowerCase()} (id SERIAL, ${fields} createdOn timestamp not null default CURRENT_TIMESTAMP, updatedOn timestamp not null default CURRENT_TIMESTAMP );`;
+    const sql = `CREATE TABLE IF NOT EXISTS ${table.toLowerCase()} (id SERIAL, ${fields} ${directSql} createdOn timestamp not null default CURRENT_TIMESTAMP, updatedOn timestamp not null default CURRENT_TIMESTAMP );`;
     const db = Database.connect();
     const res = await db.query(sql);
     await db.end();
@@ -213,7 +213,7 @@ export default class Database {
    */
   static columnType(type = 'string', key = 'none') {
     const columnsType = {
-      string: 'VARCHAR', text: 'TEXT', boolean: 'BOOLEAN', condition: 'BOOL DEFAULT \'f\'', int: 'INT', number: 'Numeric', autoincrement: 'SERIAL', data: 'DATE', time: 'TIME', timestamp: 'TIMESTAMP', array: 'TEXT []'
+      string: 'VARCHAR', text: 'TEXT', boolean: 'BOOLEAN', condition: 'BOOL DEFAULT \'f\'', int: 'INT', number: 'Numeric', autoincrement: 'SERIAL', data: 'DATE', time: 'TIME', timestamp: 'TIMESTAMP', array: 'TEXT []', ref: 'REFERENCES '
     };
     const columnKey = { none: '', unique: 'UNIQUE', primary: 'PRIMARY KEY' };
     return `${columnsType[type.toLowerCase()]} ${columnKey[key.toLowerCase()] || columnKey.none}`;
