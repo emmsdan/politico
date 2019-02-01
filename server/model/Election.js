@@ -66,6 +66,7 @@ export default class Election {
   static async viewCandidates() {
     return Database.select(new Election().table.candidate);
   }
+
   /**
    * view all petitions
    * @returns promise

@@ -47,6 +47,15 @@ export default class User {
   }
 
   /**
+   * findUser
+   * @param {object} option
+   * @returns promise
+   */
+  static async getAll() {
+    return Database.select(new User().table);
+  }
+
+  /**
    * login user to database
    * @param {object} option
    * @returns promise

@@ -17,7 +17,6 @@ export default class Database {
     });
   }
 
-
   /**
    *
    * @param {object/null} statement
