@@ -75,8 +75,8 @@ export default class authController {
   static setPasswordLink(request, response) {
     if (!validator.isEmail(request.body.email || '<>')) {
       responseController.response({
-        status: 422,
-        message: 'invalid credentials'
+        status: 400,
+        message: 'incorrect email format'
       }, null, response);
     }
     return User.findUser({ email: request.body.email })

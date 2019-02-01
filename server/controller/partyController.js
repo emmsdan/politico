@@ -17,10 +17,22 @@ export default class partyController {
   */
   static create(request, response) {
     const { hqAddress, name, logoUrl } = request.body;
-    if (!validate.isName(name) || !validate.isAddress(hqAddress) || !validate.isURL(logoUrl)) {
+    if (!validate.isName(name)) {
       return responseController.response({
-        status: 422,
-        message: 'invalid credencials. all fields are needed'
+        status: 400,
+        message: 'empty or incorrect name format'
+      }, null, response);
+    }
+    if (!validate.isAddress(hqAddress)) {
+      return responseController.response({
+        status: 400,
+        message: 'empty or  incorrect hqAddress format'
+      }, null, response);
+    }
+    if (!validate.isURL(logoUrl)) {
+      return responseController.response({
+        status: 400,
+        message: 'empty or  incorrect logo format'
       }, null, response);
     }
     const partyid = new Date().getTime();
