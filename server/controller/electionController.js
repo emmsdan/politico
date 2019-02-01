@@ -1,4 +1,5 @@
 import validate from '../helper/validate';
+import Database from '../model/Database';
 import Election from '../model/Election';
 import responseController from './responseController';
 
@@ -74,11 +75,52 @@ export default class electionController {
         let errorResponse = `Error: ${error.message}`;
         if (error.message.includes('userid')) errorResponse = ' user id';
         if (error.message.includes('officeid')) errorResponse = ' office id';
-        if (error.message.includes('partyid')) errorResponse = ' party id'; 
+        if (error.message.includes('partyid')) errorResponse = ' party id';
         if (error.message.includes('violates foreign')) errorResponse += 'does not exist';
 
         if (error.message.includes('violates unique')) errorResponse = 'already exist';
         return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : '';
       });
+  }
+
+  /**
+    * @description register user as a candidate
+    * @since v1.0.0
+    * @param {object} request
+    * @param {object} response
+    * @returns promise
+    */
+  static vote(request, response) {
+    const { voter, office, candidate } = request.body;
+    if (!validate.isInt(voter) || !validate.isInt(office)) {
+      return responseController.response({
+        status: 422,
+        message: 'invalid credencials'
+      }, null, response);
+    }
+    return Database.find('votes', {
+      voter, office
+    }).then((resp) => {
+      if (!Array.isArray(resp)) {
+        return Election.newVote({ voter, office, candidate })
+          .then((res) => {
+            if (res.rowCount > 0) {
+              responseController.response(null, {
+                status: 201,
+                message: { voter, office, candidate }
+              }, response);
+            }
+          })
+          .catch((error) => {
+            let errorResponse = `Error: ${error.message}`;
+            if (error.message.includes('violates foreign key')) errorResponse = 'office/candidate id does not exist';
+            return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : '';
+          });
+      }
+      throw Error('can\'t vote twice for the same office');
+    }).catch((error) => {
+      const errorResponse = `Error: ${error.message}`;
+      return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : '';
+    });
   }
 }

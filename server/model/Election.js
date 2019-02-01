@@ -22,7 +22,8 @@ export default class Election {
   static init() {
     Database.rawSql(`
     CREATE TABLE IF NOT EXISTS ${new Election().table.candidate} (id SERIAL, candidateid numeric, officeid Numeric REFERENCES offices(officeid), partyid Numeric REFERENCES parties(partyid), createdOn timestamp not null default CURRENT_TIMESTAMP, updatedOn timestamp not null default CURRENT_TIMESTAMP, PRIMARY KEY(candidateid));
-    CREATE TABLE IF NOT EXISTS ${new Election().table.vote} (id SERIAL, voteid numeric,office Numeric REFERENCES offices(officeid), party Numeric REFERENCES parties(partyid), createdOn timestamp not null default CURRENT_TIMESTAMP, updatedOn timestamp not null default CURRENT_TIMESTAMP, PRIMARY KEY(voteid));
+
+    CREATE TABLE IF NOT EXISTS ${new Election().table.vote} (id SERIAL, office Numeric REFERENCES offices(officeid), candidate numeric  REFERENCES candidates(candidateid), voter Numeric  REFERENCES users(userid), createdOn timestamp not null default CURRENT_TIMESTAMP, updatedOn timestamp not null default CURRENT_TIMESTAMP, PRIMARY KEY(id));
 
     CREATE TABLE IF NOT EXISTS ${new Election().table.petition} (id SERIAL, petitionid Numeric, createdBy Numeric, officeid Numeric REFERENCES offices(officeid), title VARCHAR, body TEXT,evidence VARCHAR, createdOn timestamp not null default CURRENT_TIMESTAMP, updatedOn timestamp not null default CURRENT_TIMESTAMP, PRIMARY KEY(petitionid));`)
       .then((res) => { console.log(res); })
@@ -38,6 +39,15 @@ export default class Election {
     return Database.insert(new Election().table.petition, option);
   }
 
+
+  /**
+   * register a user as a candidate
+   * @param {object} option
+   * @returns promise
+   */
+  static async newVote(option) {
+    return Database.insert(new Election().table.vote, option);
+  }
 
   /**
    * register a user as a candidate
