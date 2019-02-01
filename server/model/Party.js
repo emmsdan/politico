@@ -43,5 +43,14 @@ export default class Party {
   static async viewAll() {
     return Database.select(new Party().table);
   }
+
+  /**
+   * view specific Office in database
+   * @param {object} option
+   * @returns promise
+   */
+  static async get(partyid) {
+    return Database.find(new Party().table, { partyid });
+  }
 }
 Party.init();

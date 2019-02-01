@@ -18,7 +18,7 @@ partyRouter.post('/', (req, res) => {
  * API: Edit the name of a specific political party.
  * @access :PATCH  /api/v1/parties/<party-id>/name
  */
-partyRouter.patch('/:partID/name', (req, res) => {
+partyRouter.patch('/:partyID/name', (req, res) => {
   partyController.edit(req, res);
 });
 
@@ -26,7 +26,7 @@ partyRouter.patch('/:partID/name', (req, res) => {
  * API: Fetch a specific political party record
  * @access :GET /api/v1/parties/<party-id>
  */
-partyRouter.get('/:partID', (req, res) => {
+partyRouter.get('/:partyID', (req, res) => {
   partyController.get(req, res);
 });
 
