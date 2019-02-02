@@ -101,7 +101,7 @@ class validate {
     if (!validate.isName(name || '<>')) {
       return responseController.response({
         status: 400,
-        message: 'empty or incorrect name'
+        message: 'empty or incorrect name.'
       }, null, response);
     }
     if (validator.isEmpty(password || '')) {
