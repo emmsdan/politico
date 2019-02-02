@@ -56,7 +56,7 @@ export default class partyController {
   }
 
   /**
-   * @description get all government offices
+   * @description get all government parties
    * @since v1.0.0
    * @param {object} request
    * @param {object} response
@@ -74,7 +74,7 @@ export default class partyController {
         }
         return responseController.response({
           status: 404,
-          message: 'no political office in database'
+          message: 'no political party in database'
         }, null, response);
       })
       .catch((error) => {
@@ -84,7 +84,7 @@ export default class partyController {
   }
 
   /**
-   * @description view specific office.
+   * @description view specific party.
    * @since v1.0.0
    * @param {object} request
    * @param {object} response
@@ -125,7 +125,7 @@ export default class partyController {
   }
 
   /**
-   * @description rename specific office.
+   * @description rename specific party.
    * @since v1.0.0
    * @param {object} request
    * @param {object} response
