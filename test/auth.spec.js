@@ -1,8 +1,6 @@
 import { expect } from 'chai';
 import request from 'supertest';
 import app from '../app';
-import Database from '../server/model/Database';
-
 
 describe('AUTHENTICATION REQUEST', () => {
   describe('#POST / version 1', () => {
