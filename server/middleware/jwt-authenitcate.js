@@ -104,7 +104,6 @@ export default class jwtAuthentication {
    * @param {object} type
    */
   static authentication(request, response, next) {
-    console.log('i dey----', request.cookies[process.env.TOKEN_NAME],'-----collect')
     const token = jwtAuthentication.decode(request.cookies[process.env.TOKEN_NAME]);
     jwtAuthentication.setHeaders(response);
     try {

@@ -139,5 +139,19 @@ class validate {
   + '(\\#[-a-z\\d_]*)?$', 'i');
     return pattern.test(str);
   }
+
+  /**
+   *
+   * @param {*} size
+   * @returns string;
+   */
+  static generateChar(size) {
+    let text = '';
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    for (let i = 0; i < size; i += 1) {
+      text += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return text;
+  }
 }
 module.exports = validate;
