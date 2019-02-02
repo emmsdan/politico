@@ -12,7 +12,7 @@ electionRouter.use(json());
  * API: get all users
  * @access :GET /api/v1/users
  */
-electionRouter.get('/users', jwtAuth.authenticationLoggedAdmin, (req, res) => {
+electionRouter.get('/users', jwtAuth.authentication, (req, res) => {
   authController.getUsers(req, res);
 });
 
@@ -20,7 +20,7 @@ electionRouter.get('/users', jwtAuth.authenticationLoggedAdmin, (req, res) => {
  * API: file new petition
  * @access :POST /api/v1/petition
  */
-electionRouter.post('/petition/', jwtAuth.authenticationLoggedIn, (req, res) => {
+electionRouter.post('/petition/', jwtAuth.authentication, (req, res) => {
   electionController.filePetition(req, res);
 });
 
@@ -28,7 +28,7 @@ electionRouter.post('/petition/', jwtAuth.authenticationLoggedIn, (req, res) => 
  * API: register a candidate for election
  * @access :GET /api/v1/office/<user-id>/register
  */
-electionRouter.post('/office/:userID/register', jwtAuth.authenticationLoggedIn, (req, res) => {
+electionRouter.post('/office/:userID/register', jwtAuth.authentication, (req, res) => {
   electionController.registerCandidate(req, res);
 });
 
@@ -36,7 +36,7 @@ electionRouter.post('/office/:userID/register', jwtAuth.authenticationLoggedIn, 
  * API: vote candidate
  * @access :POST /api/v1/vote/
  */
-electionRouter.post('/vote', jwtAuth.authenticationLoggedIn, (req, res) => {
+electionRouter.post('/vote', jwtAuth.authentication, (req, res) => {
   electionController.vote(req, res);
 });
 
