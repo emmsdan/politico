@@ -121,6 +121,7 @@ export default class authController {
     }
     return User.login(options)
       .then((resp) => {
+        console.log (!Array.isArray(resp), resp[0].password !== hashedPass)
         if (!Array.isArray(resp) || resp[0].password !== hashedPass) {
           throw Error('username and password combination does not match');
         }
