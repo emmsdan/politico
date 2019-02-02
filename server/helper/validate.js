@@ -153,5 +153,24 @@ class validate {
     }
     return text;
   }
+
+  /**
+   *
+   * @param {*} min
+   * @param {*} max
+   * @returns number
+   */
+  static randomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+  }
+
+  /**
+  *
+  * @param {*} array
+  * @returns array
+  */
+  static randomElement(array) {
+    return array[validate.randomNumber(0, array.length - 1)];
+  }
 }
 module.exports = validate;
