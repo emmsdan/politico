@@ -126,7 +126,7 @@ export default class authController {
         }
         const generatedToken = jwtToken.generateWithHeader({ email: resp[0].email, role: resp[0].role || 'user', userid: resp[0].userid }, response);
         return responseController.response(null, {
-          status: 201,
+          status: 200,
           message: {
             token: generatedToken,
             user: {

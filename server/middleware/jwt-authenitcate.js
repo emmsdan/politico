@@ -13,7 +13,8 @@ export default class jwtAuthentication {
   static strictedPage() {
     return [
       'parties',
-      'offices'
+      'offices',
+      'office'
     ];
   }
 
@@ -23,15 +24,16 @@ export default class jwtAuthentication {
    * @returns boolean
    */
   static verifyURL(request) {
+    let pages = null;
     const { stack } = request.route;
     if (stack[0].method !== 'get') {
-      let pages = null;
       jwtAuthentication.strictedPage().forEach((page) => {
+        if (pages !== null) {
+          return true;
+        }
         pages = (request.originalUrl.split('/').includes(page)) ? page : null;
       });
-      if (pages !== null) {
-        return true;
-      }
+      return pages || false;
     }
     return false;
   }
@@ -100,37 +102,18 @@ export default class jwtAuthentication {
    * @param {object} response
    * @param {object} next
    * @param {object} type
-   * @return {object} object
    */
-  static authenticationLoggedIn(request, response, next) {
+  static authentication(request, response, next) {
     const token = jwtAuthentication.decode(request.cookies[process.env.TOKEN_NAME]);
-    return jwtAuthentication.checkisAdmin('user', token, request, response, next);
-  }
-
-  /**
-   * @description authenticate all urls
-   * @param {object} request
-   * @param {object} response
-   * @param {object} next
-   * @param {object} type
-   * @return {object} object
-   */
-  static authenticationLoggedAdmin(request, response, next) {
-    const token = jwtAuthentication.decode(request.cookies[process.env.TOKEN_NAME]);
-    return jwtAuthentication.checkisAdmin('admin', token, request, response, next);
-  }
-
-  /**
-   *
-   * @param {*} type
-   * @param {*} token
-   * @param {*} request
-   * @param {*} response
-   * @param {*} next
-   */
-  static checkisAdmin(type, token, request, response, next) {
     jwtAuthentication.setHeaders(response);
-    if ((jwtAuthentication.verifyURL(request) && token.role !== type) || !token) {
+    try {
+      if ((jwtAuthentication.verifyURL(request) && token.payload.role !== 'admin') || !token) {
+        response.status(401)
+          .json({ error: 'Unauthorized', status: 401 });
+        response.end();
+        return;
+      }
+    } catch (err) {
       response.status(401)
         .json({ error: 'Unauthorized', status: 401 });
       response.end();
@@ -141,6 +124,7 @@ export default class jwtAuthentication {
 
   /**
    *
+   * @param {object} response
    */
   static setHeaders(response) {
     response.setHeader('API-Author', 'Emmanuel Daniel. <@emmsdan>');
