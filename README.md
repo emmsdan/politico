@@ -2,11 +2,11 @@
 
 Politico enables citizens give their mandate to politicians running for different government offices while building trust in the process through transparency
 
-![commit activities](https://img.shields.io/github/commit-activity/y/emmsdan/politico.svg?colorB=green) ![last commit](https://img.shields.io/github/last-commit/emmsdan/politico/development.svg?colorB=green)
+![commit activities](https://img.shields.io/github/commit-activity/y/emmsdan/politico.svg?colorB=green) ![last commit](https://img.shields.io/github/last-commit/emmsdan/politico/develop.svg?colorB=green)
 ![repo size ](https://img.shields.io/github/repo-size/emmsdan/politico.svg?colorB=blue&logo=red)
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/6d39510b9f9799d3e24a/maintainability)](https://codeclimate.com/github/emmsdan/politico/maintainability) [![Build Status](https://travis-ci.org/emmsdan/politico.svg?branch=development)](https://travis-ci.org/emmsdan/politico) [![Coverage Status](https://coveralls.io/repos/github/emmsdan/politico/badge.svg?branch=development)](https://coveralls.io/github/emmsdan/politico?branch=development) [![Test Coverage](https://api.codeclimate.com/v1/badges/6d39510b9f9799d3e24a/test_coverage)](https://codeclimate.com/github/emmsdan/politico/test_coverage)
- 
+[![Maintainability](https://api.codeclimate.com/v1/badges/6d39510b9f9799d3e24a/maintainability)](https://codeclimate.com/github/emmsdan/politico/maintainability) [![Build Status](https://travis-ci.org/emmsdan/politico.svg?branch=develop)](https://travis-ci.org/emmsdan/politico) [![Coverage Status](https://coveralls.io/repos/github/emmsdan/politico/badge.svg?branch=develop)](https://coveralls.io/github/emmsdan/politico?branch=develop) [![Test Coverage](https://api.codeclimate.com/v1/badges/6d39510b9f9799d3e24a/test_coverage)](https://codeclimate.com/github/emmsdan/politico/test_coverage)
+
 ## Technologies
   * Nodejs(ES6)
   * Git
