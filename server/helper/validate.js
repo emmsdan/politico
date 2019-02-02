@@ -104,7 +104,7 @@ class validate {
         message: 'empty or incorrect name'
       }, null, response);
     }
-    if (!validator.isEmpty(password)) {
+    if (validator.isEmpty(password || '')) {
       return responseController.response({
         status: 400,
         message: 'password should not be less than 8 characters'

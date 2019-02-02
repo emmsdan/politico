@@ -11,7 +11,7 @@ partyRouter.use(json());
  * API: create new political party
  * @access :POST /api/v1/parties
  */
-partyRouter.post('/', jwtAuth.authenticationLoggedAdmin, (req, res) => {
+partyRouter.post('/', jwtAuth.authentication, (req, res) => {
   partyController.create(req, res);
 });
 
@@ -19,7 +19,7 @@ partyRouter.post('/', jwtAuth.authenticationLoggedAdmin, (req, res) => {
  * API: Edit the name of a specific political party.
  * @access :PATCH  /api/v1/parties/<party-id>/name
  */
-partyRouter.patch('/:partyID/name', jwtAuth.authenticationLoggedAdmin, (req, res) => {
+partyRouter.patch('/:partyID/name', jwtAuth.authentication, (req, res) => {
   partyController.edit(req, res);
 });
 
@@ -27,7 +27,7 @@ partyRouter.patch('/:partyID/name', jwtAuth.authenticationLoggedAdmin, (req, res
  * API: Fetch a specific political party record
  * @access :GET /api/v1/parties/<party-id>
  */
-partyRouter.get('/:partyID', jwtAuth.authenticationLoggedIn, (req, res) => {
+partyRouter.get('/:partyID', jwtAuth.authentication, (req, res) => {
   partyController.get(req, res);
 });
 
@@ -43,7 +43,7 @@ partyRouter.get('/', (req, res) => {
  * API: Delete a specific political party.
  * @access :DELETE api/v1/parties/<party-id>
  */
-partyRouter.delete('/:partyID', jwtAuth.authenticationLoggedAdmin, (req, res) => {
+partyRouter.delete('/:partyID', jwtAuth.authentication, (req, res) => {
   partyController.deleteParties(req, res);
 });
 

@@ -11,7 +11,7 @@ officeRouter.use(json());
  * API: create new government office
  * @access :POST /api/v1/offices
  */
-officeRouter.post('/', jwtAuth.authenticationLoggedAdmin, (req, res) => {
+officeRouter.post('/', jwtAuth.authentication, (req, res) => {
   officeontroller.create(req, res);
 });
 
@@ -19,7 +19,7 @@ officeRouter.post('/', jwtAuth.authenticationLoggedAdmin, (req, res) => {
  * API: Fetch a specific government office record
  * @access :GET /api/v1/offices/<office-id>
  */
-officeRouter.get('/:officeID', jwtAuth.authenticationLoggedIn, (req, res) => {
+officeRouter.get('/:officeID', jwtAuth.authentication, (req, res) => {
   officeontroller.get(req, res);
 });
 
@@ -27,7 +27,7 @@ officeRouter.get('/:officeID', jwtAuth.authenticationLoggedIn, (req, res) => {
  * API: Fetch all government offices records.
  * @access :GET /api/v1/offices/
  */
-officeRouter.get('/', jwtAuth.authenticationLoggedIn, (req, res) => {
+officeRouter.get('/', jwtAuth.authentication, (req, res) => {
   officeontroller.getAll(req, res);
 });
 
