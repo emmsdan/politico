@@ -103,13 +103,13 @@ export default class electionController {
       })
       .catch((error) => {
         let errorResponse = `Error: ${error.message}`;
-        if (error.message.includes('userid')) errorResponse = ' user id';
-        if (error.message.includes('officeid')) errorResponse = ' office id';
-        if (error.message.includes('partyid')) errorResponse += ' party id';
-        if (error.message.includes('violates foreign')) errorResponse += 'does not exist';
+        if (error.message.includes('candidate')) errorResponse = ' candidate\'s ';
+        if (error.message.includes('officeid')) errorResponse = ' office id ';
+        if (error.message.includes('partyid')) errorResponse += ' party id ';
+        if (error.message.includes('violates foreign')) errorResponse += ' does not exist';
 
-        if (error.message.includes('violates unique')) errorResponse = 'already exist';
-        return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : '';
+        if (error.message.includes('violates unique')) errorResponse += ' already exist';
+        return errorResponse ? responseController.response({ status: 208, message: errorResponse }, null, response) : '';
       });
   }
 
@@ -197,13 +197,37 @@ export default class electionController {
   }
 
   /**
-  *
+  * @description view all candidates
   * @param {*} request
   * @param {*} response
   * @return promise;
   */
   static getCandidates(request, response) {
     return Election.viewCandidates()
+      .then(resp => responseController.response(null, {
+        status: 200,
+        message: resp
+      }, response))
+      .catch(error => responseController.response({
+        status: 404,
+        message: error
+      }, null, response));
+  }
+
+  /**
+  * @description view candidates by office/party
+  * @param {*} request
+  * @param {*} response
+  * @return promise;
+  */
+  static getCandidate(request, response) {
+    if (!validate.isInt(request.params.partyOfficeId)) {
+      return responseController.response({
+        status: 400,
+        message: 'empty or incorrect party/office id'
+      }, null, response);
+    }
+    return Election.viewCandidate(request.params.partyOfficeId)
       .then(resp => responseController.response(null, {
         status: 200,
         message: resp

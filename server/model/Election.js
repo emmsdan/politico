@@ -21,7 +21,7 @@ export default class Election {
    */
   static init() {
     Database.rawSql(`
-    CREATE TABLE IF NOT EXISTS ${new Election().table.candidate} (id SERIAL, candidateid numeric  REFERENCES users(userid), officeid Numeric REFERENCES offices(officeid), partyid Numeric REFERENCES parties(partyid), createdOn timestamp not null default CURRENT_TIMESTAMP, updatedOn timestamp not null default CURRENT_TIMESTAMP, PRIMARY KEY(candidateid));
+    CREATE TABLE IF NOT EXISTS ${new Election().table.candidate} (id SERIAL, candidateid numeric  REFERENCES users(userid), officeid Numeric REFERENCES offices(officeid), partyid Numeric REFERENCES parties(partyid), createdOn timestamp not null default CURRENT_TIMESTAMP, updatedOn timestamp not null default CURRENT_TIMESTAMP, PRIMARY KEY(candidateid), PRIMARY KEY(partyid));
 
     CREATE TABLE IF NOT EXISTS ${new Election().table.vote} (id SERIAL, office Numeric REFERENCES offices(officeid), candidate numeric  REFERENCES candidates(candidateid), voter Numeric  REFERENCES users(userid), createdOn timestamp not null default CURRENT_TIMESTAMP, updatedOn timestamp not null default CURRENT_TIMESTAMP, PRIMARY KEY(id));
 
@@ -65,6 +65,18 @@ export default class Election {
    */
   static async viewCandidates() {
     return Database.select(new Election().table.candidate);
+  }
+
+  /**
+   * register a user as a candidate
+   * @param {object} option
+   * @returns promise
+   */
+  static async viewCandidate(id) {
+    return Database.find(new Election().table.candidate, {
+      officeid: id,
+      partyid: id
+    }, 'or');
   }
 
   /**

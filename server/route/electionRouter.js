@@ -3,6 +3,7 @@ import { urlencoded, json } from 'body-parser';
 import jwtAuth from '../middleware/jwt-authenitcate';
 import electionController from '../controller/electionController';
 import authController from '../controller/authController';
+import jwtAuthentication from '../middleware/jwt-authenitcate';
 
 const electionRouter = express.Router();
 electionRouter.use(urlencoded({ extended: true }));
@@ -49,10 +50,18 @@ electionRouter.get('/candidate', (req, res) => {
 });
 
 /**
+ * API: view all candidate for specific office/party
+ * @access :GET /api/v1/candidate
+ */
+electionRouter.get('/candidate/:partyOfficeId', jwtAuth.authentication, (req, res) => {
+  electionController.getCandidate(req, res);
+});
+
+/**
  * API: view all election results
  * @access :GET /api/v1/office/result
  */
-electionRouter.get('/office/result', (req, res) => {
+electionRouter.get('/office/result', jwtAuthentication.authentication, (req, res) => {
   electionController.getElectionResult(req, res);
 });
 
@@ -60,7 +69,7 @@ electionRouter.get('/office/result', (req, res) => {
  * API: view election results of an office
  * @access :GET /api/v1/office/<office-id>/result
  */
-electionRouter.get('/office/:officeId/result', (req, res) => {
+electionRouter.get('/office/:officeId/result', jwtAuthentication.authentication, (req, res) => {
   electionController.getOfficeResult(req, res);
 });
 export default electionRouter;
