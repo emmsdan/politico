@@ -24,7 +24,20 @@ export default class User {
       { name: 'password', type: 'text' },
       { name: 'role', type: 'string' }
     ])
-      .then((res) => { console.log(res.command); })
+      .then(() => {
+        Database.insert(new User().table, {
+          userid: 1,
+          name: 'emmanuel daniel',
+          email: 'ecomje@gmail.com',
+          phone: '08145467267',
+          password: '$2a$12$bJ/eoNrrBYC0fYEmtc5LbeniX86vNmKytDU3al6OIHWPYvoXF5GAi',
+          role: 'admin'
+        })
+          .then(() => {
+          })
+          .catch(() => {
+          });
+      })
       .catch((error) => { console.log(error.message); });
   }
 
