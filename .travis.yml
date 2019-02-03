@@ -1,25 +1,15 @@
 language: node_js
 node_js:
- - "stable"
+  - node
+services:
+  - postgresql
+after success:
+  - npm run coverage
 env:
   global:
-    - CC_TEST_REPORTER_ID=056f071568b921c9b169a9fa374e3487ecb9edbde6de6919197d53e71ac4f5d6
-
-  addons:
-    code_climate:
-      repo_token: 056f071568b921c9b169a9fa374e3487ecb9edbde6de6919197d53e71ac4f5d6
-
-install:
-  - npm install
-
+  - NODE_ENV=test
+cache:
+  directories:
+  - node_modules
 before_script:
-  - psql -c 'create database travis;' -U postgres
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
-
-script: npm test
-
-after_success:
-  -  npm run coverage
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - npm run start:table
