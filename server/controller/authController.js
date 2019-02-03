@@ -31,13 +31,13 @@ export default class authController {
    */
   static register(request, response) {
     const {
-      name, email, phone, password, role
+      name, email, phone, password, role, photoUrl
     } = request.body;
     const userid = `${new Date().getTime()}`;
     if (validate.userProfile(request.body, response)) return;
     const hashedPass = authController.hashPassword(password);
     return User.register({
-      name, email, phone, password: hashedPass, role: role || 'user', userid
+      name, email, phone, password: hashedPass, role: role || 'user', userid, photoUrl
     })
       .then((resp) => {
         const generatedToken = jwtToken.generateWithHeader({ email, role: role || 'user', userid }, response);

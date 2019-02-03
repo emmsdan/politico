@@ -36,6 +36,7 @@ class validate {
 
   /**
    * @description check if party exist
+   * @param {string} data
    * @param {string} name
    * @returns boolean
    */
@@ -84,7 +85,7 @@ class validate {
    */
   static userProfile(options, response) {
     const {
-      name, email, phone, password
+      name, email, phone, password, photoUrl
     } = options;
     if (!validator.isEmail(email || '<>')) {
       return responseController.response({
@@ -108,6 +109,12 @@ class validate {
       return responseController.response({
         status: 400,
         message: 'password should not be less than 8 characters'
+      }, null, response);
+    }
+    if (validator.isURL(photoUrl || '')) {
+      return responseController.response({
+        status: 400,
+        message: 'photo should should be a valid url'
       }, null, response);
     }
     return false;
@@ -152,6 +159,25 @@ class validate {
       text += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     return text;
+  }
+
+  /**
+   *
+   * @param {*} min
+   * @param {*} max
+   * @returns number
+   */
+  static randomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+  }
+
+  /**
+  *
+  * @param {*} array
+  * @returns array
+  */
+  static randomElement(array) {
+    return array[validate.randomNumber(0, array.length - 1)];
   }
 }
 module.exports = validate;

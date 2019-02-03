@@ -16,21 +16,6 @@ export default class Election {
   }
 
   /**
-   * init Election tables
-   * @returns promise
-   */
-  static init() {
-    Database.rawSql(`
-    CREATE TABLE IF NOT EXISTS ${new Election().table.candidate} (id SERIAL, candidateid numeric, officeid Numeric REFERENCES offices(officeid), partyid Numeric REFERENCES parties(partyid), createdOn timestamp not null default CURRENT_TIMESTAMP, updatedOn timestamp not null default CURRENT_TIMESTAMP, PRIMARY KEY(candidateid));
-
-    CREATE TABLE IF NOT EXISTS ${new Election().table.vote} (id SERIAL, office Numeric REFERENCES offices(officeid), candidate numeric  REFERENCES candidates(candidateid), voter Numeric  REFERENCES users(userid), createdOn timestamp not null default CURRENT_TIMESTAMP, updatedOn timestamp not null default CURRENT_TIMESTAMP, PRIMARY KEY(id));
-
-    CREATE TABLE IF NOT EXISTS ${new Election().table.petition} (id SERIAL, petitionid Numeric, createdBy Numeric, officeid Numeric REFERENCES offices(officeid), title VARCHAR, body TEXT,evidence VARCHAR, createdOn timestamp not null default CURRENT_TIMESTAMP, updatedOn timestamp not null default CURRENT_TIMESTAMP, PRIMARY KEY(petitionid));`)
-      .then((res) => { console.log(res[0].command); })
-      .catch((error) => { console.log(error.message); });
-  }
-
-  /**
    * file a petition against and Election
    * @param {object} option
    * @returns promise
@@ -101,4 +86,3 @@ export default class Election {
     return Database.find(new Election().table.vote, { office });
   }
 }
-Election.init();

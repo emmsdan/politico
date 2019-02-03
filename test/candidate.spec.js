@@ -3,17 +3,19 @@ import request from 'supertest';
 import app from '../app';
 import validate from '../server/helper/validate';
 
-describe('PARTIES REQUEST', () => {
+describe('CANDIDATE REQUEST', () => {
   let AuthToken = '';
+  let userID = '';
+  let officeID = '';
   let partyID = '';
-  describe('#POST / version 1', () => {
-    it('should return unauthorized', (done) => {
-      request(app).post('/api/v1/parties')
+  describe('Candidates', () => {
+    it('should return all candidate', (done) => {
+      request(app).get('/api/v1/candidate')
         .end((err, res) => {
           console.log(res.body);
-          expect(res.statusCode).to.equal(401);
+          expect(res.statusCode).to.equal(200);
           expect(res.body).to.be.an('object');
-          expect(res.body.error).to.equal('Unauthorized');
+          expect(res.body.data).to.be.an('array');
           if (err) { return done(err); }
           done();
         });
@@ -30,25 +32,21 @@ describe('PARTIES REQUEST', () => {
           expect(res.statusCode).to.equal(200);
           expect(res.body).to.be.an('object');
           AuthToken = res.body.data[0].token;
+          userID = res.body.data[0].user.userid;
           if (err) { return done(err); }
           done();
         });
     });
 
-    it('should create new political party', (done) => {
-      request(app).post('/api/v1/parties')
-        .send({
-          name: `people ${validate.generateChar(4)}`,
-          hqAddress: `${validate.generateChar(9)}, Lagos`,
-          logoUrl: `http://${validate.generateChar(8)}.png`
-        })
+    it('should get all political offices', (done) => {
+      request(app).get('/api/v1/offices')
         .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
         .end((err, res) => {
           console.log(res.body);
-          expect(res.statusCode).to.equal(201);
+          expect(res.statusCode).to.equal(200);
           expect(res.body).to.be.an('object');
           expect(res.body.data).to.be.an('array');
-          partyID = res.body.data[0].partyid;
+          officeID = validate.randomElement(res.body.data[0]).officeid;
           if (err) { return done(err); }
           done();
         });
@@ -56,50 +54,56 @@ describe('PARTIES REQUEST', () => {
 
     it('should show all political party', (done) => {
       request(app).get('/api/v1/parties')
-        .end((err, res) => {
-          console.log(res.body);
-          expect(res.statusCode).to.equal(200);
-          expect(res.body).to.be.an('object');
-          expect(res.body.data).to.be.an('array');
-          if (err) { return done(err); }
-          done();
-        });
-    });
-
-    it('should get specific political party', (done) => {
-      request(app).get(`/api/v1/parties/${partyID}`)
         .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
         .end((err, res) => {
           console.log(res.body);
           expect(res.statusCode).to.equal(200);
           expect(res.body).to.be.an('object');
           expect(res.body.data).to.be.an('array');
+          partyID = validate.randomElement(res.body.data[0]).partyid;
           if (err) { return done(err); }
           done();
         });
     });
 
-    it('should rename a specific political party', (done) => {
-      request(app).patch(`/api/v1/parties/${partyID}/name`)
-        .send({ name: `${validate.generateChar(9)} my helper` })
+    it('should show all users', (done) => {
+      request(app).get('/api/v1/users')
         .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
         .end((err, res) => {
           console.log(res.body);
           expect(res.statusCode).to.equal(200);
           expect(res.body).to.be.an('object');
           expect(res.body.data).to.be.an('array');
+          userID = validate.randomElement(res.body.data[0]).userid;
           if (err) { return done(err); }
           done();
         });
     });
 
-    it('should delete a specific political party', (done) => {
-      request(app).delete(`/api/v1/parties/${partyID}`)
-        .send({ partyid: partyID })
+    it('should return unauthorized', (done) => {
+      request(app).post(`/api/v1/office/${userID}/register`)
+        .send({
+          userid: userID, officeid: officeID, partyid: partyID
+        })
+        .end((err, res) => {
+          console.log(res.body);
+          expect(res.statusCode).to.equal(401);
+          expect(res.body).to.be.an('object');
+          expect(res.body.error).to.equal('Unauthorized');
+          if (err) { return done(err); }
+          done();
+        });
+    });
+
+    it('should register a candidate', (done) => {
+      request(app).post(`/api/v1/office/${userID}/register`)
+        .send({
+          userid: userID, officeid: officeID, partyid: partyID
+        })
         .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
         .end((err, res) => {
           console.log(res.body);
-          expect(res.statusCode).to.equal(410);
+          expect(res.statusCode).to.equal(201);
           expect(res.body).to.be.an('object');
           expect(res.body.data).to.be.an('array');
           if (err) { return done(err); }

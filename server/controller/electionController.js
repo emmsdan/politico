@@ -109,7 +109,7 @@ export default class electionController {
         if (error.message.includes('violates foreign')) errorResponse += 'does not exist';
 
         if (error.message.includes('violates unique')) errorResponse = 'already exist';
-        return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : '';
+        return errorResponse ? responseController.response({ status: 400, message: errorResponse }, null, response) : '';
       });
   }
 
