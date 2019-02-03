@@ -1,7 +1,12 @@
-DROP SCHEMA public CASCADE;
-CREATE SCHEMA public;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS parties CASCADE;
+DROP TABLE IF EXISTS offices CASCADE;
+DROP TABLE IF EXISTS candidates CASCADE;
+DROP TABLE IF EXISTS votes;
+DROP TABLE IF EXISTS petitions;
 
-create type roles as enum('user', 'admin', 'politician', 'black');
+DROP TYPE IF EXISTS roles;
+  create type roles as enum('user', 'admin', 'politician', 'black');
 
 CREATE TABLE IF NOT EXISTS users(
     id SERIAL,
@@ -39,24 +44,24 @@ CREATE TABLE IF NOT EXISTS offices(
 CREATE TABLE IF NOT EXISTS candidates(
     id SERIAL,
     candidateid NUMERIC PRIMARY KEY,
-    officeid INT REFERENCES offices(officeid) ON DELETE CASCADE,
-    partyid INT REFERENCES parties(partyid) ON DELETE CASCADE,
-    userid INT REFERENCES users(userid) ON DELETE CASCADE,
+    officeid NUMERIC REFERENCES offices(officeid) ON DELETE CASCADE,
+    partyid NUMERIC REFERENCES parties(partyid) ON DELETE CASCADE,
+    userid NUMERIC REFERENCES users(userid) ON DELETE CASCADE,
     createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updatedOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   );
 
 CREATE TABLE IF NOT EXISTS votes(
     id SERIAL PRIMARY KEY,
-    officeid INT REFERENCES offices(officeid) ON DELETE CASCADE,
-    candidate INT REFERENCES candidates(candidateid) ON DELETE CASCADE,
-    voter INT REFERENCES users(userid) ON DELETE CASCADE
+    officeid NUMERIC REFERENCES offices(officeid) ON DELETE CASCADE,
+    candidate NUMERIC REFERENCES candidates(candidateid) ON DELETE CASCADE,
+    voter NUMERIC REFERENCES users(userid) ON DELETE CASCADE
   );
 
 CREATE TABLE IF NOT EXISTS petitions(
     id SERIAL PRIMARY KEY,
-    office INT REFERENCES offices(officeid) ON DELETE CASCADE,
-    createdBy INT REFERENCES users(userid) ON DELETE CASCADE,
+    office NUMERIC REFERENCES offices(officeid) ON DELETE CASCADE,
+    createdBy NUMERIC REFERENCES users(userid) ON DELETE CASCADE,
     text VARCHAR NOT NULL,
     evidence VARCHAR NOT NULL
   );
