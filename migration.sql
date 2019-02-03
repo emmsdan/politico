@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS votes;
 DROP TABLE IF EXISTS petitions;
 
 DROP TYPE IF EXISTS roles
-create type roles as enum('user', 'admin', 'politician', 'black');
+  create type roles as enum('user', 'admin', 'politician', 'black');
 
 CREATE TABLE IF NOT EXISTS users(
     id SERIAL,
