@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import { Pool } from 'pg';
+
 dotenv.config();
 /* eslint-disable no-restricted-syntax */
 /**
@@ -13,7 +14,7 @@ export default class Database {
    */
   static connect() {
     return new Pool({
-      connectionString: process.env.PG_HOST_URL
+      connectionString: process.env.PG_HOST_URL || process.env.DATABASE_URL
     });
   }
 
@@ -62,7 +63,7 @@ export default class Database {
       fields += `${field.name} ${Database.columnType(field.type, field.key || 'none')}, `;
     }
 
-    const sql = `CREATE TABLE IF NOT EXISTS ${table.toLowerCase()} (id SERIAL, ${fields} ${directSql} createdOn timestamp not null default CURRENT_TIMESTAMP, updatedOn timestamp not null default CURRENT_TIMESTAMP );`;
+    const sql = `CREATE TABLE IF NOT EXISTS ${table.toLowerCase()} (id SERIAL, ${fields} ${directSql} createdOn timestamp not null default CURRENT_TIMESTAMP, updatedOn timestamp not null default CURRENT_TIMESTAMP ) ;`;
     const db = Database.connect();
     const res = await db.query(sql);
     await db.end();
@@ -101,7 +102,7 @@ export default class Database {
       if (index < (values.length - 1)) value += ', ';
     });
     // build sql query
-    const sql = `INSERT INTO ${tablename.toLowerCase()} (${field}) VALUES (${value})`;
+    const sql = `INSERT INTO ${tablename.toLowerCase()} (${field}) VALUES (${value})  ON CONFLICT DO NOTHING`;
     const db = Database.connect();
     const res = await db.query(sql);
     await db.end();
@@ -183,7 +184,7 @@ export default class Database {
     const setColumns = Database.arrangeColumns(setState, ',');
     const whereColumns = Database.arrangeColumns(whereState, seperator);
     // build sql query
-    const sql = `UPDATE ${tablename.toLowerCase()} SET ${setColumns}  WHERE ${whereColumns}`;
+    const sql = `UPDATE ${tablename.toLowerCase()} SET ${setColumns}  WHERE ${whereColumns} `;
 
     const db = Database.connect();
     const res = await db.query(sql);

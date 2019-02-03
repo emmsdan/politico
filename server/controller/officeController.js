@@ -57,7 +57,7 @@ export default class officeController {
   * @returns promise
   */
   static create(request, response) {
-    const { type, name, logoUrl } = request.body;
+    const { type, name } = request.body;
     if (!validate.isName(name)) {
       return responseController.response({
         status: 400,
@@ -70,15 +70,9 @@ export default class officeController {
         message: 'incorrect office type format'
       }, null, response);
     }
-    if (!validate.isURL(logoUrl)) {
-      return responseController.response({
-        status: 400,
-        message: 'incorrect logo url format'
-      }, null, response);
-    }
     const officeid = new Date().getTime();
     const fields = {
-      officeid, name, type, logoUrl
+      officeid, name, type
     };
     return Office.create(fields)
       .then((resp) => {

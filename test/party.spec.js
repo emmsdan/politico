@@ -79,6 +79,7 @@ describe('PARTIES REQUEST', () => {
         .send({ name: `${validate.generateChar(9)} my helper` })
         .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
         .end((err, res) => {
+          console.log(res.body);
           expect(res.statusCode).to.equal(200);
           expect(res.body).to.be.an('object');
           expect(res.body.data).to.be.an('array');

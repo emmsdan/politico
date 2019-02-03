@@ -12,21 +12,6 @@ export default class Party {
   }
 
   /**
-   * init table
-   * @returns promise
-   */
-  static init() {
-    Database.create(new Party().table, [
-      { name: 'partyid', key: 'primary', type: 'number' },
-      { name: 'name', key: 'unique', type: 'string' },
-      { name: 'hqAddress', type: 'string' },
-      { name: 'logoUrl', type: 'string' }
-    ])
-      .then((res) => { console.log(res.command); })
-      .catch((error) => { console.log(error.message); });
-  }
-
-  /**
    * add Party to database
    * @param {object} option
    * @returns promise
@@ -72,4 +57,3 @@ export default class Party {
     return Database.deleteRow(new Party().table, { partyid });
   }
 }
-Party.init();

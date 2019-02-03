@@ -37,8 +37,7 @@ describe('OFFICE REQUEST', () => {
       request(app).post('/api/v1/offices')
         .send({
           name: `people ${validate.generateChar(4)}`,
-          type: 'legislative',
-          logoUrl: `http://${validate.generateChar(8)}.png`
+          type: 'legislative'
         })
         .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
         .end((err, res) => {

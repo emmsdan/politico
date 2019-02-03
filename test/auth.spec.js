@@ -21,7 +21,8 @@ describe('AUTHENTICATION REQUEST', () => {
           email: `emmsdan${Math.random()}@gmail.com`,
           phone: `${Math.random()}`,
           name: 'another name',
-          password: 'eternity123'
+          password: 'eternity123',
+          photoUrl: 'eternity123'
         })
         .end((err, res) => {
           expect(res.statusCode).to.equal(201);

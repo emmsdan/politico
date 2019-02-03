@@ -12,36 +12,6 @@ export default class User {
   }
 
   /**
-   * init table
-   * @returns promise
-   */
-  static init() {
-    Database.create(new User().table, [
-      { name: 'userid', key: 'primary', type: 'number' },
-      { name: 'name', type: 'string' },
-      { name: 'email', key: 'unique', type: 'string' },
-      { name: 'phone', key: 'unique', type: 'number' },
-      { name: 'password', type: 'text' },
-      { name: 'role', type: 'string' }
-    ])
-      .then(() => {
-        Database.insert(new User().table, {
-          userid: 1,
-          name: 'emmanuel daniel',
-          email: 'ecomje@gmail.com',
-          phone: '08145467267',
-          password: '$2a$12$bJ/eoNrrBYC0fYEmtc5LbeniX86vNmKytDU3al6OIHWPYvoXF5GAi',
-          role: 'admin'
-        })
-          .then(() => {
-          })
-          .catch(() => {
-          });
-      })
-      .catch((error) => { console.log(error.message); });
-  }
-
-  /**
    * add user to database
    * @param {object} option
    * @returns promise
@@ -77,4 +47,3 @@ export default class User {
     return Database.find(new User().table, option, 'OR');
   }
 }
-User.init();

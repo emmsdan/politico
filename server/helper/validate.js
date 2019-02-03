@@ -84,7 +84,7 @@ class validate {
    */
   static userProfile(options, response) {
     const {
-      name, email, phone, password
+      name, email, phone, password, photoUrl
     } = options;
     if (!validator.isEmail(email || '<>')) {
       return responseController.response({
@@ -108,6 +108,12 @@ class validate {
       return responseController.response({
         status: 400,
         message: 'password should not be less than 8 characters'
+      }, null, response);
+    }
+    if (validator.isURL(photoUrl || '')) {
+      return responseController.response({
+        status: 400,
+        message: 'photo should should be a valid url'
       }, null, response);
     }
     return false;
