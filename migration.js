@@ -13,7 +13,8 @@ module.exports.init = () => {
   const sql = fs.readFileSync('./migration.sql').toString();
   return Database.rawSql(sql)
     .then((res) => {
-      console.log('migrated');
+      const r = { res, state: 'updated' };
+      console.log('migrated', r.state);
     })
     .catch((error) => {
       console.log(error);
