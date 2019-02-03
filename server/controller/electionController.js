@@ -18,7 +18,7 @@ export default class electionController {
   */
   static filePetition(request, response) {
     const {
-      userid, officeid, comment, evidenceUrl
+      userid, officeid, comment, evidence
     } = request.body;
     if (!validate.isInt(userid)) {
       return responseController.response({
@@ -38,15 +38,14 @@ export default class electionController {
         message: 'empty or incorrect body format'
       }, null, response);
     }
-    if (!validate.isURL(evidenceUrl)) {
+    if (!validate.isURL(evidence)) {
       return responseController.response({
         status: 400,
         message: 'empty or incorrect url format.'
       }, null, response);
     }
-    const petitionid = new Date().getTime();
     const fields = {
-      petitionid, createdBy: userid, officeid, body: comment, evidence: evidenceUrl
+      createdBy: userid, office: officeid, text: comment, evidence
     };
     return Election.createPetition(fields)
       .then((resp) => {
@@ -121,23 +120,23 @@ export default class electionController {
     * @returns promise
     */
   static vote(request, response) {
-    const { voter, office, candidate } = request.body;
-    if (!validate.isInt(voter) || !validate.isInt(office)) {
+    const { voter, officeid, candidate } = request.body;
+    if (!validate.isInt(voter) || !validate.isInt(officeid)) {
       return responseController.response({
         status: 400,
         message: 'empty or incorrect voter id or office id format'
       }, null, response);
     }
     return Database.find('votes', {
-      voter, office
+      voter, officeid
     }).then((resp) => {
       if (!Array.isArray(resp)) {
-        return Election.newVote({ voter, office, candidate })
+        return Election.newVote({ voter, officeid, candidate })
           .then((res) => {
             if (res.rowCount > 0) {
               responseController.response(null, {
                 status: 201,
-                message: { voter, office, candidate }
+                message: { voter, officeid, candidate }
               }, response);
             }
           })
@@ -186,13 +185,17 @@ export default class electionController {
       }, null, response);
     }
     return Election.officeResult(request.params.officeId)
-      .then(resp => responseController.response(null, {
-        status: 200,
-        message: resp
-      }, response))
+      .then((resp) => {
+        if (resp === 'not found') throw Error('no eletion result found for this office');
+
+        responseController.response(null, {
+          status: 200,
+          message: resp
+        }, response);
+      })
       .catch(error => responseController.response({
         status: 404,
-        message: error
+        message: error.message
       }, null, response));
   }
 

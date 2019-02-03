@@ -10,7 +10,6 @@ describe('PARTIES REQUEST', () => {
     it('should return unauthorized', (done) => {
       request(app).post('/api/v1/parties')
         .end((err, res) => {
-          console.log(res.body);
           expect(res.statusCode).to.equal(401);
           expect(res.body).to.be.an('object');
           expect(res.body.error).to.equal('Unauthorized');
@@ -26,7 +25,6 @@ describe('PARTIES REQUEST', () => {
           password: 'eternity123'
         })
         .end((err, res) => {
-          console.log(res.body);
           expect(res.statusCode).to.equal(200);
           expect(res.body).to.be.an('object');
           AuthToken = res.body.data[0].token;
@@ -44,7 +42,6 @@ describe('PARTIES REQUEST', () => {
         })
         .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
         .end((err, res) => {
-          console.log(res.body);
           expect(res.statusCode).to.equal(201);
           expect(res.body).to.be.an('object');
           expect(res.body.data).to.be.an('array');
@@ -57,7 +54,6 @@ describe('PARTIES REQUEST', () => {
     it('should show all political party', (done) => {
       request(app).get('/api/v1/parties')
         .end((err, res) => {
-          console.log(res.body);
           expect(res.statusCode).to.equal(200);
           expect(res.body).to.be.an('object');
           expect(res.body.data).to.be.an('array');
@@ -70,7 +66,6 @@ describe('PARTIES REQUEST', () => {
       request(app).get(`/api/v1/parties/${partyID}`)
         .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
         .end((err, res) => {
-          console.log(res.body);
           expect(res.statusCode).to.equal(200);
           expect(res.body).to.be.an('object');
           expect(res.body.data).to.be.an('array');
@@ -84,7 +79,6 @@ describe('PARTIES REQUEST', () => {
         .send({ name: `${validate.generateChar(9)} my helper` })
         .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
         .end((err, res) => {
-          console.log(res.body);
           expect(res.statusCode).to.equal(200);
           expect(res.body).to.be.an('object');
           expect(res.body.data).to.be.an('array');
@@ -98,7 +92,6 @@ describe('PARTIES REQUEST', () => {
         .send({ partyid: partyID })
         .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
         .end((err, res) => {
-          console.log(res.body);
           expect(res.statusCode).to.equal(410);
           expect(res.body).to.be.an('object');
           expect(res.body.data).to.be.an('array');

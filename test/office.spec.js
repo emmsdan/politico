@@ -10,7 +10,6 @@ describe('OFFICE REQUEST', () => {
     it('Unauthorized: non admin users.', (done) => {
       request(app).post('/api/v1/offices')
         .end((err, res) => {
-          console.log(res.body);
           expect(res.statusCode).to.equal(401);
           expect(res.body).to.be.an('object');
           expect(res.body.error).to.equal('Unauthorized');
@@ -26,7 +25,6 @@ describe('OFFICE REQUEST', () => {
           password: 'eternity123'
         })
         .end((err, res) => {
-          console.log(res.body);
           expect(res.statusCode).to.equal(200);
           expect(res.body).to.be.an('object');
           AuthToken = res.body.data[0].token;
@@ -43,7 +41,6 @@ describe('OFFICE REQUEST', () => {
         })
         .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
         .end((err, res) => {
-          console.log(res.body);
           expect(res.statusCode).to.equal(201);
           expect(res.body).to.be.an('object');
           expect(res.body.data).to.be.an('array');
@@ -62,7 +59,6 @@ describe('OFFICE REQUEST', () => {
         })
         .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
         .end((err, res) => {
-          console.log(res.body);
           expect(res.statusCode).to.equal(400);
           expect(res.body).to.be.an('object');
           expect(res.body.error).to.equal('incorrect name format');
@@ -79,7 +75,6 @@ describe('OFFICE REQUEST', () => {
         })
         .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
         .end((err, res) => {
-          console.log(res.body);
           expect(res.statusCode).to.equal(400);
           expect(res.body).to.be.an('object');
           expect(res.body.error).to.equal('incorrect office type format');
@@ -92,7 +87,6 @@ describe('OFFICE REQUEST', () => {
     it('Unauthorized, non logged in users.', (done) => {
       request(app).get('/api/v1/offices')
         .end((err, res) => {
-          console.log(res.body);
           expect(res.statusCode).to.equal(401);
           expect(res.body).to.be.an('object');
           expect(res.body.error).to.equal('Unauthorized');
@@ -105,7 +99,6 @@ describe('OFFICE REQUEST', () => {
       request(app).get('/api/v1/offices')
         .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
         .end((err, res) => {
-          console.log(res.body);
           expect(res.statusCode).to.equal(200);
           expect(res.body).to.be.an('object');
           expect(res.body.data).to.be.an('array');
@@ -117,7 +110,6 @@ describe('OFFICE REQUEST', () => {
     it('unauthorized: specific office', (done) => {
       request(app).get(`/api/v1/offices/${officeID}`)
         .end((err, res) => {
-          console.log(res.body);
           expect(res.statusCode).to.equal(401);
           expect(res.body).to.be.an('object');
           expect(res.body.error).to.equal('Unauthorized');
@@ -130,7 +122,6 @@ describe('OFFICE REQUEST', () => {
       request(app).get(`/api/v1/offices/${officeID}`)
         .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
         .end((err, res) => {
-          console.log(res.body);
           expect(res.statusCode).to.equal(200);
           expect(res.body).to.be.an('object');
           expect(res.body.data).to.be.an('array');

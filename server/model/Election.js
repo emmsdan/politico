@@ -79,10 +79,10 @@ export default class Election {
 
   /**
    * view specific office results
-   * @param {object} office
+   * @param {object} officeid
    * @returns promise
    */
-  static async officeResult(office) {
-    return Database.find(new Election().table.vote, { office });
+  static async officeResult(officeid) {
+    return Database.find(new Election().table.vote, { officeid });
   }
 }
