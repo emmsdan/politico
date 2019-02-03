@@ -16,8 +16,10 @@ describe('test if server is up and running', () => {
     it('should migrate before statrt', (done) => {
       request(app).purge('/migrate')
         .end((err, res) => {
+          console.log(res.body);
           expect(res.statusCode).to.equal(200);
-          expect(res.body).to.equal('migrated');
+          expect(res.body).to.be.an('object');
+          expect(res.body.m).to.equal('migrated');
           done();
         });
     });
