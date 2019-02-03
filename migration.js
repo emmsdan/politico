@@ -13,10 +13,10 @@ module.exports.init = () => {
   const sql = fs.readFileSync('./migration.sql').toString();
   return Database.rawSql(sql)
     .then((res) => {
-      console.log('migrated');
+      console.log('migrated', res[0].command);
     })
     .catch((error) => {
-      console.log(error);
+      console.log(error.message);
     });
 };
 require('make-runnable');
