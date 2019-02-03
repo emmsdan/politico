@@ -64,6 +64,24 @@ export default class electionController {
   }
 
   /**
+  *
+  * @param {*} request
+  * @param {*} response
+  * @return promise;
+  */
+  static viewAllPetition(request, response) {
+    return Election.viewAllPetition()
+      .then(resp => responseController.response(null, {
+        status: 200,
+        message: resp[0]
+      }, response))
+      .catch(error => responseController.response({
+        status: 404,
+        message: error
+      }, null, response));
+  }
+
+  /**
   * @description register user as a candidate
   * @since v1.0.0
   * @param {object} request
