@@ -49,7 +49,6 @@ export default class Party {
 
   /**
    * view cand delete specific Party in database
-   * @param {object} name
    * @param {object} partyid
    * @returns promise
    */

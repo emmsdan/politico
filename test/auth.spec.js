@@ -8,6 +8,7 @@ describe('AUTHENTICATION REQUEST', () => {
       request(app).post('/api/v1/auth/login')
         .send({ username: 'wrong@wrong.com', password: 'wrong1230' })
         .end((err, res) => {
+          console.log(res.body);
           expect(res.statusCode).to.equal(400);
           expect(res.body).to.be.an('object');
           if (err) { return done(err); }
@@ -25,6 +26,7 @@ describe('AUTHENTICATION REQUEST', () => {
           photoUrl: 'eternity123'
         })
         .end((err, res) => {
+          console.log(res.body);
           expect(res.statusCode).to.equal(201);
           expect(res.body).to.be.an('object');
           expect(res.body.data).to.be.an('array');
@@ -37,6 +39,7 @@ describe('AUTHENTICATION REQUEST', () => {
       request(app).post('/api/v1/auth/login')
         .send({ username: 'ecomje@gmail.com', password: 'eternity123' })
         .end((err, res) => {
+          console.log(res.body);
           expect(res.statusCode).to.equal(200);
           expect(res.body).to.be.an('object');
           if (err) { return done(err); }
@@ -48,6 +51,7 @@ describe('AUTHENTICATION REQUEST', () => {
       request(app).post('/api/v1/auth/reset')
         .send({ email: 'ecomje@gmail.com' })
         .end((err, res) => {
+          console.log(res.body);
           expect(res.statusCode).to.equal(200);
           expect(res.body).to.be.an('object');
           if (err) { return done(err); }

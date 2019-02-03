@@ -36,6 +36,7 @@ class validate {
 
   /**
    * @description check if party exist
+   * @param {string} data
    * @param {string} name
    * @returns boolean
    */

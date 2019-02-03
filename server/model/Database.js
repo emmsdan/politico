@@ -54,6 +54,7 @@ export default class Database {
    * @description create tabse in the database.
    * @param {string} table
    * @param {object} columns
+   * @param {string} directSql
    */
   static async create(table, columns, directSql = '') {
     // check for empty fields

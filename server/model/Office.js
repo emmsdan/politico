@@ -32,7 +32,7 @@ export default class Office {
 
   /**
    * view specific Office in database
-   * @param {object} option
+   * @param {object} officeid
    * @returns promise
    */
   static async get(officeid) {

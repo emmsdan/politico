@@ -9,7 +9,7 @@ module.exports.default = () => {
  */
 module.exports.init = () => {
   const sql = fs.readFileSync('./migration.sql').toString();
-  Database.rawSql(sql)
+  return Database.rawSql(sql)
     .then((res) => {
       console.log('migrated', res[0].command);
     })
