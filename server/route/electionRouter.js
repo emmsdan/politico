@@ -25,6 +25,14 @@ electionRouter.post('/petition/', jwtAuth.authentication, (req, res) => {
 });
 
 /**
+ * API: get all filed petition
+ * @access :GET /api/v1/petition
+ */
+electionRouter.get('/petition/', jwtAuth.authentication, (req, res) => {
+  electionController.viewAllPetition(req, res);
+});
+
+/**
  * API: register a candidate for election
  * @access :GET /api/v1/office/<user-id>/register
  */
