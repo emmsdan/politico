@@ -8,6 +8,7 @@ describe('AUTHENTICATION REQUEST', () => {
       request(app).post('/api/v1/auth/login')
         .send({ username: 'wrong@wrong.com', password: 'wrong1230' })
         .end((err, res) => {
+          console.log(process.env.PG_HOST_URL, process.env.DATABASE_URL);
           console.log(res.body);
           expect(res.statusCode).to.equal(400);
           expect(res.body).to.be.an('object');
