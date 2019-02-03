@@ -1,5 +1,9 @@
-DROP SCHEMA public CASCADE;
-CREATE SCHEMA public;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS parties CASCADE;
+DROP TABLE IF EXISTS offices CASCADE;
+DROP TABLE IF EXISTS candidates CASCADE;
+DROP TABLE IF EXISTS votes;
+DROP TABLE IF EXISTS petitions;
 
 create type roles as enum('user', 'admin', 'politician', 'black');
 
