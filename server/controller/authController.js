@@ -31,25 +31,31 @@ export default class authController {
    */
   static register(request, response) {
     const {
-      name, email, phone, password, role, photoUrl
+      firstName, lastName, otherName, email, phoneNumber, password, role, passportUrl
     } = request.body;
-    const userid = `${new Date().getTime()}`;
     if (validate.userProfile(request.body, response)) return;
     const hashedPass = authController.hashPassword(password);
     return User.register({
-      name, email, phone, password: hashedPass, role: role || 'user', userid, photoUrl
+      firstName, lastName, otherName, email, phoneNumber, passportUrl, password: hashedPass, role: role || 'user'
     })
       .then((resp) => {
-        const generatedToken = jwtToken.generateWithHeader({ email, role: role || 'user', userid }, response);
+        const generatedToken = jwtToken.generateWithHeader({
+          email, role: role || 'user', id: resp.rows[0].id, isAdmin: false
+        }, response);
         authController.sendMail({
-          name, email, phone, signup: 'true', resp
+          name: firstName, email, phone: phoneNumber, signup: 'true', resp
         });
         return responseController.response(null, {
           status: 201,
           message: {
             token: generatedToken,
             user: {
-              email, phone, name, userid
+              id: resp.rows[0].id,
+              firstName: resp.rows[0].firstname,
+              lastName: resp.rows[0].lastname,
+              otherName: resp.rows[0].othername === 'undefined' ? '' : resp.rows[0].othername,
+              email: resp.rows[0].email,
+              phoneNumber: Number(resp.rows[0].phonenumber)
             },
             message: 'account created, an email as been sent containin your login details '
           }
@@ -85,10 +91,14 @@ export default class authController {
           throw Error('no user with such email');
         }
         authController.sendMail({
-          name: resp[0].name, email: resp[0].email, type: 'reset', message: 'Use the link below to reset password', resetURL: bcrypt.hashSync(new Date().toLocaleDateString(), 2)
+          name: resp[0].firstname, email: resp[0].email, type: 'reset', message: 'Use the link below to reset password', resetURL: bcrypt.hashSync(new Date().toLocaleDateString(), 2)
         });
         return responseController.response(null, {
-          status: 200, message: 'check your email for password reset link'
+          status: 200,
+          message: {
+            message: 'check your email for password reset link',
+            email: resp[0].email
+          }
         }, response);
       })
       .catch((error) => {
@@ -124,13 +134,20 @@ export default class authController {
         if (!Array.isArray(resp) || resp[0].password !== hashedPass) {
           throw Error('username and password combination does not match');
         }
-        const generatedToken = jwtToken.generateWithHeader({ email: resp[0].email, role: resp[0].role || 'user', userid: resp[0].userid }, response);
+        const generatedToken = jwtToken.generateWithHeader({
+          email: resp[0].email, role: resp[0].role, id: resp[0].id, isAdmin: resp[0].isadmin
+        }, response);
         return responseController.response(null, {
           status: 200,
           message: {
             token: generatedToken,
             user: {
-              email: resp[0].email, phone: resp[0].phone, name: resp[0].name, userid: resp[0].userid
+              id: resp[0].id,
+              firstName: resp[0].firstname,
+              lastName: resp[0].lastname,
+              otherName: resp[0].othername === 'undefined' ? '' : resp[0].othername,
+              email: resp[0].email,
+              phoneNumber: resp[0].phonenumber
             },
             message: 'logged in successfully'
           }

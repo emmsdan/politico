@@ -103,7 +103,7 @@ export default class Database {
       if (index < (values.length - 1)) value += ', ';
     });
     // build sql query
-    const sql = `INSERT INTO ${tablename.toLowerCase()} (${field}) VALUES (${value})  ON CONFLICT DO NOTHING`;
+    const sql = `INSERT INTO ${tablename.toLowerCase()} (${field}) VALUES (${value}) RETURNING id, ${field}`;
     const db = Database.connect();
     const res = await db.query(sql);
     await db.end();
@@ -185,7 +185,7 @@ export default class Database {
     const setColumns = Database.arrangeColumns(setState, ',');
     const whereColumns = Database.arrangeColumns(whereState, seperator);
     // build sql query
-    const sql = `UPDATE ${tablename.toLowerCase()} SET ${setColumns}  WHERE ${whereColumns} `;
+    const sql = `UPDATE ${tablename.toLowerCase()} SET ${setColumns}  WHERE ${whereColumns}  RETURNING id`;
 
     const db = Database.connect();
     const res = await db.query(sql);

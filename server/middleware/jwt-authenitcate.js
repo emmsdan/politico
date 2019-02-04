@@ -104,10 +104,10 @@ export default class jwtAuthentication {
    * @param {object} type
    */
   static authentication(request, response, next) {
-    const token = jwtAuthentication.decode(request.cookies[process.env.TOKEN_NAME]);
+    const token = jwtAuthentication.verify(request.headers.token || request.body.token);
     jwtAuthentication.setHeaders(response);
     try {
-      if ((jwtAuthentication.verifyURL(request) && token.payload.role !== 'admin') || !token) {
+      if ((jwtAuthentication.verifyURL(request) && !token.payload.isAdmin) || !token) {
         response.status(401)
           .json({ error: 'Unauthorized', status: 401 });
         response.end();
