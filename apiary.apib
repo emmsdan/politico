@@ -10,27 +10,40 @@ Politico enables citizens give their mandate to politicians running for differen
 
 ### List all Users (admin only)[GET]
 
++ Request 
+    URL (/api/v1/users)
+
 + Response 200 (application/json)
 
         [
             {
-                "name": "someone name",
-                "email": "example@email.com",
-                "phone": "+2349013432332",
-                "role": "user/admin",
-                "photoUrl": "http://domain.com/image.png",
+                "id": 1,
+                "firstname": "Emmanuel",
+                "lastname": "Daniel",
+                "othername": "Umola",
+                "email": "ecomje@gmail.com",
+                "phonenumber": "8145467267",
+                "password": "$2a$12$bJ/eoNrrBYC0fYEmtc5LbeniX86vNmKytDU3al6OIHWPYvoXF5GAi",
+                "role": "admin",
+                "isadmin": true,
+                "passporturl": "http://www.emmsdan.com/me.png",
                 "createdOn": "2015-08-05T08:40:51.620Z",
                 "updatedOn": "2015-08-05T08:40:51.620Z"
             },
             {
-                "name": "someone name",
-                "email": "example@email.com",
-                "phone": "+2349013432332",
-                "role": "user/admin",
-                "photoUrl": "http://domain.com/image.png",
+                "id": 1,
+                "firstname": "Emmanuel",
+                "lastname": "Daniel",
+                "othername": "Umola",
+                "email": "ecomje@gmail.com",
+                "phonenumber": "8145467267",
+                "password": "$2a$12$bJ/eoNrrBYC0fYEmtc5LbeniX86vNmKytDU3al6OIHWPYvoXF5GAi",
+                "role": "admin",
+                "isadmin": true,
+                "passporturl": "http://www.emmsdan.com/me.png",
                 "createdOn": "2015-08-05T08:40:51.620Z",
                 "updatedOn": "2015-08-05T08:40:51.620Z"
-            }
+             }
         ]
 
 ### Create an Account [POST]
@@ -40,12 +53,13 @@ Create a new User account
 + Request (application/json)
 
         {
-            "name": "some name",
-            "email": "example@email.com",
-            "phone": "+23490234832",
-            "password": "example123",
-            "role": "user/admin", //optional
-            "photoUrl": "http://fullpart.image.png"
+                "firstname": "Emmanuel",
+                "lastname": "Daniel",
+                "othername": "Umola",
+                "email": "ecomje@gmail.com",
+                "phonenumber": "8145467267",
+                "role": "politian", // [users/politian]
+                "passporturl": "http://www.emmsdan.com/me.png"
         }
 
 + Response 201 (application/json)
@@ -60,11 +74,19 @@ Create a new User account
             {
                 "status": 201,
                 "token": "eyJleHAiOjE1NDk4NzMyMTAsInBheWxvYWQiOnsiZW1haWwiOiJlY29tamVAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwidXNlcmlkIjoiMTU0OTI2ODQwODE0NyJ9LCJpYXQiOjE1NDkyNjg0MTB9.l92n",
-                "user": {
-                    "email": "example@email.com",
-                    "phone": "+23490234832",
-                    "name": "some name",
-                    "useri": "123453245",
+                "user": {              
+                    "id": 1,
+                    "firstname": "Emmanuel",
+                    "lastname": "Daniel",
+                    "othername": "Umola",
+                    "email": "ecomje@gmail.com",
+                    "phonenumber": "8145467267",
+                    "password": "$2a$12$bJ/eoNrrBYC0fYEmtc5LbeniX86vNmKytDU3al6OIHWPYvoXF5GAi",
+                    "role": "politian", // [user/politian]
+                    "isadmin": false,
+                    "passporturl": "http://www.emmsdan.com/me.png",
+                    "createdOn": "2015-08-05T08:40:51.620Z",
+                    "updatedOn": "2015-08-05T08:40:51.620Z"
                 },
                 "message": "mesage "
             }
@@ -93,10 +115,18 @@ Access Users account
                 "status": 200,
                 "token": "eyJleHAiOjE1NDk4NzMyMTAsInBheWxvYWQiOnsiZW1haWwiOiJlY29tamVAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwidXNlcmlkIjoiMTU0OTI2ODQwODE0NyJ9LCJpYXQiOjE1NDkyNjg0MTB9.l92n",
                 "user": {
-                    "email": "example@email.com",
-                    "phone": "+23490234832",
-                    "name": "some name",
-                    "useri": "123453245",
+                    "id": 1,
+                    "firstname": "Emmanuel",
+                    "lastname": "Daniel",
+                    "othername": "Umola",
+                    "email": "ecomje@gmail.com",
+                    "phonenumber": "8145467267",
+                    "password": "$2a$12$bJ/eoNrrBYC0fYEmtc5LbeniX86vNmKytDU3al6OIHWPYvoXF5GAi",
+                    "role": "user", // [user/politian]
+                    "isadmin": false,
+                    "passporturl": "http://www.emmsdan.com/me.png",
+                    "createdOn": "2015-08-05T08:40:51.620Z",
+                    "updatedOn": "2015-08-05T08:40:51.620Z"
                 }
             }
 
@@ -122,7 +152,12 @@ Get a reset password link, in your email.
         
             {
                 "status": 200,
-                "data": "check email for reset link"
+                "data": [
+                    {
+                        "message": "check your email for password reset link",
+                        "email": "example@email.com"
+                    }
+                ]
             }
 
 
@@ -136,13 +171,15 @@ Get a reset password link, in your email.
                 "status": 201,
                 "data": [
                     {
+                        "id": 1,
                         "name": "someone party name",
                         "hqAddress": "somewhere some fast",
                         "logoUrl": "http://domain.com/image.png",
                         "createdOn": "2015-08-05T08:40:51.620Z",
                         "updatedOn": "2015-08-05T08:40:51.620Z",
-                    },
                     {
+                    },
+                        "id": 2,
                         "name": "another party name",
                         "hqAddress": "somewhere some fast",
                         "logoUrl": "http://domain.com/image.png",
@@ -172,7 +209,7 @@ Get a specific political ID  `/api/v1/parties/<party-id>/`
                 "status": 200,
                 "data": [
                     {
-                        "partyid": 23456,
+                        "id": 4,
                         "name": "some people party",
                         "hqAddress": "np, 123. suruleri, mara",
                         "logoUrl": "http://domain.com/image.png",
@@ -183,18 +220,19 @@ Get a specific political ID  `/api/v1/parties/<party-id>/`
             }
 
 
+
 ### Create a New Party [POST]
 
 Create a political party `/api/v1/parties/`
 
 + Request (application/json)
-        
-        
-            {
-                "name": "some people party",
-                "hqAddress": "np, 123. suruleri, mara",
-                "logoUrl": "http://domain.com/image.png",
-            }
+
+        {
+            "id": 11,
+            "name": "some people party",
+            "hqAddress": "np, 123. suruleri, mara",
+            "logoUrl": "http://domain.com/image.png",
+        }
 
             
 + Response 201 (application/json)
@@ -207,7 +245,7 @@ Create a political party `/api/v1/parties/`
                 "status": 201,
                 "data": [
                     {
-                        "partyid": 23456,
+                        "id": 2,
                         "name": "some people party",
                         "hqAddress": "np, 123. suruleri, mara",
                         "logoUrl": "http://domain.com/image.png",
@@ -222,10 +260,9 @@ Rename an existing political party `/api/v1/parties/<party-id>/name`
 
 + Request (application/json)
         
-        
-            {
-                "name": "new some people party"
-            }
+        {
+            "name": "new some people party"
+        }
 
             
 + Response 201 (application/json)
@@ -238,10 +275,8 @@ Rename an existing political party `/api/v1/parties/<party-id>/name`
                 "status": 200,
                 "data": [
                     {
-                        "partyid": 23456,
+                        "id": 2,
                         "name": "new some people party", //new name
-                        "hqAddress": "np, 123. suruleri, mara",
-                        "logoUrl": "http://domain.com/image.png",
                     }
                 ]
             }
@@ -260,9 +295,8 @@ Delete an existing political party `/api/v1/parties/<party-id>`
         
             {
                 "status": 200,
-                "data": "party deleted".
+                "data": [ "party deleted from record." ]
             }
-
 
 
 ## Government Offices [/office/]
@@ -275,7 +309,7 @@ Delete an existing political party `/api/v1/parties/<party-id>`
                 "status": 200,
                 "data": [
                     {
-                        "officeid": 32456,
+                        "id": 3,
                         "name": "office one",
                         "type": "federal",
                         "logoUrl": "http://domain.com/image.png",
@@ -283,7 +317,7 @@ Delete an existing political party `/api/v1/parties/<party-id>`
                         "updatedOn": "2015-08-05T08:40:51.620Z",
                     },
                     {
-                        "officeid": 2345,
+                        "id": 2345,
                         "name": "office 2",
                         "type": "state",
                         "logoUrl": "http://domain.com/image.png",
@@ -313,7 +347,7 @@ Get a specific office by id `/api/v1/offices/<office-id>/`
                 "status": 200,
                 "data": [
                     {
-                        "officeid": 23456,
+                        "id": 23456,
                         "name": "office 3",
                         "type": "state",
                         "logoUrl": "http://domain.com/image.png",
@@ -330,11 +364,11 @@ Create an Office `/api/v1/offices/`
 
 + Request (application/json)
         
-            {
-                "name": "office 6",
-                "type": "local",
-                "logoUrl": "http://domain.com/image.png",
-            }
+        {
+            "name": "office 6",
+            "type": "local",
+            "logoUrl": "http://domain.com/image.png",
+        }
 
             
 + Response 201 (application/json)
@@ -347,7 +381,7 @@ Create an Office `/api/v1/offices/`
                 "status": 201,
                 "data": [
                     {
-                        "officeid": 23456,
+                        "id": 23456,
                         "name": "office 6",
                         "type": "local",
                         "logoUrl": "http://domain.com/image.png",
@@ -368,16 +402,16 @@ Create an Office `/api/v1/offices/`
                 "status": 200,
                 "data": [
                     {
-                        "candidateid": 32456,
-                        "officeid": 32456,
-                        "partyid": 32456,
+                        "candidate": 32456,
+                        "office": 32456,
+                        "party": 32456,
                         "createdOn": "2015-08-05T08:40:51.620Z",
                         "updatedOn": "2015-08-05T08:40:51.620Z",
                     },
                     {
-                        "candidateid": 98765,
-                        "officeid": 32456,
-                        "partyid": 87654,
+                        "candidate": 98765,
+                        "office": 32456,
+                        "party": 87654,
                         "createdOn": "2015-08-05T08:40:51.620Z",
                         "updatedOn": "2015-08-05T08:40:51.620Z",
                     }
@@ -392,11 +426,11 @@ Register a user as a candidate running for a political office.
 
 + Request (application/json)
         
-            {
-                "userid": 821,
-                "officeid": 8765,
-                "partyid": 7654
-            }
+        {
+            "user": 821,
+            "office": 8765,
+            "party": 7654
+        }
 
             
 + Response 201 (application/json)
@@ -409,9 +443,9 @@ Register a user as a candidate running for a political office.
                 "status": 201,
                 "data": [
                     {
-                        "userid": 821,
-                        "officeid": 8765,
-                        "partyid": 7654,
+                        "user": 821,
+                        "office": 8765,
+                        "party": 7654,
                     }
                 ]
             }
@@ -426,8 +460,8 @@ Register a user as a candidate running for a political office.
         
             {
                 "voter": 821,
-                "officeid": 8765,
-                "candidateid": 7654
+                "office": 8765,
+                "candidate": 7654
             }
 
 + Response 201 (application/json)
@@ -436,9 +470,8 @@ Register a user as a candidate running for a political office.
                 "status": 201,
                 "data": [
                     {
-                    {
-                        "candidateid": 98765,
-                        "officeid": 32456,
+                        "candidate": 98765,
+                        "office": 32456,
                         "voter": 821,
                     }
                 ]
@@ -462,13 +495,13 @@ Get Election Results
                 "status": 200,
                 "data": [
                     {
-                        "officeid": 8765,
-                        "dandidateid": 7654,
+                        "office": 8765,
+                        "dandidate": 7654,
                         "total": 764,
                     },
                     {
-                        "officeid": 8765,
-                        "candidateid": 123,
+                        "office": 8765,
+                        "candidate": 123,
                         "total": 76,
                     }
                 ]
@@ -490,9 +523,9 @@ Get Election Result for a specific office
                 "status": 200,
                 "data": [
                     {
-                        "officeid": 8765,
-                        "candidateid": 7654,
-                        "total": 764,
+                        "office": 8765,
+                        "candidate": 7654,
+                        "result": 764,
                     }
                 ]
             }
@@ -517,7 +550,7 @@ Allow Users to file a new Petition
                     {
                         "petitionid": 8765,
                         "userid": 123,
-                        "officeid": 342,
+                        "office": 342,
                         "text": "some very very serious aligations",
                         "evidenceUrl": "http://someevidencefile.png",
                         "createdOn": "2015-08-05T08:40:51.620Z",
@@ -554,7 +587,7 @@ Get Election Result for a specific office
                     {
                         "petitionid": 8765,
                         "userid": 123,
-                        "officeid": 342,
+                        "office": 342,
                         "text": "some very very serious aligations",
                         "evidenceUrl": "http://someevidencefile.png",
                         "createdOn": "2015-08-05T08:40:51.620Z",
