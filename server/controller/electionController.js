@@ -59,7 +59,7 @@ export default class electionController {
       .catch((error) => {
         let errorResponse = `Error: ${error.message}`;
         if (error.message.includes('violates foreign key')) errorResponse = 'office/user id does not exist';
-        return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : '';
+        return errorResponse ? responseController.response({ status: 400, message: errorResponse }, null, response) : '';
       });
   }
 
@@ -161,13 +161,13 @@ export default class electionController {
           .catch((error) => {
             let errorResponse = `Error: ${error.message}`;
             if (error.message.includes('violates foreign key')) errorResponse = 'office/candidate id does not exist';
-            return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : '';
+            return errorResponse ? responseController.response({ status: 400, message: errorResponse }, null, response) : '';
           });
       }
       throw Error('can\'t vote twice for the same office');
     }).catch((error) => {
       const errorResponse = `Error: ${error.message}`;
-      return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : '';
+      return errorResponse ? responseController.response({ status: 400, message: errorResponse }, null, response) : '';
     });
   }
 

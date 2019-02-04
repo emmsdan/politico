@@ -1,20 +1,15 @@
 language: node_js
 node_js:
- - "node"
+ - "stable"
 env:
   global:
     - CC_TEST_REPORTER_ID=056f071568b921c9b169a9fa374e3487ecb9edbde6de6919197d53e71ac4f5d6
+    - PrivateKey='cvJubViuomSpsTadoiiugTysujd'
+    - cryptoKey=$2a$12$bJ/eoNrrBYC0fYEmtc5Lbe
 
   addons:
     code_climate:
       repo_token: 056f071568b921c9b169a9fa374e3487ecb9edbde6de6919197d53e71ac4f5d6
-
-before_script:
-  - npm run migrate
-
-before_install:
-  - export DATABASE_URL='postgres://frpdtqotuogklq:32d852a893d590bf0aca0a574484aaa90bf7c6f38ce15220bdbd280f41084501@ec2-23-23-184-76.compute-1.amazonaws.com:5432/dc4v5gpp7vjg1b'
-- export PG_HOST_URL='postgres://xtsfuxfg:oSqjS5btCXfzSR0nTw4qJxh9qYwa4Csb@manny.db.elephantsql.com:5432/xtsfuxfg'
 
 install:
   - npm install
