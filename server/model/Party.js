@@ -34,7 +34,7 @@ export default class Party {
    * @returns promise
    */
   static async get(partyid) {
-    return Database.find(new Party().table, { partyid });
+    return Database.find(new Party().table, { id: partyid });
   }
 
   /**
@@ -44,7 +44,7 @@ export default class Party {
    * @returns promise
    */
   static async edit(name, partyid) {
-    return Database.update(new Party().table, { name }, { partyid });
+    return Database.update(new Party().table, { name }, { id: partyid });
   }
 
   /**
@@ -53,6 +53,6 @@ export default class Party {
    * @returns promise
    */
   static async delete(partyid) {
-    return Database.deleteRow(new Party().table, { partyid });
+    return Database.deleteRow(new Party().table, { id: partyid });
   }
 }
