@@ -204,7 +204,7 @@ Create a political party `/api/v1/parties/`
 
         
             {
-                "status: 201,
+                "status": 201,
                 "data": [
                     {
                         "partyid": 23456,
@@ -235,7 +235,7 @@ Rename an existing political party `/api/v1/parties/<party-id>/name`
 
         
             {
-                "status: 200,
+                "status": 200,
                 "data": [
                     {
                         "partyid": 23456,
@@ -259,7 +259,7 @@ Delete an existing political party `/api/v1/parties/<party-id>`
 
         
             {
-                "status: 200,
+                "status": 200,
                 "data": "party deleted".
             }
 
@@ -344,7 +344,7 @@ Create an Office `/api/v1/offices/`
 
         
             {
-                "status: 201,
+                "status": 201,
                 "data": [
                     {
                         "officeid": 23456,
@@ -358,7 +358,7 @@ Create an Office `/api/v1/offices/`
 
 
 
-## Candidates [/office/]
+## Candidates [/candidate/]
 
 ### List all candidates [GET]
 `/api/v1/candidate/`
@@ -406,7 +406,7 @@ Register a user as a candidate running for a political office.
 
         
             {
-                "status: 201,
+                "status": 201,
                 "data": [
                     {
                         "userid": 821,
@@ -459,7 +459,7 @@ Get Election Results
 
         
             {
-                "status: 200,
+                "status": 200,
                 "data": [
                     {
                         "officeid": 8765,
@@ -487,7 +487,7 @@ Get Election Result for a specific office
 
         
             {
-                "status: 200,
+                "status": 200,
                 "data": [
                     {
                         "officeid": 8765,
@@ -512,7 +512,7 @@ Allow Users to file a new Petition
 
         
             {
-                "status: 200,
+                "status": 200,
                 "data": [
                     {
                         "petitionid": 8765,
@@ -549,7 +549,7 @@ Get Election Result for a specific office
 
         
             {
-                "status: 200,
+                "status": 200,
                 "data": [
                     {
                         "petitionid": 8765,
