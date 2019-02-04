@@ -1,0 +1,564 @@
+FORMAT: 1A
+HOST: http://polls.apiblueprint.org/
+
+# POLITICO.io
+
+Politico enables citizens give their mandate to politicians running for different government offices while building trust in the process through transparency
+
+
+## Authentications/Users [/auth/]
+
+### List all Users (admin only)[GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "name": "someone name",
+                "email": "example@email.com",
+                "phone": "+2349013432332",
+                "role": "user/admin",
+                "photoUrl": "http://domain.com/image.png",
+                "createdOn": "2015-08-05T08:40:51.620Z",
+                "updatedOn": "2015-08-05T08:40:51.620Z"
+            },
+            {
+                "name": "someone name",
+                "email": "example@email.com",
+                "phone": "+2349013432332",
+                "role": "user/admin",
+                "photoUrl": "http://domain.com/image.png",
+                "createdOn": "2015-08-05T08:40:51.620Z",
+                "updatedOn": "2015-08-05T08:40:51.620Z"
+            }
+        ]
+
+### Create an Account [POST]
+
+Create a new User account
+
++ Request (application/json)
+
+        {
+            "name": "some name",
+            "email": "example@email.com",
+            "phone": "+23490234832",
+            "password": "example123",
+            "role": "user/admin", //optional
+            "photoUrl": "http://fullpart.image.png"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /auth/signup
+            
+    + Body
+
+        
+            {
+                "status": 201,
+                "token": "eyJleHAiOjE1NDk4NzMyMTAsInBheWxvYWQiOnsiZW1haWwiOiJlY29tamVAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwidXNlcmlkIjoiMTU0OTI2ODQwODE0NyJ9LCJpYXQiOjE1NDkyNjg0MTB9.l92n",
+                "user": {
+                    "email": "example@email.com",
+                    "phone": "+23490234832",
+                    "name": "some name",
+                    "useri": "123453245",
+                },
+                "message": "mesage "
+            }
+
+### Login to an Account [POST]
+
+Access Users account
+
++ Request (application/json)
+
+        {
+            "username": "example@email.com", //email or phone
+            "password": "example123"
+        }
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Location: /auth/login
+            
+    + Body
+
+        
+            {
+                "status": 200,
+                "token": "eyJleHAiOjE1NDk4NzMyMTAsInBheWxvYWQiOnsiZW1haWwiOiJlY29tamVAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwidXNlcmlkIjoiMTU0OTI2ODQwODE0NyJ9LCJpYXQiOjE1NDkyNjg0MTB9.l92n",
+                "user": {
+                    "email": "example@email.com",
+                    "phone": "+23490234832",
+                    "name": "some name",
+                    "useri": "123453245",
+                }
+            }
+
+
+### Reset Account Password [POST]
+
+Get a reset password link, in your email.
+
++ Request (application/json)
+
+        {
+            "email": "example@email.com", //email
+        }
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Location: /auth/reset
+            
+    + Body
+
+        
+            {
+                "status": 200,
+                "data": "check email for reset link"
+            }
+
+
+## Political Parties [/parties/]
+
+### List all Parties (login users only)[GET]
+
++ Response 200 (application/json)
+
+            {
+                "status": 201,
+                "data": [
+                    {
+                        "name": "someone party name",
+                        "hqAddress": "somewhere some fast",
+                        "logoUrl": "http://domain.com/image.png",
+                        "createdOn": "2015-08-05T08:40:51.620Z",
+                        "updatedOn": "2015-08-05T08:40:51.620Z",
+                    },
+                    {
+                        "name": "another party name",
+                        "hqAddress": "somewhere some fast",
+                        "logoUrl": "http://domain.com/image.png",
+                        "createdOn": "2015-08-05T08:40:51.620Z",
+                        "updatedOn": "2015-08-05T08:40:51.620Z",
+                    }
+                ]
+            }
+
+### View Specific Party [GET]
+
+Get a specific political ID  `/api/v1/parties/<party-id>/`
+
++ Request (application/json)
+
+    + Headers
+
+            Location: /api/v1/parties/<party-id>
+            
++ Response 200 (application/json)
+
+            
+    + Body
+
+        
+            {
+                "status": 200,
+                "data": [
+                    {
+                        "partyid": 23456,
+                        "name": "some people party",
+                        "hqAddress": "np, 123. suruleri, mara",
+                        "logoUrl": "http://domain.com/image.png",
+                        "createdOn": "2015-08-05T08:40:51.620Z",
+                        "updatedOn": "2015-08-05T08:40:51.620Z"
+                    }
+                ]
+            }
+
+
+### Create a New Party [POST]
+
+Create a political party `/api/v1/parties/`
+
++ Request (application/json)
+        
+        
+            {
+                "name": "some people party",
+                "hqAddress": "np, 123. suruleri, mara",
+                "logoUrl": "http://domain.com/image.png",
+            }
+
+            
++ Response 201 (application/json)
+
+            
+    + Body
+
+        
+            {
+                "status: 201,
+                "data": [
+                    {
+                        "partyid": 23456,
+                        "name": "some people party",
+                        "hqAddress": "np, 123. suruleri, mara",
+                        "logoUrl": "http://domain.com/image.png",
+                    }
+                ]
+            }
+
+
+### Rename Party [PATCH]
+
+Rename an existing political party `/api/v1/parties/<party-id>/name`
+
++ Request (application/json)
+        
+        
+            {
+                "name": "new some people party"
+            }
+
+            
++ Response 201 (application/json)
+
+            
+    + Body
+
+        
+            {
+                "status: 200,
+                "data": [
+                    {
+                        "partyid": 23456,
+                        "name": "new some people party", //new name
+                        "hqAddress": "np, 123. suruleri, mara",
+                        "logoUrl": "http://domain.com/image.png",
+                    }
+                ]
+            }
+
+
+### Delete a Party [DELETE]
+
+Delete an existing political party `/api/v1/parties/<party-id>`
+
+            
++ Response 200 (application/json)
+
+            
+    + Body
+
+        
+            {
+                "status: 200,
+                "data": "party deleted".
+            }
+
+
+
+## Government Offices [/office/]
+
+### List all offices [GET]
+`/api/v1/offices/`
++ Response 200 (application/json)
+
+            {
+                "status": 200,
+                "data": [
+                    {
+                        "officeid": 32456,
+                        "name": "office one",
+                        "type": "federal",
+                        "logoUrl": "http://domain.com/image.png",
+                        "createdOn": "2015-08-05T08:40:51.620Z",
+                        "updatedOn": "2015-08-05T08:40:51.620Z",
+                    },
+                    {
+                        "officeid": 2345,
+                        "name": "office 2",
+                        "type": "state",
+                        "logoUrl": "http://domain.com/image.png",
+                        "createdOn": "2015-08-05T08:40:51.620Z",
+                        "updatedOn": "2015-08-05T08:40:51.620Z",
+                    }
+                ]
+            }
+
+### View Specific Office [GET]
+
+Get a specific office by id `/api/v1/offices/<office-id>/`
+
++ Request (application/json)
+
+    + Headers
+
+            Location: /api/v1/parties/<party-id>
+            
++ Response 200 (application/json)
+
+            
+    + Body
+
+        
+            {
+                "status": 200,
+                "data": [
+                    {
+                        "officeid": 23456,
+                        "name": "office 3",
+                        "type": "state",
+                        "logoUrl": "http://domain.com/image.png",
+                        "createdOn": "2015-08-05T08:40:51.620Z",
+                        "updatedOn": "2015-08-05T08:40:51.620Z"
+                    }
+                ]
+            }
+
+
+### Create a New Government Office [POST]
+
+Create an Office `/api/v1/offices/`
+
++ Request (application/json)
+        
+            {
+                "name": "office 6",
+                "type": "local",
+                "logoUrl": "http://domain.com/image.png",
+            }
+
+            
++ Response 201 (application/json)
+
+            
+    + Body
+
+        
+            {
+                "status: 201,
+                "data": [
+                    {
+                        "officeid": 23456,
+                        "name": "office 6",
+                        "type": "local",
+                        "logoUrl": "http://domain.com/image.png",
+                    }
+                ]
+            }
+
+
+
+
+## Candidates [/office/]
+
+### List all candidates [GET]
+`/api/v1/candidate/`
++ Response 200 (application/json)
+
+            {
+                "status": 200,
+                "data": [
+                    {
+                        "candidateid": 32456,
+                        "officeid": 32456,
+                        "partyid": 32456,
+                        "createdOn": "2015-08-05T08:40:51.620Z",
+                        "updatedOn": "2015-08-05T08:40:51.620Z",
+                    },
+                    {
+                        "candidateid": 98765,
+                        "officeid": 32456,
+                        "partyid": 87654,
+                        "createdOn": "2015-08-05T08:40:51.620Z",
+                        "updatedOn": "2015-08-05T08:40:51.620Z",
+                    }
+                ]
+            }
+
+
+### Register Candidate [POST]
+
+Register a user as a candidate running for a political office.
+`/api/v1/office/register`
+
++ Request (application/json)
+        
+            {
+                "userid": 821,
+                "officeid": 8765,
+                "partyid": 7654
+            }
+
+            
++ Response 201 (application/json)
+
+            
+    + Body
+
+        
+            {
+                "status: 201,
+                "data": [
+                    {
+                        "userid": 821,
+                        "officeid": 8765,
+                        "partyid": 7654,
+                    }
+                ]
+            }
+
+
+
+## Votes/Voter [/vote/]
+
+### Vote a candidate [POST]
+`/api/v1/vote/`
++ Request (application/json)
+        
+            {
+                "voter": 821,
+                "officeid": 8765,
+                "candidateid": 7654
+            }
+
++ Response 201 (application/json)
+
+            {
+                "status": 201,
+                "data": [
+                    {
+                    {
+                        "candidateid": 98765,
+                        "officeid": 32456,
+                        "voter": 821,
+                    }
+                ]
+            }
+
+
+## Election [/election/]
+
+### Election Results [GET]
+
+Get Election Results
+`/api/v1/office/result`
+            
++ Response 200 (application/json)
+
+            
+    + Body
+
+        
+            {
+                "status: 200,
+                "data": [
+                    {
+                        "officeid": 8765,
+                        "dandidateid": 7654,
+                        "total": 764,
+                    },
+                    {
+                        "officeid": 8765,
+                        "candidateid": 123,
+                        "total": 76,
+                    }
+                ]
+            }
+
+
+### Election Result for an Office [GET]
+
+Get Election Result for a specific office
+`/api/v1/office/<office-id>/result`
+            
++ Response 200 (application/json)
+
+            
+    + Body
+
+        
+            {
+                "status: 200,
+                "data": [
+                    {
+                        "officeid": 8765,
+                        "candidateid": 7654,
+                        "total": 764,
+                    }
+                ]
+            }
+
+
+## Petition [/petition/]
+
+### Create a petition [POST]
+
+Allow Users to file a new Petition
+`/api/v1/petition`
+            
++ Response 201 (application/json)
+
+            
+    + Body
+
+        
+            {
+                "status: 200,
+                "data": [
+                    {
+                        "petitionid": 8765,
+                        "userid": 123,
+                        "officeid": 342,
+                        "text": "some very very serious aligations",
+                        "evidenceUrl": "http://someevidencefile.png",
+                        "createdOn": "2015-08-05T08:40:51.620Z",
+                        "updatedOn": "2015-08-05T08:40:51.620Z"
+                    }
+                ]
+            }
+
+
+### Election Result for an Office [GET]
+
+Get Election Result for a specific office
+`/api/v1/office/<office-id>/result`
+            
+
++ Request (application/json)
+
+        {
+            "title": "some name",
+            "evidenceUrl": "http://fullpart.image.png",
+            "officeid": 3454,
+            "userid": 23456
+        }
+
++ Response 200 (application/json)
+
+            
+    + Body
+
+        
+            {
+                "status: 200,
+                "data": [
+                    {
+                        "petitionid": 8765,
+                        "userid": 123,
+                        "officeid": 342,
+                        "text": "some very very serious aligations",
+                        "evidenceUrl": "http://someevidencefile.png",
+                        "createdOn": "2015-08-05T08:40:51.620Z",
+                        "updatedOn": "2015-08-05T08:40:51.620Z"
+                    }
+                ]
+            }
