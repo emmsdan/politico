@@ -111,7 +111,7 @@ class validate {
         message: 'password should not be less than 6 characters'
       }, null, response);
     }
-    if (validator.isURL(passportUrl || '')) {
+    if (!validator.isURL(passportUrl || '')) {
       return responseController.response({
         status: 400,
         message: 'photo should should be a valid url'
