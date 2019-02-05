@@ -36,6 +36,6 @@ export default class Office {
    * @returns promise
    */
   static async get(officeid) {
-    return Database.find(new Office().table, { officeid });
+    return Database.find(new Office().table, { id: officeid });
   }
 }

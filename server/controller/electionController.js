@@ -18,41 +18,52 @@ export default class electionController {
   */
   static filePetition(request, response) {
     const {
-      userid, officeid, comment, evidence
+      userid, office, text, evidence
     } = request.body;
-    if (!validate.isInt(userid)) {
+    if (!validate.isInt(userid) || (userid.length > 7)) {
       return responseController.response({
         status: 400,
         message: 'empty or incorrect user id'
       }, null, response);
     }
-    if (!validate.isInt(officeid)) {
+    if (!validate.isInt(office)) {
       return responseController.response({
         status: 400,
         message: 'empty or incorrect office id'
       }, null, response);
     }
-    if (!validate.isAddress(comment)) {
+    if (!validate.isAddress(text)) {
       return responseController.response({
         status: 400,
         message: 'empty or incorrect body format'
       }, null, response);
     }
-    if (!validate.isURL(evidence)) {
-      return responseController.response({
-        status: 400,
-        message: 'empty or incorrect url format.'
-      }, null, response);
-    }
+    const evidenceArray = evidence.split(',');
+    let evidences = '';
+    let count = 0;
+    evidenceArray.forEach((eUrl) => {
+      if (!validate.isURL(eUrl.trim())) {
+        return responseController.response({
+          status: 400,
+          message: 'empty or incorrect url format.'
+        }, null, response);
+      }
+      evidences += eUrl.trim();
+      if (count < (evidenceArray.length - 1)) {
+        evidences += ',';
+      }
+      count += 1;
+    });
     const fields = {
-      createdBy: userid, office: officeid, text: comment, evidence
+      createdBy: userid, office, text, evidence: evidences.trim()
     };
     return Election.createPetition(fields)
       .then((resp) => {
         if (resp.rowCount > 0) {
+          resp.rows[0].evidence = resp.rows[0].evidence.split(',');
           responseController.response(null, {
             status: 201,
-            message: fields
+            message: resp.rows[0]
           }, response);
         }
       })
@@ -73,7 +84,31 @@ export default class electionController {
     return Election.viewAllPetition()
       .then(resp => responseController.response(null, {
         status: 200,
-        message: resp[0]
+        message: resp
+      }, response))
+      .catch(error => responseController.response({
+        status: 404,
+        message: error
+      }, null, response));
+  }
+
+  /**
+  *
+  * @param {*} request
+  * @param {*} response
+  * @return promise;
+  */
+  static viewPetition(request, response) {
+    if (!validate.isInt(request.params.petitionid)) {
+      return responseController.response({
+        status: 400,
+        message: 'empty or incorrect id format.'
+      }, null, response);
+    }
+    return Election.getPetition(request.params.petitionid)
+      .then(resp => responseController.response(null, {
+        status: 200,
+        message: resp
       }, response))
       .catch(error => responseController.response({
         status: 404,
@@ -89,26 +124,26 @@ export default class electionController {
   * @returns promise
   */
   static registerCandidate(request, response) {
-    const { userid, officeid, partyid } = request.body;
-    if (!validate.isInt(userid)) {
+    const { userid, office, party } = request.body;
+    if (!validate.isInt(userid) || ((userid.toString()).length > 7)) {
       return responseController.response({
         status: 400,
         message: 'empty or incorrect user id format'
       }, null, response);
     }
-    if (!validate.isInt(officeid)) {
+    if (!validate.isInt(office) || ((office.toString()).length > 7)) {
       return responseController.response({
         status: 400,
         message: 'empty or incorrect office id format'
       }, null, response);
     }
-    if (!validate.isInt(partyid)) {
+    if (!validate.isInt(party) || ((party.toString()).length > 7)) {
       return responseController.response({
         status: 400,
         message: 'empty or incorrect party id format'
       }, null, response);
     }
-    const fields = { candidateid: userid, partyid, officeid };
+    const fields = { userid, party, office };
     return Election.newCandidate(fields)
       .then((resp) => {
         if (resp.rowCount > 0) {
@@ -117,15 +152,15 @@ export default class electionController {
             message: fields
           }, response);
         }
+        throw Error('server error');
       })
       .catch((error) => {
         let errorResponse = `Error: ${error.message}`;
         if (error.message.includes('userid')) errorResponse = ' user id';
-        if (error.message.includes('officeid')) errorResponse = ' office id';
-        if (error.message.includes('partyid')) errorResponse += ' party id';
-        if (error.message.includes('violates foreign')) errorResponse += 'does not exist';
-
-        if (error.message.includes('violates unique')) errorResponse = 'already exist';
+        if (error.message.includes('office')) errorResponse = ' office id';
+        if (error.message.includes('party')) errorResponse = ' party id';
+        if (error.message.includes('violates foreign')) errorResponse += ' does not exist';
+        if (error.message.includes('violates unique')) errorResponse += ' already exist';
         return errorResponse ? responseController.response({ status: 400, message: errorResponse }, null, response) : '';
       });
   }
@@ -138,30 +173,30 @@ export default class electionController {
     * @returns promise
     */
   static vote(request, response) {
-    const { voter, officeid, candidate } = request.body;
-    if (!validate.isInt(voter) || !validate.isInt(officeid)) {
+    const { voter, office, candidate } = request.body;
+    if (!validate.isInt(voter) || !validate.isInt(office)) {
       return responseController.response({
         status: 400,
         message: 'empty or incorrect voter id or office id format'
       }, null, response);
     }
     return Database.find('votes', {
-      voter, officeid
+      voter, office
     }).then((resp) => {
       if (!Array.isArray(resp)) {
-        return Election.newVote({ voter, officeid, candidate })
+        return Election.newVote({ voter, office, candidate })
           .then((res) => {
             if (res.rowCount > 0) {
               responseController.response(null, {
                 status: 201,
-                message: { voter, officeid, candidate }
+                message: { voter, office, candidate }
               }, response);
             }
           })
           .catch((error) => {
             let errorResponse = `Error: ${error.message}`;
             if (error.message.includes('violates foreign key')) errorResponse = 'office/candidate id does not exist';
-            return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : '';
+            return errorResponse ? responseController.response({ status: 417, message: errorResponse }, null, response) : '';
           });
       }
       throw Error('can\'t vote twice for the same office');

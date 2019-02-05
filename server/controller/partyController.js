@@ -35,16 +35,13 @@ export default class partyController {
         message: 'empty or  incorrect logo format'
       }, null, response);
     }
-    const partyid = new Date().getTime();
-    const fields = {
-      partyid, name, hqAddress, logoUrl
-    };
+    const fields = { name, hqAddress, logoUrl };
     return Party.create(fields)
       .then((resp) => {
         if (resp.rowCount > 0) {
           responseController.response(null, {
             status: 201,
-            message: fields
+            message: resp.rows[0]
           }, response);
         }
       })
@@ -151,7 +148,7 @@ export default class partyController {
           if (resp === 'updated') {
             return responseController.response(null, {
               status: 200,
-              message: { partyid: request.params.partyID, name: request.body.name }
+              message: { id: request.params.partyID, name: request.body.name }
             }, response);
           }
           return responseController.response({
