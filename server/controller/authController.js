@@ -135,7 +135,7 @@ export default class authController {
           throw Error('username and password combination does not match');
         }
         const generatedToken = jwtToken.generateWithHeader({
-          email: resp[0].email, role: resp[0].role, id: resp[0].id, isAdmin: false
+          email: resp[0].email, role: resp[0].role, id: resp[0].id, isAdmin: resp[0].isadmin
         }, response);
         return responseController.response(null, {
           status: 200,
@@ -143,11 +143,11 @@ export default class authController {
             token: generatedToken,
             user: {
               id: resp[0].id,
-              firstName: resp[0].firstName,
-              lastName: resp[0].lastName,
+              firstName: resp[0].firstname,
+              lastName: resp[0].lastname,
               otherName: resp[0].othername === 'undefined' ? '' : resp[0].othername,
               email: resp[0].email,
-              phoneNumber: resp[0].phoneNumber
+              phoneNumber: resp[0].phonenumber
             },
             message: 'logged in successfully'
           }
