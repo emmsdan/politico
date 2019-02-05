@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import { urlencoded, json } from 'body-parser';
+import path from 'path';
 
 import { init } from './migration';
 
@@ -16,7 +17,9 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 5051;
+const documentation = path.join(__dirname, 'doc');
 
+// app.use(express.static('doc'));
 app.use(cookieParser());
 app.use(urlencoded({ extended: true }));
 app.use(json());
@@ -38,6 +41,10 @@ app.purge('/migrate', (req, res) => {
 /**
  * main api routes
  */
+app.get('/doc/', (req, res) => {
+  res.sendFile(path.join(documentation, 'doc.html'));
+});
+
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/offices', officeRouter);
 app.use('/api/v1/parties', partyRouter);
