@@ -18,7 +18,7 @@ export default class authController {
    * @returns string
    */
   static hashPassword(password) {
-    return bcrypt.hashSync(password, process.env.cryptoKey);
+    return bcrypt.hashSync(password, +process.env.CRYPT_KEY);
   }
 
   /**
@@ -131,7 +131,7 @@ export default class authController {
     }
     return User.login(options)
       .then((resp) => {
-        if (!Array.isArray(resp) || resp[0].password !== hashedPass) {
+        if (!Array.isArray(resp) || !bcrypt.compareSync(password, resp[0].password)) {
           throw Error('username and password combination does not match');
         }
         const generatedToken = jwtToken.generateWithHeader({
