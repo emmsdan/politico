@@ -17,6 +17,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 5051;
 
+app.use(express.static('src'));
 app.use(cookieParser());
 app.use(urlencoded({ extended: true }));
 app.use(json());

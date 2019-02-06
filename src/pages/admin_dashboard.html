@@ -1,0 +1,206 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="canonical" href="./">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="../img/favicon.png"../>
+    <!-- development only area-->
+
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Pragma" content="no-cache" />
+
+    <!-- end of development only area-->
+    <link href="https://fonts.googleapis.com/css?family=Sarabun" rel="stylesheet">
+    <link rel="stylesheet" href="../css/app.css" />
+
+    <script src="../js/dexie.js"></script>
+    <script async defer src="../js/tools.js"></script>
+    <script async defer src="../js/app.js"></script>
+    <script async defer src="../js/accessControl.js"></script>
+  </head>
+  <body>
+    <header data-add-file="./header.txt"></header>
+    <main>
+      <div class="clear-space"></div>
+      <section class="wrapper">
+        <div class="box no-radius">
+          <div class="left-text blue-gray-text top-profile flex-center">
+            <img src="../img/profile/emmanuel-daniel.jpg" class="profile-pix left" />
+            <div class="profile-menu">
+              <h2 class="title font-serif p-name">
+                <span id="p-name">Emmanuel Daniel</span>
+                <button class="button" data-target="edit-profile">edit profile</button>
+              </h2>
+              <div class="">
+                <br/>
+                <strong>Role:</strong> @<span id="p-role">politician</span> |
+                <span id="p-email">ecomje@gmail.com</span> |
+                <span id="p-phone">+234 814 546 7267</span>
+                <hr />
+                <a href="create-office.html" class="button">Create Government Office</a>
+                <a href="create-party.html" class="button">Create New Party</a>
+                <a class="button" data-target="contest-election">Confirm Candidate</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="main">
+          <br/>
+          <br/>
+          <div class="box responsive no-bg no-shadow">
+            <h1 class="centered-text biggest-text">
+              Political Parties
+            </h1>
+            <table class="">
+              <tr>
+                <th>logo</th>
+                <th>Party Name</th>
+                <th>head quarter Address</th>
+                <th>action</th>
+              </tr>
+              <tr>
+                <td><img src="../img/adp.jpg" class="circle"> </td>
+                <td> Action Democratic Party</td>
+                <td>No. 501, Marabawa, Ikeja, Lagos State</td>
+                <td>
+                  <a href="edit-party.html" class="button blue">edit</a>
+                  <a href="#delete" data-target="deleteAction" class="button red">delete</a>
+                </td>
+              </tr>
+              <tr>
+                <td><img src="../img/adp.jpg" class="circle"> </td>
+                <td> Action Democratic Party</td>
+                <td>No. 501, Marabawa, Ikeja, Lagos State</td>
+                <td>
+                  <a href="edit-party.html" class="button blue">edit</a>
+                  <a href="#delete" data-target="deleteAction" class="button red">delete</a>
+                </td>
+              </tr>
+              <tr>
+                <td><img src="../img/adp.jpg" class="circle"> </td>
+                <td> Action Democratic Party</td>
+                <td>No. 501, Marabawa, Ikeja, Lagos State</td>
+                <td>
+                  <a href="edit-party.html" class="button blue">edit</a>
+                  <a href="#delete" data-target="deleteAction" class="button red">delete</a>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <br/>
+          <br/>
+          <div class="box responsive no-bg no-shadow">
+            <h1 class="centered-text biggest-text">
+                Government Office
+            </h1>
+            <table class="">
+              <tr>
+                <th>ID</th>
+                <th>office type</th>
+                <th>office name</th>
+                <th>action</th>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>federal</td>
+                <td>Senate</td>
+                <td>
+                  <a href="#delete" data-target="deleteAction" class="button red">delete</a>
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>state</td>
+                <td>house of rep.</td>
+                <td>
+                  <a href="#delete" data-target="deleteAction" class="button red">delete</a>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+    <br/>
+    <div class="toast">  <span class="toast-close">x</span></div>
+
+    <!-- modal boxes for extra functionalities -->
+
+<!-- The Delete Modal  -->
+    <div id="deleteAction" class="modal">
+      <div class="modal-content mobile-size centered-text">
+        <h2> Are you sure you want to delete this?</h2>
+        <br />
+        <button class="red button-bigger close" onclick="toast('I love my toat bar')"> Yes Delete</button>
+        <button class="blue-gray button-bigger close"> No, Cancel</button>
+      </div>
+    </div>
+
+  <!-- The Modal Edit Profile -->
+  <div id="edit-profile" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+
+      <form action="../pages/user_dashboard.html" class="  no-shadow">
+          <h3>Update Profile</h3>
+          <hr/>
+
+          <div class="field">
+              <input type="text" name="firstname" id="firstname" placeholder="Emmanuel" required>
+              <label for="firstname">First Name:</label>
+            </div>
+
+            <div class="field">
+              <input type="text" name="lastname" id="lastname" placeholder="Daniel" required>
+              <label for="lastname">Last Name:</label>
+            </div>
+
+            <div class="field">
+              <input type="email" name="email" id="email" placeholder="ecomje@gmail.com" required>
+              <label for="email">Email:</label>
+            </div>
+
+            <div class="field">
+              <input type="phone" name="phone" id="phone" placeholder="phone: 08145467267" required>
+              <label for="phone">Phone Number:</label>
+            </div>
+            <div class="field">
+              <input type="file" name="profile-logo" id="profile-logo" accept="image/*" required>
+              <label for="profile-logo">Profile Logo:</label>
+            </div>
+
+            <button type="submit" class="button button-bigger w100">Update Profile</button>
+          </div>
+      </form>
+    </div>
+    <div class="modal" id="contest-election">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+
+          <form action="../pages/user_dashboard.html" class="  no-shadow">
+              <legend>Confirm Candidate to Contest for Election</legend>
+              <hr/>
+              <div class="field">
+                <select type="text" name="candidate" id="candidate" required>
+                  <option> Abas Mark</option>
+                  <option> Samson killo</option>
+                  <option> Bukola Nosaraki</option>
+                </select>
+                <label for="party">Select candidate:</label>
+              </div>
+              <button type="submit" class="button button-bigger w100">Confirm Candidate</button>
+            </div>
+          </form>      </div>
+      </div>
+
+  </div>
+  <footer data-add-file='./footer.txt'>
+    <div>
+    <a href="https://github.com/emmsdan/politico/">Politico</a> powered by <a href="https://twitter.com/emmsdan">Emmanuel Daniel</a>
+    </div>
+  </footer>
+  </body>
+  <script>
+  </script>
+</html>
