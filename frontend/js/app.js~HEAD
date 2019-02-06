@@ -1,5 +1,5 @@
 localStorage.setItem('secure_page', '[ "dashboard", "office"]');
-const baseUrl = '/api/v1';
+const baseUrl = 'http://localhost:5050/api/v1';
 
 window.addEventListener('load', (event) => {
   slider();
