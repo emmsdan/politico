@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import { urlencoded, json } from 'body-parser';
+import cors from 'cors';
 
 import { init } from './migration';
 
@@ -15,11 +16,14 @@ import electionRouter from './server/route/electionRouter';
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 5051;
+const port = process.env.PORT || 5050;
 
+app.use(express.static('frontend'));
 app.use(cookieParser());
 app.use(urlencoded({ extended: true }));
 app.use(json());
+app.use(cors());
+
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');

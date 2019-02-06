@@ -160,6 +160,7 @@ class validate {
     }
     return text;
   }
+
   /**
    *
    * @param {*} size
