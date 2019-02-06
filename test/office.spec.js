@@ -39,12 +39,12 @@ describe('OFFICE REQUEST', () => {
           name: `people ${validate.generateChar(4)}`,
           type: 'legislative'
         })
-        .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
+        .set('x-access-token', `${AuthToken}`)
         .end((err, res) => {
           expect(res.statusCode).to.equal(201);
           expect(res.body).to.be.an('object');
           expect(res.body.data).to.be.an('array');
-          officeID = res.body.data[0].officeid;
+          officeID = res.body.data[0].id;
           if (err) { return done(err); }
           done();
         });
@@ -57,7 +57,7 @@ describe('OFFICE REQUEST', () => {
           type: 'legislative',
           logoUrl: 'http://some.png'
         })
-        .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
+        .set('x-access-token', `${AuthToken}`)
         .end((err, res) => {
           expect(res.statusCode).to.equal(400);
           expect(res.body).to.be.an('object');
@@ -73,7 +73,7 @@ describe('OFFICE REQUEST', () => {
           name: 'people them',
           logoUrl: 'http://some.png'
         })
-        .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
+        .set('x-access-token', `${AuthToken}`)
         .end((err, res) => {
           expect(res.statusCode).to.equal(400);
           expect(res.body).to.be.an('object');
@@ -97,7 +97,7 @@ describe('OFFICE REQUEST', () => {
 
     it('should show all political office', (done) => {
       request(app).get('/api/v1/offices')
-        .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
+        .set('x-access-token', `${AuthToken}`)
         .end((err, res) => {
           expect(res.statusCode).to.equal(200);
           expect(res.body).to.be.an('object');
@@ -120,7 +120,7 @@ describe('OFFICE REQUEST', () => {
 
     it('should get specific political office', (done) => {
       request(app).get(`/api/v1/offices/${officeID}`)
-        .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
+        .set('x-access-token', `${AuthToken}`)
         .end((err, res) => {
           expect(res.statusCode).to.equal(200);
           expect(res.body).to.be.an('object');

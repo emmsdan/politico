@@ -42,9 +42,11 @@ export default class authController {
         const generatedToken = jwtToken.generateWithHeader({
           email, role: role || 'user', id: resp.rows[0].id, isAdmin: false
         }, response);
-        authController.sendMail({
-          name: firstName, email, phone: phoneNumber, signup: 'true', resp
-        });
+        if (process.env.NODE_ENV !== 'test') {
+          authController.sendMail({
+            name: firstName, email, phone: phoneNumber, signup: 'true', resp
+          });
+        }
         return responseController.response(null, {
           status: 201,
           message: {
@@ -90,9 +92,11 @@ export default class authController {
         if (!Array.isArray(resp)) {
           throw Error('no user with such email');
         }
-        authController.sendMail({
-          name: resp[0].firstname, email: resp[0].email, type: 'reset', message: 'Use the link below to reset password', resetURL: bcrypt.hashSync(new Date().toLocaleDateString(), 2)
-        });
+        if (process.env.NODE_ENV !== 'test') {
+          authController.sendMail({
+            name: resp[0].firstname, email: resp[0].email, type: 'reset', message: 'Use the link below to reset password', resetURL: bcrypt.hashSync(new Date().toLocaleDateString(), 2)
+          });
+        }
         return responseController.response(null, {
           status: 200,
           message: {
@@ -134,7 +138,7 @@ export default class authController {
         if (!Array.isArray(resp) || !bcrypt.compareSync(password, resp[0].password)) {
           throw Error('username and password combination does not match');
         }
-        const generatedToken = jwtToken.generateWithHeader({
+        const generatedToken = jwtToken.generate({
           email: resp[0].email, role: resp[0].role, id: resp[0].id, isAdmin: resp[0].isadmin
         }, response);
         return responseController.response(null, {

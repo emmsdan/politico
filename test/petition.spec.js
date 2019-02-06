@@ -6,7 +6,6 @@ import validate from '../server/helper/validate';
 describe('PETITION REQUEST', () => {
   let AuthToken = '';
   let userID = '';
-  let officeID = '';
 
   it('should login user', (done) => {
     request(app).post('/api/v1/auth/login')
@@ -18,7 +17,7 @@ describe('PETITION REQUEST', () => {
         expect(res.statusCode).to.equal(200);
         expect(res.body).to.be.an('object');
         AuthToken = res.body.data[0].token;
-        userID = res.body.data[0].user.userid;
+        userID = res.body.data[0].user.id;
         if (err) { return done(err); }
         done();
       });
@@ -28,11 +27,11 @@ describe('PETITION REQUEST', () => {
     request(app).post('/api/v1/petition')
       .send({
         userid: userID,
-        officeid: 1,
-        comment: 'I think obaje is a thief',
+        office: 1,
+        text: 'I think obaje is a thief',
         evidence: 'http://emmdan.cim'
       })
-      .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
+      .set('x-access-token', `${AuthToken}`)
       .end((err, res) => {
         expect(res.statusCode).to.equal(201);
         expect(res.body).to.be.an('object');
@@ -44,11 +43,35 @@ describe('PETITION REQUEST', () => {
 
   it('should return all petitions', (done) => {
     request(app).get('/api/v1/petition')
-      .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
+      .set('x-access-token', `${AuthToken}`)
       .end((err, res) => {
         expect(res.statusCode).to.equal(200);
         expect(res.body).to.be.an('object');
         expect(res.body.data[0]).to.be.an('object');
+        if (err) { return done(err); }
+        done();
+      });
+  });
+
+  it('should return specific petitions', (done) => {
+    request(app).get('/api/v1/petition/1')
+      .set('x-access-token', `${AuthToken}`)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        expect(res.body).to.be.an('object');
+        expect(res.body.data[0]).to.be.an('array');
+        if (err) { return done(err); }
+        done();
+      });
+  });
+
+  it('should not return specific petitions', (done) => {
+    request(app).get('/api/v1/petition/13')
+      .set('x-access-token', `${AuthToken}`)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        expect(res.body).to.be.an('object');
+        expect(res.body.data[0]).to.be.an('string');
         if (err) { return done(err); }
         done();
       });

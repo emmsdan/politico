@@ -40,12 +40,12 @@ describe('PARTIES REQUEST', () => {
           hqAddress: `${validate.generateChar(9)}, Lagos`,
           logoUrl: `http://${validate.generateChar(8)}.png`
         })
-        .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
+        .set('x-access-token', `${AuthToken}`)
         .end((err, res) => {
           expect(res.statusCode).to.equal(201);
           expect(res.body).to.be.an('object');
           expect(res.body.data).to.be.an('array');
-          partyID = res.body.data[0].partyid;
+          partyID = res.body.data[0].id;
           if (err) { return done(err); }
           done();
         });
@@ -64,7 +64,7 @@ describe('PARTIES REQUEST', () => {
 
     it('should get specific political party', (done) => {
       request(app).get(`/api/v1/parties/${partyID}`)
-        .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
+        .set('x-access-token', `${AuthToken}`)
         .end((err, res) => {
           expect(res.statusCode).to.equal(200);
           expect(res.body).to.be.an('object');
@@ -77,7 +77,7 @@ describe('PARTIES REQUEST', () => {
     it('should rename a specific political party', (done) => {
       request(app).patch(`/api/v1/parties/${partyID}/name`)
         .send({ name: `${validate.generateChar(9)} my helper` })
-        .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
+        .set('x-access-token', `${AuthToken}`)
         .end((err, res) => {
           expect(res.statusCode).to.equal(200);
           expect(res.body).to.be.an('object');
@@ -90,7 +90,7 @@ describe('PARTIES REQUEST', () => {
     it('should delete a specific political party', (done) => {
       request(app).delete(`/api/v1/parties/${partyID}`)
         .send({ partyid: partyID })
-        .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
+        .set('x-access-token', `${AuthToken}`)
         .end((err, res) => {
           expect(res.statusCode).to.equal(410);
           expect(res.body).to.be.an('object');
