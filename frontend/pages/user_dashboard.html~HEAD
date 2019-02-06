@@ -183,5 +183,4 @@
   <script async defer src="/js/app.js"></script>
   <script async defer src="/js/accessControl.js"></script>
   <script async defer src="/js/validator.js"></script>
-  <script async defer src="/js/profile.js"></script>
 </html>

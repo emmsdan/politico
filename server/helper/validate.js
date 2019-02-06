@@ -25,6 +25,10 @@ class validate {
     return name ? (/^[A-Za-z\s]+$/.test(name)) : false;
   }
 
+  static trim(string) {
+    return string.replace(/^\s+|\s+$/gm, '');
+  }
+
   /**
 	 * @description check if string is digit
 	 * @param {string} string
@@ -111,12 +115,6 @@ class validate {
         message: 'password should not be less than 6 characters'
       }, null, response);
     }
-    if (validator.isURL(passportUrl || '')) {
-      return responseController.response({
-        status: 400,
-        message: 'photo should should be a valid url'
-      }, null, response);
-    }
     return false;
   }
 
@@ -138,13 +136,7 @@ class validate {
    * @returns boolean
    */
   static isURL(str) {
-    const pattern = new RegExp('^(https?:\\/\\/)?'
-  + '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'
-  + '((\\d{1,3}\\.){3}\\d{1,3}))'
-  + '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'
-  + '(\\?[;&a-z\\d%_.~+=-]*)?'
-  + '(\\#[-a-z\\d_]*)?$', 'i');
-    return pattern.test(str);
+    return validate.isAddress(str);
   }
 
   /**

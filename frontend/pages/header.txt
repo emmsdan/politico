@@ -1,8 +1,8 @@
-<a href="./"> <img src="../img/logo.png" alt="politico" class="logo" /></a>
+<a href="../"> <img src="../img/logo.png" alt="politico" class="logo" /></a>
 <span class="show-nav" onclick="openNavBar(this);">&#9776;</span>
 <nav role="navigation">
   <ul>
-    <li><a href="../index.html">Home</a></li>
+    <li><a href="/index.html">Home</a></li>
     <li><a href="./office.html">Vote Now</a></li>
     <li><a href="./election-result.html">Results</a></li>
     <li><a href="./user_dashboard.html">Account</a></li>

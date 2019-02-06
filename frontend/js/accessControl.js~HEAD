@@ -8,7 +8,6 @@ const apiNavigations = (path) => {
     "reset_password": '/auth/reset',
     "allparty": '/parties',
     "party": '/parties',
-    "create_party": '/parties',
     "allOffices": '/offices',
     "office": '/offices',
   }
@@ -39,47 +38,11 @@ const toggleLoginForm = () => {
  */
 async function isLoggedIn() {
   const isLoggedIn = JSON.parse(localStorage.getItem('user'));
-  if (!isLoggedIn && securePage().secure) {
+  if (!isLoggedIn && securePage()) {
     redirect('/access.html?page=signin');
   }
-  if (isLoggedIn && securePage().sPage) {
-    alert('Welcome to Politico');
-  }
-}
-/**
- *
- * @param {string} url
- */
-const redirect = (url) => {
-  window.location.href = url;
 }
 
-const securePage = () => {
-  const pages = JSON.parse(localStorage.getItem('secure_page'));
-  let secure = false;
-  let sPage = '';
-  pages.forEach(page => {
-    if (currentPage().includes(page)) {
-      sPage = page;
-      secure = true;
-      return;
-    }
-  });
-  return { secure, sPage };
-}
-
-const currentPage = (path = 'full') => {
-  const href = window.location.href;
-  if (path === 'file') {
-    let ihref = window.location.href.split('/');
-    return ihref[ihref.length - 1]
-  }
-  return href;
-}
-
-const throwError = (message, placeholder) => {
-  document.querySelector(placeholder).innerHTML = message;
-}
 /**
  * initialize all the necessary functions
  */

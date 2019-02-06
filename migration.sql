@@ -66,6 +66,14 @@ CREATE TABLE IF NOT EXISTS petitions(
 
 INSERT INTO users(id, firstName, lastName, otherName, email, phoneNumber, passportUrl, password, role, isAdmin) VALUES(2, 'Emmanuel', 'Daniel', 'Umola', 'ecomje@gmail.com', '08145467267', 'http://www.emmsdan.com/me.png', '$2a$12$bJ/eoNrrBYC0fYEmtc5LbeniX86vNmKytDU3al6OIHWPYvoXF5GAi', 'admin', true) ON CONFLICT DO NOTHING;
 
-INSERT INTO parties(name, hqAddress, logoUrl) VALUES('The great party', 'surulere, abulegba, lagos', 'http://somedistantparty.png'), ('Commission party', 'freeborn street, lekki, abuja', 'http://hereandnowparty.png') ON CONFLICT DO NOTHING;
+INSERT INTO parties(name, hqAddress, logoUrl) 
+VALUES ('UPN Unity Party of Nigeria', 'Block 10, Flat 1, Amasuma Close, Area 2, Section 1, Garki – Abuja', '/img/upn.jpg'), 
+('Alliance for new Nigeria ANN', '20, Durban Street, Wuse 11, Abuja.', '/img/ann.jpg'),
+('Social Democratic Party SDP', 'Plot 2105 Herbert Macaulay Way, Opp. Sky Memorial Plaza, Block B3, Wuse zone 6, Abuja', '/img/sdp.jpg'), 
+('Labour Party LP', 'Dabo Shopping Mall, 2nd Floor, Plot 73 Ladoke Akintola Boulevard, Garki, Abuja.', '/img/labour.jpg'), 
+('Kowa Party KP', '129 Corner Shop, Beside Total Filling Station, Fed. Housing Est., Lugbe, Abuja.', '/img/kowa.jpg'), 
+('Action Democratic Party', 'Plot 3379A, Mungo Park CLose, Off Jesse Jackson Asokoro New Extension-Abuja', '/img/adp.jpg') 
+
+ON CONFLICT DO NOTHING;
 
 INSERT INTO offices(name, type) VALUES('senate', 'federal'), ('governor', 'state') ON CONFLICT DO NOTHING;

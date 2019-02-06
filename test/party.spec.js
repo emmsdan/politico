@@ -92,7 +92,7 @@ describe('PARTIES REQUEST', () => {
         .send({ partyid: partyID })
         .set('x-access-token', `${AuthToken}`)
         .end((err, res) => {
-          expect(res.statusCode).to.equal(410);
+          expect(res.statusCode).to.equal(200);
           expect(res.body).to.be.an('object');
           expect(res.body.data).to.be.an('array');
           if (err) { return done(err); }

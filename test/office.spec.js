@@ -50,24 +50,8 @@ describe('OFFICE REQUEST', () => {
         });
     });
 
-    it('should return incorrect name format', (done) => {
-      request(app).post('/api/v1/offices')
-        .send({
-          name: 'people -- ',
-          type: 'legislative',
-          logoUrl: 'http://some.png'
-        })
-        .set('x-access-token', `${AuthToken}`)
-        .end((err, res) => {
-          expect(res.statusCode).to.equal(400);
-          expect(res.body).to.be.an('object');
-          expect(res.body.error).to.equal('incorrect name format');
-          if (err) { return done(err); }
-          done();
-        });
-    });
 
-    it('should return incorrect office type format', (done) => {
+    it('should return incorrect office type/name format', (done) => {
       request(app).post('/api/v1/offices')
         .send({
           name: 'people them',
@@ -77,24 +61,13 @@ describe('OFFICE REQUEST', () => {
         .end((err, res) => {
           expect(res.statusCode).to.equal(400);
           expect(res.body).to.be.an('object');
-          expect(res.body.error).to.equal('incorrect office type format');
+          expect(res.body.error).to.equal('incorrect office type/name format');
           if (err) { return done(err); }
           done();
         });
     });
   });
   describe('#GET Get offices', () => {
-    it('Unauthorized, non logged in users.', (done) => {
-      request(app).get('/api/v1/offices')
-        .end((err, res) => {
-          expect(res.statusCode).to.equal(401);
-          expect(res.body).to.be.an('object');
-          expect(res.body.error).to.equal('Unauthorized');
-          if (err) { return done(err); }
-          done();
-        });
-    });
-
     it('should show all political office', (done) => {
       request(app).get('/api/v1/offices')
         .set('x-access-token', `${AuthToken}`)
@@ -102,17 +75,6 @@ describe('OFFICE REQUEST', () => {
           expect(res.statusCode).to.equal(200);
           expect(res.body).to.be.an('object');
           expect(res.body.data).to.be.an('array');
-          if (err) { return done(err); }
-          done();
-        });
-    });
-
-    it('unauthorized: specific office', (done) => {
-      request(app).get(`/api/v1/offices/${officeID}`)
-        .end((err, res) => {
-          expect(res.statusCode).to.equal(401);
-          expect(res.body).to.be.an('object');
-          expect(res.body.error).to.equal('Unauthorized');
           if (err) { return done(err); }
           done();
         });
