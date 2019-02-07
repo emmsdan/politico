@@ -57,7 +57,8 @@ export default class authController {
               lastName: resp.rows[0].lastname,
               otherName: resp.rows[0].othername === 'undefined' ? '' : resp.rows[0].othername,
               email: resp.rows[0].email,
-              phoneNumber: Number(resp.rows[0].phonenumber)
+              phoneNumber: Number(resp.rows[0].phonenumber),
+              isAdmin: resp.rows[0].isadmin
             },
             message: 'account created, an email as been sent containin your login details '
           }
@@ -150,7 +151,8 @@ export default class authController {
               lastName: resp[0].lastname,
               otherName: resp[0].othername === 'undefined' ? '' : resp[0].othername,
               email: resp[0].email,
-              phoneNumber: resp[0].phonenumber
+              phoneNumber: resp[0].phonenumber,
+              isAdmin: resp[0].isadmin
             },
             message: 'logged in successfully'
           }

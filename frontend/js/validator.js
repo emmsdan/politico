@@ -40,6 +40,7 @@ const validateEmail = (eventNode) => {
 
 }
 
+
 const validateName = (eventNode) => {
   const input = document.querySelector(`#${eventNode.id}`);
   if (input.value === null || !isName(input.value)) {
@@ -55,6 +56,17 @@ const validateName = (eventNode) => {
 const validatePhone = (eventNode) => {
   const input = document.querySelector(`#${eventNode.id}`);
   if (input.value === null || !isInt(input.value) || input.value.length < 7) {
+    input.classList.add('invalid');
+    input.classList.remove('valid');
+    return false;
+  }
+
+  input.classList.add('valid');
+  input.classList.remove('invalid');
+}
+const validateAddress = (eventNode) => {
+  const input = document.querySelector(`#${eventNode.id}`);
+  if (input.value === null || !isAddress(input.value)) {
     input.classList.add('invalid');
     input.classList.remove('valid');
     return false;

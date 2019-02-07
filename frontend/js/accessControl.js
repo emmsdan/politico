@@ -8,6 +8,7 @@ const apiNavigations = (path) => {
     "reset_password": '/auth/reset',
     "allparty": '/parties',
     "party": '/parties',
+    "create_party": '/parties',
     "allOffices": '/offices',
     "office": '/offices',
   }

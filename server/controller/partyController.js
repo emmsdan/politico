@@ -29,7 +29,7 @@ export default class partyController {
         message: 'empty or  incorrect hqAddress format'
       }, null, response);
     }
-    if (!validate.isURL(logoUrl)) {
+    if (!logoUrl) {
       return responseController.response({
         status: 400,
         message: 'empty or  incorrect logo format'
