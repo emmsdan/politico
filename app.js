@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import { urlencoded, json } from 'body-parser';
+import cors from 'cors';
+import path from 'path';
 
 import { init } from './migration';
 
@@ -15,11 +17,15 @@ import electionRouter from './server/route/electionRouter';
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 5051;
+const port = process.env.PORT || 5050;
+const documentation = path.join(__dirname, 'doc');
 
+app.use(express.static('frontend'));
 app.use(cookieParser());
 app.use(urlencoded({ extended: true }));
 app.use(json());
+app.use(cors());
+
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -38,7 +44,12 @@ app.purge('/migrate', (req, res) => {
 /**
  * main api routes
  */
+
+app.use('/doc', (req, res) => {
+  res.sendFile(path.join(documentation, 'documentation.html'));
+});
 app.use('/api/v1/auth', authRouter);
+
 app.use('/api/v1/offices', officeRouter);
 app.use('/api/v1/parties', partyRouter);
 app.use('/api/v1/', electionRouter);

@@ -5,7 +5,7 @@ import app from '../app';
 describe('test if server is up and running', () => {
   describe('#GET / version 1', () => {
     it('start server', (done) => {
-      request(app).get('/')
+      request(app).get('/api/v1/')
         .end((err, res) => {
           expect(res.statusCode).to.equal(200);
           expect(res.body).to.be.an('object');

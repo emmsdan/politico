@@ -26,25 +26,7 @@
       </section>
 
       <section class="wrapper">
-        <form action="confirm-password.html" class="form-fields">
-          <fieldset class="fieldset">
-            <legend>Reset Your Below</legend>
-
-            <div class="field">
-              <input type="text" name="username" id="username" placeholder="ecomje@gmail.com or 08145467267" required>
-              <label for="fullname">Enter Email or Phone:</label>
-            </div>
-
-            <div class="field">
-                <div>
-                    <a href="./login.html">Login to Account</a> <br/>
-                    <a href="./signup.html">Create New Account</a>
-                </div>
-                <br/>
-              <button type="submit" class="button">Reset Password</button>
-            </div>
-          </fieldset>
-        </form>
+        <iframe id='iFrameName1' width='1000' height='500' src="http://thepolitico.docs.apiary.io"></iframe>
       </section>
     </main>
     <br/>

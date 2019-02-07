@@ -84,7 +84,7 @@ export default class electionController {
     return Election.viewAllPetition()
       .then(resp => responseController.response(null, {
         status: 200,
-        message: resp
+        message: resp[0]
       }, response))
       .catch(error => responseController.response({
         status: 404,

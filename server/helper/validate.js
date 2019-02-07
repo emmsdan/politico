@@ -163,6 +163,20 @@ class validate {
 
   /**
    *
+   * @param {*} size
+   * @returns string;
+   */
+  static generateNumber(size) {
+    let text = '';
+    const chars = '1234567890987654321';
+    for (let i = 0; i < size; i += 1) {
+      text += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return Number(text);
+  }
+
+  /**
+   *
    * @param {*} min
    * @param {*} max
    * @returns number

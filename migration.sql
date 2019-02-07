@@ -64,8 +64,8 @@ CREATE TABLE IF NOT EXISTS petitions(
     evidence VARCHAR NOT NULL
   );
 
-INSERT INTO users(id, firstName, lastName, otherName, email, phoneNumber, passportUrl, password, role, isAdmin) VALUES(1, 'Emmanuel', 'Daniel', 'Umola', 'ecomje@gmail.com', '08145467267', 'http://www.emmsdan.com/me.png', '$2a$12$bJ/eoNrrBYC0fYEmtc5LbeniX86vNmKytDU3al6OIHWPYvoXF5GAi', 'admin', true) ON CONFLICT DO NOTHING;
+INSERT INTO users(id, firstName, lastName, otherName, email, phoneNumber, passportUrl, password, role, isAdmin) VALUES(2, 'Emmanuel', 'Daniel', 'Umola', 'ecomje@gmail.com', '08145467267', 'http://www.emmsdan.com/me.png', '$2a$12$bJ/eoNrrBYC0fYEmtc5LbeniX86vNmKytDU3al6OIHWPYvoXF5GAi', 'admin', true) ON CONFLICT DO NOTHING;
 
-INSERT INTO parties(id, name, hqAddress, logoUrl) VALUES(1, 'The great party', 'surulere, abulegba, lagos', 'http://somedistantparty.png'), (2, 'Commission party', 'freeborn street, lekki, abuja', 'http://hereandnowparty.png') ON CONFLICT DO NOTHING;
+INSERT INTO parties(name, hqAddress, logoUrl) VALUES('The great party', 'surulere, abulegba, lagos', 'http://somedistantparty.png'), ('Commission party', 'freeborn street, lekki, abuja', 'http://hereandnowparty.png') ON CONFLICT DO NOTHING;
 
-INSERT INTO offices(id, name, type) VALUES(1, 'senate', 'federal'), (2, 'governor', 'state') ON CONFLICT DO NOTHING;
+INSERT INTO offices(name, type) VALUES('senate', 'federal'), ('governor', 'state') ON CONFLICT DO NOTHING;
