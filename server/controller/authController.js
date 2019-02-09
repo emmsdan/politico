@@ -18,7 +18,7 @@ export default class authController {
    * @returns string
    */
   static hashPassword(password) {
-    return bcrypt.hashSync(password, +process.env.CRYPT_KEY);
+    return bcrypt.hashSync(password, 12);
   }
 
   /**
