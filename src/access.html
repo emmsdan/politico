@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="canonical" href="./">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="./img/favicon.png"/>
+    <!-- development only area-->
+
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Pragma" content="no-cache" />
+
+    <!-- end of development only area-->
+
+    <title> Signup || Politico</title>
+    <link href="https://fonts.googleapis.com/css?family=Sarabun" rel="stylesheet">
+    <link rel="stylesheet" href="./css/app.css" />
+    <noscript>
+        <style type="text/css">
+            header, main, footer { display: none !important; }
+            .noscript {
+              display: flex;
+              align-items: center;
+              align-content: center;
+              justify-items: center;
+              justify-self: center;
+              justify-content: center;
+              color: red;
+              font-size: 30px;
+              height: 100vh;
+            }
+        </style>
+        <div class="noscript">
+          <div>
+            Oop's, You don't have javascript enabled. <br/>
+            <small> This Web App depends on Javascript </small>
+          </div>
+        </div>
+    </noscript>
+    <script src="./js/dexie.js"></script>
+    <script async defer src="./js/tools.js"></script>
+    <script async defer src="./js/app.js"></script>
+    <script async defer src="./js/accessControl.js"></script>
+  </head>
+  <body>
+    <header data-add-file="./header.txt"></header>
+    <main>
+      <section class="call-to-action">
+        <div class="placeholder">
+          <h2>Every Vote Count</h2>
+          <h4>Vote and Be Voted for</h4>
+        </div>
+      </section>
+
+      <section class="wrapper">
+        <!-- singup form-->
+        <form onsubmit="return false;" action="./pages/user_dashboard.html" class="form-fields" id="signup">
+          <fieldset class="fieldset">
+            <legend>Create an Account Below</legend>
+
+            <div class="field">
+              <input type="text" name="firstname" id="firstname" placeholder="Emmanuel" required>
+              <label for="firstname">First Name:</label>
+            </div>
+
+            <div class="field">
+              <input type="text" name="lastname" id="lastname" placeholder="Daniel" required>
+              <label for="lastname">Last Name:</label>
+            </div>
+
+            <div class="field">
+              <input type="email" name="email" id="email" placeholder="ecomje@gmail.com" required>
+              <label for="email">Email:</label>
+            </div>
+
+            <div class="field">
+              <input type="phone" name="phone" id="phone" placeholder="phone: 08145467267" required>
+              <label for="phone">Phone Number:</label>
+            </div>
+
+            <div class="field">
+              <input type="password" name="password" id="password" placeholder="enter password" required>
+              <label for="password">password</label>
+            </div>
+
+            <div class="field">
+              <input type="password" name="password2" id="password2" placeholder="re-enter password" required>
+              <label for="password2">Confirm password</label>
+            </div>
+
+            <div class="field">
+              <select type="text" name="userType" id="userType" required>
+                <option> Ordinary User</option>
+                <option> Politician</option>
+              </select>
+              <label for="userType">Select User Type:</label>
+            </div>
+            <div class="field">
+                <br/>
+               <a href="./access.html?page=signin"> I have an Account, <u>Login Here</u></a>
+               <br/>
+              <button type="submit" class="button-bigger">Create Account</button>
+            </div>
+          </fieldset>
+        </form>
+
+        <!-- login form -->
+        <form onsubmit="return false;" action="./pages/user_dashboard.html" class="form-fields hide" id="signin">
+          <fieldset class="fieldset">
+            <legend>Login Below</legend>
+
+            <div class="field">
+              <input type="text" name="username" id="username" placeholder="emmsdan" required>
+              <label for="fullname">Username:</label>
+            </div>
+
+            <div class="field">
+              <input type="password" name="password" id="password" placeholder="Uya73&gaCute" required>
+              <label for="password">password</label>
+            </div>
+
+            <div class="field">
+              <input type="checkbox" name="remember" id="remember" value="remember">
+              <label for="remember" class="centered-text">remember login</label>
+            </div>
+
+            <div class="field">
+                <div>
+                  <a href="./access.html?page=signpassword">Forgot Password</a> <br/>
+                  <a href="./access.html?page=signup">Create New Account</a>
+                </div>
+                <br/>
+              <button type="submit" class="button">Login</button>
+            </div>
+          </fieldset>
+
+        </form>
+
+        <!-- reset confirm form -->
+        <form onsubmit="return false;" action="confirm-password.html" class="form-fields hide" id="signsuccess">
+          <fieldset class="fieldset">
+            <br/>
+            <div class="placeholder">
+              <h2>Your Password as Been changed Successfully.</h2>
+              <a href="./pages/user_dashboard.html"> Go to Dashboard</a>
+            </div>
+          </fieldset>
+        </form>
+
+        <!-- reset password form -->
+        <form onsubmit="return false;" action="confirm-password.html" class="form-fields hide" id="signpassword">
+          <fieldset class="fieldset">
+            <legend>Reset Your Below</legend>
+            <div class="field">
+              <input type="text" name="username" id="username" placeholder="ecomje@gmail.com or 08145467267" required>
+              <label for="fullname">Enter Email or Phone:</label>
+            </div>
+            <div class="field">
+                <div>
+                    <a href="./access.html?page=signin">Login to Account</a> <br/> <br/>
+                    <a href="./access.html?page=signup">Create New Account</a>
+                </div>
+                <br/>
+              <button type="submit" class="button">Reset Password</button>
+            </div>
+          </fieldset>
+        </form>
+
+      </section>
+    </main>
+    <br/>
+    <div class="toast"> hello I am a toast bar <span class="toast-close">x</span></div>
+
+    <footer data-add-file='./footer.txt'>
+      <div>
+      <a href="https://github.com/emmsdan/politico/">Politico</a> powered by <a href="https://twitter.com/emmsdan">Emmanuel Daniel</a>
+      </div>
+    </footer>
+
+  </body>
+</html>

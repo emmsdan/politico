@@ -46,7 +46,6 @@ app.purge('/migrate', (req, res) => {
 /**
  * main api routes
  */
-
 app.use('/doc', (req, res) => {
   res.sendFile(path.join(documentation, 'documentation.html'));
 });
