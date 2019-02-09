@@ -38,12 +38,13 @@ describe('CANDIDATE REQUEST', () => {
 
     it('should get all political offices', (done) => {
       request(app).get('/api/v1/offices')
-        .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
+        .set('x-access-token', `${AuthToken}`)
+        .set('token', `${AuthToken}`)
         .end((err, res) => {
           expect(res.statusCode).to.equal(200);
           expect(res.body).to.be.an('object');
           expect(res.body.data).to.be.an('array');
-          officeID = validate.randomElement(res.body.data[0]).officeid;
+          officeID = validate.randomElement(res.body.data[0]).id;
           if (err) { return done(err); }
           done();
         });
@@ -51,12 +52,13 @@ describe('CANDIDATE REQUEST', () => {
 
     it('should show all political party', (done) => {
       request(app).get('/api/v1/parties')
-        .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
+        .set('x-access-token', `${AuthToken}`)
+        .set('token', `${AuthToken}`)
         .end((err, res) => {
           expect(res.statusCode).to.equal(200);
           expect(res.body).to.be.an('object');
           expect(res.body.data).to.be.an('array');
-          partyID = validate.randomElement(res.body.data[0]).partyid;
+          partyID = validate.randomElement(res.body.data[0]).id;
           if (err) { return done(err); }
           done();
         });
@@ -64,12 +66,13 @@ describe('CANDIDATE REQUEST', () => {
 
     it('should show all users', (done) => {
       request(app).get('/api/v1/users')
-        .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
+        .set('x-access-token', `${AuthToken}`)
+        .set('token', `${AuthToken}`)
         .end((err, res) => {
           expect(res.statusCode).to.equal(200);
           expect(res.body).to.be.an('object');
           expect(res.body.data).to.be.an('array');
-          userID = validate.randomElement(res.body.data[0]).userid;
+          userID = validate.randomElement(res.body.data[0]).id;
           if (err) { return done(err); }
           done();
         });
@@ -78,7 +81,7 @@ describe('CANDIDATE REQUEST', () => {
     it('should return unauthorized', (done) => {
       request(app).post(`/api/v1/office/${userID}/register`)
         .send({
-          userid: userID, officeid: officeID, partyid: partyID
+          userid: userID, office: officeID, party: partyID
         })
         .end((err, res) => {
           expect(res.statusCode).to.equal(401);
@@ -92,9 +95,10 @@ describe('CANDIDATE REQUEST', () => {
     it('should register a candidate', (done) => {
       request(app).post(`/api/v1/office/${userID}/register`)
         .send({
-          userid: userID, officeid: officeID, partyid: partyID
+          userid: userID, office: officeID, party: partyID
         })
-        .set('Cookie', `${process.env.TOKEN_NAME}=${AuthToken}`)
+        .set('x-access-token', `${AuthToken}`)
+        .set('token', `${AuthToken}`)
         .end((err, res) => {
           expect(res.statusCode).to.equal(201);
           expect(res.body).to.be.an('object');

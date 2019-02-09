@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 
 /**
  * @author Emmauel Daniel <@emmsdan>
+ * 2239062
  */
 export default class jwtAuthentication {
   /**
@@ -45,9 +46,9 @@ export default class jwtAuthentication {
    * @param {string} expires
    * @returns string;
    */
-  static generate(payload, expires = null) {
+  static generate(payload) {
     return jwt.sign({
-      exp: expires || Math.floor(Date.now() / 1000) + ((60 * 60) * 24 * 7), payload
+      exp: Math.floor(Date.now() / 1000) + ((60 * 60) * 24 * 7), payload
     },
     process.env.PrivateKey);
   }
@@ -60,10 +61,8 @@ export default class jwtAuthentication {
    * @param {string} expires
    * @returns string;
    */
-  static generateWithHeader(payload, response, expires = null) {
-    const token = jwt.sign({
-      exp: expires || Math.floor(Date.now() / 1000) + ((60 * 60) * 24 * 7), payload
-    }, process.env.PrivateKey);
+  static generateWithHeader(payload, response) {
+    const token = jwtAuthentication.generate(payload);
     response.cookie(process.env.TOKEN_NAME, token, { maxAge: 900000, httpOnly: true });
     return token;
   }
@@ -104,10 +103,10 @@ export default class jwtAuthentication {
    * @param {object} type
    */
   static authentication(request, response, next) {
-    const token = jwtAuthentication.decode(request.cookies[process.env.TOKEN_NAME]);
+    const token = jwtAuthentication.verify(request.headers.token || request.headers['x-access-token']);
     jwtAuthentication.setHeaders(response);
     try {
-      if ((jwtAuthentication.verifyURL(request) && token.payload.role !== 'admin') || !token) {
+      if ((jwtAuthentication.verifyURL(request) && !token.payload.isAdmin) || !token) {
         response.status(401)
           .json({ error: 'Unauthorized', status: 401 });
         response.end();

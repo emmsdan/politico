@@ -40,12 +40,12 @@ export default class officeController {
         .catch((error) => {
           const errorResponse = `Error: ${error.message}`;
           return responseController.response({
-            status: 432,
+            status: 406,
             message: errorResponse
           }, null, response);
         });
     } catch (error) {
-      responseController.response({ status: 432, message: error.message }, null, response);
+      responseController.response({ status: 406, message: error.message }, null, response);
     }
   }
 
@@ -70,16 +70,13 @@ export default class officeController {
         message: 'incorrect office type format'
       }, null, response);
     }
-    const officeid = new Date().getTime();
-    const fields = {
-      officeid, name, type
-    };
+    const fields = { name, type };
     return Office.create(fields)
       .then((resp) => {
         if (resp.rowCount > 0) {
           responseController.response(null, {
             status: 201,
-            message: fields
+            message: resp.rows[0]
           }, response);
         }
       })

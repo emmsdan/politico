@@ -26,15 +26,7 @@
       </section>
 
       <section class="wrapper">
-        <form action="confirm-password.html" class="form-fields">
-          <fieldset class="fieldset">
-            <br/>
-            <div class="placeholder">
-              <h2>Your Password as Been changed Successfully.</h2>
-              <a href="./pages/user_dashboard.html"> Go to Dashboard</a>
-            </div>
-          </fieldset>
-        </form>
+        <iframe id='iFrameName1' width='1000' height='500' src="http://thepolitico.docs.apiary.io"></iframe>
       </section>
     </main>
     <br/>

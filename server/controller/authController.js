@@ -31,32 +31,40 @@ export default class authController {
    */
   static register(request, response) {
     const {
-      name, email, phone, password, role, photoUrl
+      firstName, lastName, otherName, email, phoneNumber, password, role
     } = request.body;
-    const userid = `${new Date().getTime()}`;
     if (validate.userProfile(request.body, response)) return;
     const hashedPass = authController.hashPassword(password);
     return User.register({
-      name, email, phone, password: hashedPass, role: role || 'user', userid, photoUrl
+      firstName, lastName, otherName, email, phoneNumber, password: hashedPass, role: role || 'user'
     })
       .then((resp) => {
-        const generatedToken = jwtToken.generateWithHeader({ email, role: role || 'user', userid }, response);
-        authController.sendMail({
-          name, email, phone, signup: 'true', resp
-        });
+        const generatedToken = jwtToken.generateWithHeader({
+          email, role: role || 'user', id: resp.rows[0].id, isAdmin: false
+        }, response);
+        if (process.env.NODE_ENV !== 'test') {
+          authController.sendMail({
+            name: firstName, email, phone: phoneNumber, signup: 'true', resp
+          });
+        }
         return responseController.response(null, {
           status: 201,
           message: {
             token: generatedToken,
             user: {
-              email, phone, name, userid
+              id: resp.rows[0].id,
+              firstName: resp.rows[0].firstname,
+              lastName: resp.rows[0].lastname,
+              otherName: resp.rows[0].othername === 'undefined' ? '' : resp.rows[0].othername,
+              email: resp.rows[0].email,
+              phoneNumber: Number(resp.rows[0].phonenumber)
             },
             message: 'account created, an email as been sent containin your login details '
           }
         }, response);
       })
       .catch((error) => {
-        let errorResponse = `Error: ${error.message}`;
+        let errorResponse = error.message;
         if (error.message.includes('email')) errorResponse = 'email already exist';
         if (error.message.includes('phone')) errorResponse = 'phone already exist';
         return errorResponse ? responseController.response({ status: 400, message: errorResponse }, null, response) : 'other errors';
@@ -84,15 +92,21 @@ export default class authController {
         if (!Array.isArray(resp)) {
           throw Error('no user with such email');
         }
-        authController.sendMail({
-          name: resp[0].name, email: resp[0].email, type: 'reset', message: 'Use the link below to reset password', resetURL: bcrypt.hashSync(new Date().toLocaleDateString(), 2)
-        });
+        if (process.env.NODE_ENV !== 'test') {
+          authController.sendMail({
+            name: resp[0].firstname, email: resp[0].email, type: 'reset', message: 'Use the link below to reset password', resetURL: bcrypt.hashSync(new Date().toLocaleDateString(), 2)
+          });
+        }
         return responseController.response(null, {
-          status: 200, message: 'check your email for password reset link'
+          status: 200,
+          message: {
+            message: 'check your email for password reset link',
+            email: resp[0].email
+          }
         }, response);
       })
       .catch((error) => {
-        const errorResponse = `Error: ${error.message}`;
+        const errorResponse = error.message;
         return errorResponse ? responseController.response({ status: 400, message: errorResponse }, null, response) : 'other errors';
       });
   }
@@ -113,31 +127,37 @@ export default class authController {
         message: 'no email or phone number.'
       }, null, response);
     }
-    const hashedPass = authController.hashPassword(password);
-    const options = { phone: username };
+    const options = { phoneNumber: username };
     if (validator.isEmail(username)) {
       options.email = username;
-      delete options.phone;
+      delete options.phoneNumber;
     }
     return User.login(options)
       .then((resp) => {
         if (!Array.isArray(resp) || !bcrypt.compareSync(password, resp[0].password)) {
           throw Error('username and password combination does not match');
         }
-        const generatedToken = jwtToken.generateWithHeader({ email: resp[0].email, role: resp[0].role || 'user', userid: resp[0].userid }, response);
+        const generatedToken = jwtToken.generate({
+          email: resp[0].email, role: resp[0].role, id: resp[0].id, isAdmin: resp[0].isadmin
+        }, response);
         return responseController.response(null, {
           status: 200,
           message: {
             token: generatedToken,
             user: {
-              email: resp[0].email, phone: resp[0].phone, name: resp[0].name, userid: resp[0].userid
+              id: resp[0].id,
+              firstName: resp[0].firstname,
+              lastName: resp[0].lastname,
+              otherName: resp[0].othername === 'undefined' ? '' : resp[0].othername,
+              email: resp[0].email,
+              phoneNumber: resp[0].phonenumber
             },
             message: 'logged in successfully'
           }
         }, response);
       })
       .catch((error) => {
-        const errorResponse = `Error: ${error.message}`;
+        const errorResponse = error.message;
         return errorResponse ? responseController.response({ status: 400, message: errorResponse }, null, response) : 'other errors';
       });
   }
@@ -163,7 +183,7 @@ export default class authController {
         }, null, response);
       })
       .catch((error) => {
-        const errorResponse = `Error: ${error.message}`;
+        const errorResponse = error.message;
         return errorResponse ? responseController.response({ status: 400, message: errorResponse }, null, response) : '';
       });
   }
@@ -181,7 +201,7 @@ export default class authController {
       type: options.type || 'signup',
       resetURL: options.resetURL || 'NONAME',
       to: email,
-      from: 'no-rgiteply@andela21.com',
+      from: 'noreply@politicoandela21.com',
       message: `Hi, ${name}, <br/>  ${signup ? 'You account with Politico.io has been  created. here are your login details' : message} <br/>
       ${signup ? `
       <ul style="list-style: none">
