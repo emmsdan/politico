@@ -19,7 +19,7 @@ officeRouter.post('/', jwtAuth.authentication, (req, res) => {
  * API: Fetch a specific government office record
  * @access :GET /api/v1/offices/<office-id>
  */
-officeRouter.get('/:officeID', jwtAuth.authentication, (req, res) => {
+officeRouter.get('/:officeID', (req, res) => {
   officeontroller.get(req, res);
 });
 
@@ -27,7 +27,7 @@ officeRouter.get('/:officeID', jwtAuth.authentication, (req, res) => {
  * API: Fetch all government offices records.
  * @access :GET /api/v1/offices/
  */
-officeRouter.get('/', jwtAuth.authentication, (req, res) => {
+officeRouter.get('/', (req, res) => {
   officeontroller.getAll(req, res);
 });
 

@@ -11,11 +11,42 @@
     <meta http-equiv="Pragma" content="no-cache" />
 
     <!-- end of development only area-->
-    <link href="https://fonts.googleapis.com/css?family=Sarabun" rel="stylesheet">
-    <link rel="stylesheet" href="../css/app.css" />
-    <script async defer src="../js/app.js"></script>
-  </head>
-  <body>
+        <!-- end of development only area-->
+        <title> View Party | Politico </title>
+        <link href="https://fonts.googleapis.com/css?family=Sarabun" rel="stylesheet">
+        <link rel="stylesheet" href="../css/app.css" />
+        <noscript>
+          <style type="text/css">
+              header, main, footer { display: none !important; }
+              .noscript {
+                display: flex;
+                align-items: center;
+                align-content: center;
+                justify-items: center;
+                justify-self: center;
+                justify-content: center;
+                color: red;
+                font-size: 30px;
+                height: 100vh;
+              }
+          </style>
+          <div class="noscript">
+            <div>
+              Oop's, You don't have javascript enabled. <br/>
+              <small> This Web App depends on Javascript </small>
+            </div>
+          </div>
+      </noscript>
+    </head>
+    <body>
+      <div class="center load-overlay">
+        <div>
+          <div class="loader center">
+        </div>
+        <img src="/img/favicon.png" id="rotateImage"/>
+          please waiting am loading content...
+        </div>
+      </div>    
     <header data-add-file="./header.txt"></header>
     <main>
       <div class="clear-space"></div>
@@ -23,68 +54,6 @@
 
         <div class="box no-radius">
           <div class="left-text blue-gray-text top-profile flex-center">
-            <img src="../img/adp.jpg" class="party-pix left" />
-            <div class="profile-menu">
-              <h2 class="title font-serif p-name">
-                <span id="p-name">Action Democratic Party (ADP)</span>
-                <a class="button" data-target="edit-profile" href="./edit-party.html">edit party</a>
-              </h2>
-              <div class="">
-                <strong>Address:</strong> @<span id="p-address">Some where in the known lands </span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="main">
-          <div class="box">
-              <!-- start of proile-cards-->
-
-            <div class="profile flex">
-              <div class="profile-card">
-                <img src="../img/profile/emmanuel-daniel.jpg">
-                <div class="info">
-                  <h1> Emmanuel Daniel </h1>
-                  <p>16th, Feb. 2019</p>
-                  <h5>@Presidency -- <small> Nigeria</small></h5>
-                </div>
-              </div>
-              <div class="profile-card">
-                <img src="../img/candidate/3.jpg">
-                <div class="info">
-                  <h1> Mark Jeremy </h1>
-                  <p>16th, Feb. 2019</p>
-                  <h5>@Senate -- <small> Nigeria</small></h5>
-                </div>
-              </div>
-
-              <div class="profile-card">
-                <img src="../img/candidate/6.jpg">
-                <div class="info">
-                  <h1> Mark Jeremy </h1>
-                  <p>16th, Feb. 2019</p>
-                  <h5>@Senate -- <small> Nigeria</small></h5>
-                </div>
-              </div>
-
-              <div class="profile-card">
-                <img src="../img/candidate/8.jpg">
-                <div class="info">
-                  <h1> Mark Jeremy </h1>
-                  <p>16th, Feb. 2019</p>
-                  <h5>@Senate -- <small> Nigeria</small></h5>
-                </div>
-              </div>
-
-              <div class="profile-card">
-                <img src="../img/candidate/5.jpg">
-                <div class="info">
-                  <h1> Isaac Itodo </h1>
-                  <p>16th, Feb. 2019</p>
-                  <h5>@Governor -- <small> lagos state</small></h5>
-                </div>
-              </div>
-            </div>
-            <!-- end of proile-cards-->
           </div>
         </div>
       </section>
@@ -98,7 +67,11 @@
       <a href="https://github.com/emmsdan/politico/">Politico</a> powered by <a href="https://twitter.com/emmsdan">Emmanuel Daniel</a>
       </div>
     </footer>
+    <script async defer src="/js/accessControl.js"></script>
+    <script async defer src="/js/tools.js"></script>
+    <script async defer src="/js/app.js"></script>
+    <script async defer src="/js/validator.js"></script>
+    <script async defer src="/js/viewSinglePage.js"></script>
+    <script async defer src="/js/party.js"></script>
   </body>
-  <script>
-  </script>
 </html>

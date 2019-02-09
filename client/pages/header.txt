@@ -7,5 +7,6 @@
     <li><a href="./election-result.html">Results</a></li>
     <li><a href="./admin_dashboard.html">Admin</a></li>
     <li><a href="./user_dashboard.html">Account</a></li>
+    <li><a href="/doc">Use our API</a></li>
   </ul>
 </nav>

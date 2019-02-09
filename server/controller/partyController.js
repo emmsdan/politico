@@ -16,20 +16,23 @@ export default class partyController {
   * @returns promise
   */
   static create(request, response) {
-    const { hqAddress, name, logoUrl } = request.body;
-    if (!validate.isName(name)) {
+    const hqAddress = validate.trim(request.body.hqAddress.trim());
+    const name = validate.trim(request.body.name.trim());
+    const logoUrl = validate.trim(request.body.logoUrl.trim());
+
+    if (!validate.isName(name.trim())) {
       return responseController.response({
         status: 400,
         message: 'empty or incorrect name format'
       }, null, response);
     }
-    if (!validate.isAddress(hqAddress)) {
+    if (!validate.isAddress(hqAddress.trim())) {
       return responseController.response({
         status: 400,
         message: 'empty or  incorrect hqAddress format'
       }, null, response);
     }
-    if (!validate.isURL(logoUrl)) {
+    if (!logoUrl.trim()) {
       return responseController.response({
         status: 400,
         message: 'empty or  incorrect logo format'
@@ -48,7 +51,7 @@ export default class partyController {
       .catch((error) => {
         let errorResponse = `Error: ${error.message}`;
         if (error.message.includes('name')) errorResponse = 'Party already exist';
-        return errorResponse ? responseController.response({ status: 432, message: errorResponse }, null, response) : '';
+        return errorResponse ? responseController.response({ status: 400, message: errorResponse }, null, response) : '';
       });
   }
 
@@ -117,7 +120,7 @@ export default class partyController {
           }, null, response);
         });
     } catch (error) {
-      responseController.response({ status: 432, message: error.message }, null, response);
+      responseController.response({ status: 400, message: error.message }, null, response);
     }
   }
 
@@ -189,7 +192,7 @@ export default class partyController {
         .then((resp) => {
           if (resp === 'deleted') {
             return responseController.response(null, {
-              status: 410,
+              status: 200,
               message: 'party deleted from record.'
             }, response);
           }
@@ -198,9 +201,9 @@ export default class partyController {
             message: 'no registered political party with such ID'
           }, null, response);
         })
-        .catch(error => responseController.response({ status: 432, message: `Error: ${error.message}` }, null, response));
+        .catch(error => responseController.response({ status: 400, message: `Error: ${error.message}` }, null, response));
     } catch (error) {
-      responseController.response({ status: 432, message: error.message }, null, response);
+      responseController.response({ status: 400, message: error.message }, null, response);
     }
   }
 }

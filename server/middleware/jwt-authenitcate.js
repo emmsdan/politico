@@ -108,7 +108,7 @@ export default class jwtAuthentication {
     try {
       if ((jwtAuthentication.verifyURL(request) && !token.payload.isAdmin) || !token) {
         response.status(401)
-          .json({ error: 'Unauthorized', status: 401 });
+          .json({ error: 'Unauthorized, Please Login', status: 401 });
         response.end();
         return;
       }

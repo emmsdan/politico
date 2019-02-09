@@ -14,12 +14,16 @@
     <link href="https://fonts.googleapis.com/css?family=Sarabun" rel="stylesheet">
     <link rel="stylesheet" href="../css/app.css" />
 
-    <script src="../js/dexie.js"></script>
-    <script async defer src="../js/tools.js"></script>
-    <script async defer src="../js/app.js"></script>
-    <script async defer src="../js/accessControl.js"></script>
   </head>
   <body>
+    <div class="center load-overlay">
+      <div>
+        <div class="loader center">
+      </div>
+      <img src="./img/favicon.png" id="rotateImage"/>
+        please waiting am loading content...
+      </div>
+    </div>
     <header data-add-file="./header.txt"></header>
     <main>
       <div class="clear-space"></div>
@@ -34,7 +38,7 @@
               </h2>
               <div class="">
                 <br/>
-                <strong>Role:</strong> @<span id="p-role">politician</span> |
+                <strong>Role:</strong> @<span id="p-role">administrator</span> |
                 <span id="p-email">ecomje@gmail.com</span> |
                 <span id="p-phone">+234 814 546 7267</span>
                 <hr />
@@ -200,7 +204,11 @@
     <a href="https://github.com/emmsdan/politico/">Politico</a> powered by <a href="https://twitter.com/emmsdan">Emmanuel Daniel</a>
     </div>
   </footer>
+  <script src="/js/dexie.js"></script>
+  <script async defer src="/js/tools.js"></script>
+  <script async defer src="/js/app.js"></script>
+  <script async defer src="/js/accessControl.js"></script>
+  <script async defer src="/js/validator.js"></script>
+  <script async defer src="/js/profile.js"></script>
   </body>
-  <script>
-  </script>
 </html>

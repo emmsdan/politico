@@ -57,34 +57,44 @@ export default class officeController {
   * @returns promise
   */
   static create(request, response) {
-    const { type, name } = request.body;
-    if (!validate.isName(name)) {
-      return responseController.response({
+    try {
+      const type = validate.trim(request.body.type.trim());
+      const name = validate.trim(request.body.name.trim());
+
+      if (!validate.isName(name)) {
+        return responseController.response({
+          status: 400,
+          message: 'incorrect name format'
+        }, null, response);
+      }
+      if (!validate.isName(type)) {
+        return responseController.response({
+          status: 400,
+          message: 'incorrect office type format'
+        }, null, response);
+      }
+      const fields = { name, type };
+      return Office.create(fields)
+        .then((resp) => {
+          if (resp.rowCount > 0) {
+            responseController.response(null, {
+              status: 201,
+              message: resp.rows[0]
+            }, response);
+          }
+        })
+        .catch((error) => {
+          let errorResponse = `Error: ${error.message}`;
+          if (error.message.includes('name')) errorResponse = 'office already exist';
+          return errorResponse ? responseController.response({ status: 400, message: errorResponse }, null, response) : '';
+        });
+    } catch (error) {
+      responseController.response({
         status: 400,
-        message: 'incorrect name format'
-      }, null, response);
+        message: 'incorrect office type/name format'
+      },
+      null, response);
     }
-    if (!validate.isName(type)) {
-      return responseController.response({
-        status: 400,
-        message: 'incorrect office type format'
-      }, null, response);
-    }
-    const fields = { name, type };
-    return Office.create(fields)
-      .then((resp) => {
-        if (resp.rowCount > 0) {
-          responseController.response(null, {
-            status: 201,
-            message: resp.rows[0]
-          }, response);
-        }
-      })
-      .catch((error) => {
-        let errorResponse = `Error: ${error.message}`;
-        if (error.message.includes('name')) errorResponse = 'office already exist';
-        return errorResponse ? responseController.response({ status: 400, message: errorResponse }, null, response) : '';
-      });
   }
 
   /**

@@ -42,12 +42,6 @@ export default class electionController {
     let evidences = '';
     let count = 0;
     evidenceArray.forEach((eUrl) => {
-      if (!validate.isURL(eUrl.trim())) {
-        return responseController.response({
-          status: 400,
-          message: 'empty or incorrect url format.'
-        }, null, response);
-      }
       evidences += eUrl.trim();
       if (count < (evidenceArray.length - 1)) {
         evidences += ',';

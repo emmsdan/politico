@@ -69,6 +69,7 @@ npm run test
 
 ## Acknowledgement
 - [Felix Amande - ]()
+- [Chidiebere Ogujeiofor - prof](https://github.com/chidioguejiofor)
 
 
 ## Contributing

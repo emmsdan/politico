@@ -1,4 +1,4 @@
-localStorage.setItem('secure_page', '[ "dashboard", "office"]');
+localStorage.setItem('secure_page', '[ "user_dashboard", "admin_dashboard", "office"]');
 const baseUrl = '/api/v1';
 
 window.addEventListener('load', (event) => {
@@ -141,7 +141,8 @@ const sendServerRequest = (data, viewer='app-view') => {
     method,
     mode: 'cors',
     headers: {
-      'Content-Type': 'application/json; charset=UTF-8'
+      'Content-Type': 'application/json; charset=UTF-8',
+      'x-access-token': localStorage.getItem('token') || 'null'
     },
     body: JSON.stringify(formData)
   })
@@ -152,10 +153,14 @@ const sendServerRequest = (data, viewer='app-view') => {
             throw Error(jsonResponse.error);
           }
           if (!['signup', 'signin'].includes(url)) {
+            if (jsonResponse.data[0].hqaddress) {
+              redirect(`party.html?id=${jsonResponse.data[0].id}`)
+            } 
             throwError(jsonResponse.data[0].message, '.response');
             toast(jsonResponse.data[0].message);
             return;
           }
+          localStorage.setItem('token', jsonResponse.data[0].token)
           localStorage.setItem('user', JSON.stringify({
             token: jsonResponse.data[0].token,
             id: 1,
@@ -167,6 +172,9 @@ const sendServerRequest = (data, viewer='app-view') => {
             ui: jsonResponse.data[0].user.id,
             isL: true
           }));
+          if (jsonResponse.data[0].user.isAdmin) {
+            return redirect('/pages/admin_dashboard.html');
+          }
           redirect('/pages/user_dashboard.html');
         })
     })
@@ -176,6 +184,22 @@ const sendServerRequest = (data, viewer='app-view') => {
       toast(serverError);
     })
 }
+
+const uploadImage = (event, placeholder='party_logoUrl') => {
+  const imageFile = document.querySelector(`#${event.id}`).files[0];
+  var formData  = new FormData();
+  formData.append('logoUrl', imageFile, imageFile.name);
+  fetch('/upload', {
+    method: 'POST',
+    body: formData
+  }).then((response) => {
+    return response.json().then((resp) => {
+      document.querySelector(`#${placeholder}`).value = resp.url;
+    })
+  }).catch((response) => {
+    console.log(response)
+ })
+};
 
 const searchStudent = (e) => {
   let searchData = document.querySelector(".search-data");;

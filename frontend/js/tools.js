@@ -1,7 +1,7 @@
 /**
  *
  * @param {string} url
- */
+ *
 const redirect = (url) => {
   window.location.href = url;
 }
@@ -30,3 +30,5 @@ const currentPage = (path = 'full') => {
 const throwError = (message, placeholder) => {
   document.querySelector(placeholder).innerHTML = message;
 }
+*/
+console.log('passed')

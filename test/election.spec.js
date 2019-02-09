@@ -85,7 +85,7 @@ describe('ELECTION REQUEST', () => {
           .end((err, res) => {
             expect(res.statusCode).to.equal(401);
             expect(res.body).to.be.an('object');
-            expect(res.body.error).to.equal('Unauthorized');
+            expect(res.body.error).to.equal('Unauthorized, Please Login');
             if (err) { return done(err); }
             done();
           });

@@ -23,13 +23,31 @@ describe('PETITION REQUEST', () => {
       });
   });
 
+  it('should not file a petition', (done) => {
+    request(app).post('/api/v1/petition')
+      .send({
+        userid: 2,
+        offic: 1,
+        text: 'I think obaje is a thief',
+        evidence: 'http://emmdan.cim'
+      })
+      .set('x-access-token', `${AuthToken}`)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(400);
+        expect(res.body).to.be.an('object');
+        expect(res.body.error).to.be.an('string');
+        if (err) { return done(err); }
+        done();
+      });
+  });
+
   it('should file a petition', (done) => {
     request(app).post('/api/v1/petition')
       .send({
-        userid: userID,
+        userid: 2,
         office: 1,
         text: 'I think obaje is a thief',
-        evidence: 'http://emmdan.cim'
+        evidence: 'http://emmdan.cim,'
       })
       .set('x-access-token', `${AuthToken}`)
       .end((err, res) => {
