@@ -85,33 +85,33 @@ class validate {
    */
   static userProfile(options, response) {
     const {
-      name, email, phone, password, photoUrl
+      firstName, lastName, otherName, email, phoneNumber, password, passportUrl
     } = options;
-    if (!validator.isEmail(email || '<>')) {
+    if (!validator.isEmail(email || '<>') || email.toString().trim() < 3) {
       return responseController.response({
         status: 400,
         message: 'empty or incorrect email'
       }, null, response);
     }
-    if (!validator.isNumeric(phone || '<>')) {
+    if (!validate.isInt(phoneNumber || '<>')) {
       return responseController.response({
         status: 400,
         message: 'empty or incorrect phone'
       }, null, response);
     }
-    if (!validate.isName(name || '<>')) {
+    if (!validator.isAlpha(firstName || '<>') || !validator.isAlpha(lastName || '<>') || !validator.isAlpha(otherName || 'a')) {
       return responseController.response({
         status: 400,
-        message: 'empty or incorrect name.'
+        message: 'empty or incorrect name format.'
       }, null, response);
     }
-    if (validator.isEmpty(password || '')) {
+    if (validator.isEmpty(password.toString().trim() || '') || password.length < 6) {
       return responseController.response({
         status: 400,
-        message: 'password should not be less than 8 characters'
+        message: 'password should not be less than 6 characters'
       }, null, response);
     }
-    if (validator.isURL(photoUrl || '')) {
+    if (validator.isURL(passportUrl || '')) {
       return responseController.response({
         status: 400,
         message: 'photo should should be a valid url'
@@ -159,6 +159,20 @@ class validate {
       text += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     return text;
+  }
+
+  /**
+   *
+   * @param {*} size
+   * @returns string;
+   */
+  static generateNumber(size) {
+    let text = '';
+    const chars = '1234567890987654321';
+    for (let i = 0; i < size; i += 1) {
+      text += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return Number(text);
   }
 
   /**

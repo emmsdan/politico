@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import request from 'supertest';
 import app from '../app';
+import validate from '../server/helper/validate';
 
 describe('AUTHENTICATION REQUEST', () => {
   describe('#POST / version 1', () => {
@@ -18,11 +19,13 @@ describe('AUTHENTICATION REQUEST', () => {
     it('should register a new user (details correct)', (done) => {
       request(app).post('/api/v1/auth/signup')
         .send({
-          email: `emmsdan${Math.random()}@gmail.com`,
-          phone: `${Math.random()}`,
-          name: 'another name',
+          email: `emmsdan${validate.generateChar(7)}@gmail.com`,
+          phoneNumber: validate.generateNumber(10),
+          firstName: 'another',
+          lastName: 'newname',
           password: 'eternity123',
-          photoUrl: 'eternity123'
+          role: 'user',
+          passportUrl: 'eternity123'
         })
         .end((err, res) => {
           expect(res.statusCode).to.equal(201);

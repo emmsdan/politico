@@ -66,7 +66,7 @@ export default class Election {
    * @returns promise
    */
   static async getPetition(petitionid) {
-    return Database.find(new Election().table.petition, { petitionid });
+    return Database.find(new Election().table.petition, { id: petitionid });
   }
 
   /**
@@ -74,15 +74,19 @@ export default class Election {
    * @returns promise
    */
   static async electionResult() {
-    return Database.select(new Election().table.vote);
+    const result = await Database.rawSql('SELECT COUNT(votes.id) AS result, candidates.userid as candidate, candidates.office FROM votes JOIN candidates ON candidates.userid = votes.candidate  WHERE votes.candidate = candidates.userid GROUP BY candidates.id, candidates.userid, candidates.office;');
+    if (result.rowCount < 1) return 'not found';
+    return result.rows;
   }
 
   /**
    * view specific office results
-   * @param {object} officeid
+   * @param {object} office
    * @returns promise
    */
-  static async officeResult(officeid) {
-    return Database.find(new Election().table.vote, { officeid });
+  static async officeResult(office) {
+    const result = await Database.rawSql(`SELECT COUNT(votes.id) AS result, candidates.userid as candidate, candidates.office FROM votes JOIN candidates ON candidates.userid = votes.candidate  WHERE votes.candidate = candidates.userid AND votes.office=${office} GROUP BY candidates.id, candidates.userid, candidates.office;`);
+    if (result.rowCount < 1) return 'not found';
+    return result.rows;
   }
 }

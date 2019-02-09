@@ -1,0 +1,192 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="canonical" href="./">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="./img/favicon.png"/>
+    <title> Signup || Politico</title>
+    <link href="https://fonts.googleapis.com/css?family=Sarabun" rel="stylesheet">
+    <link rel="stylesheet" href="./css/app.css" />
+    <noscript>
+        <style type="text/css">
+            header, main, footer { display: none !important; }
+            .noscript {
+              display: flex;
+              align-items: center;
+              align-content: center;
+              justify-items: center;
+              justify-self: center;
+              justify-content: center;
+              color: red;
+              font-size: 30px;
+              height: 100vh;
+            }
+        </style>
+        <div class="noscript">
+          <div>
+            Oop's, You don't have javascript enabled. <br/>
+            <small> This Web App depends on Javascript </small>
+          </div>
+        </div>
+    </noscript>
+  </head>
+  <body>
+    <div class="center load-overlay">
+      <div>
+        <div class="loader center">
+      </div>
+      <img src="./img/favicon.png" id="rotateImage"/>
+        please waiting am loading content...
+      </div>
+    </div>
+    <header data-add-file="./header.txt"></header>
+    <main>
+      <section class="call-to-action">
+        <div class="placeholder">
+          <h2>Every Vote Count</h2>
+          <h4>Vote and Be Voted for</h4>
+        </div>
+      </section>
+
+      <section class="wrapper">
+        <!-- singup form-->
+        <form onsubmit="submitForm(this); return false;" action="signup" class="form-fields" id="signup" method="post">
+          <fieldset class="fieldset">
+            <legend>Create an Account Below</legend>
+            <div class="response"></div>
+            <div class="field">
+                <span class="error red-text" for="signup_firstName"></span>
+              <input type="text" name="signup_firstName" id="signup_firstName" placeholder="Emmanuel" required onkeyup="return validateName(this)">
+              <label for="signup_firstName">First Name:</label>
+            </div>
+
+            <div class="field">
+                <span class="error red-text" for="signup_lastName"></span>
+              <input type="text" name="signup_lastName" id="signup_lastName" placeholder="Daniel" required onkeyup="return validateName(this)">
+              <label for="signup_lastName">Last Name:</label>
+            </div>
+
+            <div class="field">
+              <span class="error red-text" for="signup_email"></span>
+              <input type="email" name="signup_email" id="signup_email" placeholder="ecomje@gmail.com" required onkeyup="return validateEmail(this)">
+              <label for="signup_email">Email:</label>
+            </div>
+
+            <div class="field">
+              <span class="error red-text" for="signup_phoneNumber"></span>
+              <input type="phone" name="signup_phoneNumber" id="signup_phoneNumber" placeholder="phone: 08145467267" required onkeyup="return validatePhone(this)">
+              <label for="signup_phoneNumber">Phone Number:</label>
+            </div>
+
+            <div class="field">
+              <span class="error red-text" for="signup_password"></span>
+              <input type="password" name="signup_password" id="signup_password" placeholder="enter password" required onkeyup="return isPassword(this, 'signup_password_confirm')">
+              <label for="password">password</label>
+            </div>
+
+            <div class="field">
+              <span class="error red-text" for="signup_password_confirm"></span>
+              <input type="password" name="signup_password_confirm" id="signup_password_confirm" placeholder="re-enter password" required onkeyup="return isPasswordConfirm(this, 'signup_password')">
+              <label for="password2">Confirm password</label>
+            </div>
+
+            <div class="field">
+                <span class="error red-text" for="signup_role"></span>
+              <select type="text" name="signup_role" id="signup_role" required>
+                <option> Ordinary User</option>
+                <option> Politician</option>
+              </select>
+              <label for="signup_role">Select User Type:</label>
+            </div>
+            <div class="field">
+                <br/>
+               <a href="./access.html?page=signin"> I have an Account, <u>Login Here</u></a>
+               <br/> <br/>
+              <button type="submit" class="button-bigger">Create Account</button>
+            </div>
+          </fieldset>
+        </form>
+
+        <!-- login form -->
+        <form onsubmit="submitForm(this); return false;" action="signin" class="form-fields hide" id="signin" method="post">
+          <fieldset class="fieldset">
+            <legend>Login Below</legend>
+            <div class="response"></div>
+            <div class="field">
+              <span class="error red-text" for="login_username"></span>
+              <input type="text" name="login_username" id="login_username" placeholder="email or phone" required onkeyup="return validatePhoneOREmail(this)">
+              <label for="login_username">Username:</label>
+            </div>
+
+            <div class="field">
+                <span class="error red-text" for="login_password"></span>
+              <input type="password" name="login_password" id="login_password" placeholder="enter password" required onkeyup="return isPassword(this, this)">
+              <label for="login_password">password</label>
+            </div>
+
+            <div class="field">
+              <input type="checkbox" name="remember" id="remember" value="remember">
+              <label for="remember" class="centered-text">remember login</label>
+            </div>
+
+            <div class="field">
+                <div>
+                  <a href="./access.html?page=signpassword">Forgot Password</a> <br/><br/>
+                  <a href="./access.html?page=signup">Create New Account</a>
+                </div>
+                <br/>
+              <button type="submit" class="button">Login</button>
+            </div>
+          </fieldset>
+
+        </form>
+
+        <!-- reset confirm form -->
+        <form onsubmit="submitForm(this); return false;" action="confirm-password" class="form-fields hide" id="signsuccess" method="post">
+          <fieldset class="fieldset">
+            <br/>
+            <div class="placeholder">
+              <h2>Your Password as Been changed Successfully.</h2>
+              <a href="./pages/user_dashboard.html"> Go to Dashboard</a>
+            </div>
+          </fieldset>
+        </form>
+
+        <!-- reset password form -->
+        <form onsubmit="submitForm(this); return false;" action="reset" class="form-fields hide" id="signpassword" method="post">
+          <fieldset class="fieldset">
+            <legend>Reset Your Below</legend>
+            <div class="response"></div>
+            <div class="field">
+              <span class="error red-text" for="reset_email"></span>
+              <input type="text" name="reset_email" id="reset_email" placeholder="ecomje@gmail.com or 08145467267" required onkeyup="return validatePhoneOREmail(this)">
+              <label for="reset_email">Enter Email or Phone:</label>
+            </div>
+            <div class="field">
+                <div>
+                    <a href="./access.html?page=signin">Login to Account</a> <br/> <br/>
+                    <a href="./access.html?page=signup">Create New Account</a>
+                </div>
+                <br/>
+              <button type="submit" class="button button-bigger">Reset Password</button>
+            </div>
+          </fieldset>
+        </form>
+
+      </section>
+    </main>
+    <br/>
+    <div class="toast"> hello I am a toast bar <span class="toast-close">x</span></div>
+
+    <footer data-add-file='./footer.txt'>
+      <div>
+      <a href="https://github.com/emmsdan/politico/">Politico</a> powered by <a href="https://twitter.com/emmsdan">Emmanuel Daniel</a>
+      </div>
+    </footer>
+    <script async defer src="./js/tools.js"></script>
+    <script async defer src="./js/app.js"></script>
+    <script async defer src="./js/accessControl.js"></script>
+    <script async defer src="./js/validator.js"></script>
+  </body>
+</html>
