@@ -57,6 +57,7 @@ export default class authController {
               lastName: resp.rows[0].lastname,
               otherName: resp.rows[0].othername === 'undefined' ? '' : resp.rows[0].othername,
               email: resp.rows[0].email,
+              passportUrl: resp.rows[0].passporturl,
               phoneNumber: Number(resp.rows[0].phonenumber),
               isAdmin: resp.rows[0].isadmin
             },
@@ -151,6 +152,7 @@ export default class authController {
               lastName: resp[0].lastname,
               otherName: resp[0].othername === 'undefined' ? '' : resp[0].othername,
               email: resp[0].email,
+              passportUrl: resp[0].passporturl,
               phoneNumber: resp[0].phonenumber,
               isAdmin: resp[0].isadmin
             },

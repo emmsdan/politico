@@ -706,6 +706,15 @@ button.blue-gray:hover {
   color: rgb(75, 121, 247);
 }
 
+.white {
+  background: rgb(255, 255, 255);
+}
+.white-text {
+  color: seagreen;
+}
+.inactive, .inactive a {
+  background: none !important;
+}
 img.profile-pix {
   max-width: 200px;
   max-height: 200px;

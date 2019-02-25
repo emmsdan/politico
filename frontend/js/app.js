@@ -130,7 +130,6 @@ const toggleActiveBar = () => {
   });
 }
 
-
 const sendServerRequest = (data, viewer='app-view') => {
   const { method, url } = data;
   const formData = {}
@@ -155,7 +154,7 @@ const sendServerRequest = (data, viewer='app-view') => {
           if (!['signup', 'signin'].includes(url)) {
             if (jsonResponse.data[0].hqaddress) {
               redirect(`party.html?id=${jsonResponse.data[0].id}`)
-            } 
+            }
             throwError(jsonResponse.data[0].message, '.response');
             toast(jsonResponse.data[0].message);
             return;
@@ -170,6 +169,8 @@ const sendServerRequest = (data, viewer='app-view') => {
             ue: jsonResponse.data[0].user.email,
             up: jsonResponse.data[0].user.phoneNumber,
             ui: jsonResponse.data[0].user.id,
+            up: jsonResponse.data[0].user.passportUrl,
+            uad: jsonResponse.data[0].user.isAdmin,
             isL: true
           }));
           if (jsonResponse.data[0].user.isAdmin) {

@@ -42,10 +42,23 @@ async function isLoggedIn() {
   if (!isLoggedIn && securePage().secure) {
     redirect('/access.html?page=signin');
   }
-  if (isLoggedIn && securePage().sPage) {
-    alert('Welcome to Politico');
+  if (!isLoggedIn.uad && securePage().sPage.includes('admin')) {
+    redirect(`user_dashboard.html`);
   }
 }
+
+/**
+ * log out
+ */
+async function logOut() {
+  const addressbar = window.location.href.split('.logout=')[1] || window.location.href.split('/')[1];
+  if (addressbar === 'true' || window.location.href.includes('logout=true')) {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    redirect('/access.html?page=signin');
+  }
+}
+
 /**
  *
  * @param {string} url
@@ -86,6 +99,7 @@ const throwError = (message, placeholder) => {
 const init = () => {
   isLoggedIn();
   toggleLoginForm();
+  logOut();
 };
 
 init();
