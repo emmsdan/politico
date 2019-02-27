@@ -34,7 +34,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
 app.purge('/migrate', (req, res) => {
   init().then((response) => {
     res.status(200).json({ m: 'migrated', response });
