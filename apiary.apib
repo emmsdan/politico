@@ -10,7 +10,7 @@ Politico enables citizens give their mandate to politicians running for differen
 
 ### List all Users (admin only)[GET]
 
-+ Request 
++ Request
     URL (/api/v1/users)
 
 + Response 200 (application/json)
@@ -67,14 +67,14 @@ Create a new User account
     + Headers
 
             Location: /auth/signup
-            
+
     + Body
 
-        
+
             {
                 "status": 201,
                 "token": "eyJleHAiOjE1NDk4NzMyMTAsInBheWxvYWQiOnsiZW1haWwiOiJlY29tamVAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwidXNlcmlkIjoiMTU0OTI2ODQwODE0NyJ9LCJpYXQiOjE1NDkyNjg0MTB9.l92n",
-                "user": {              
+                "user": {
                     "id": 1,
                     "firstname": "Emmanuel",
                     "lastname": "Daniel",
@@ -107,10 +107,10 @@ Access Users account
     + Headers
 
             Location: /auth/login
-            
+
     + Body
 
-        
+
             {
                 "status": 200,
                 "token": "eyJleHAiOjE1NDk4NzMyMTAsInBheWxvYWQiOnsiZW1haWwiOiJlY29tamVAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwidXNlcmlkIjoiMTU0OTI2ODQwODE0NyJ9LCJpYXQiOjE1NDkyNjg0MTB9.l92n",
@@ -146,10 +146,10 @@ Get a reset password link, in your email.
     + Headers
 
             Location: /auth/reset
-            
+
     + Body
 
-        
+
             {
                 "status": 200,
                 "data": [
@@ -198,13 +198,13 @@ Get a specific political ID  `/api/v1/parties/<party-id>/`
     + Headers
 
             Location: /api/v1/parties/<party-id>
-            
+
 + Response 200 (application/json)
 
-            
+
     + Body
 
-        
+
             {
                 "status": 200,
                 "data": [
@@ -234,13 +234,13 @@ Create a political party `/api/v1/parties/`
             "logoUrl": "http://domain.com/image.png",
         }
 
-            
+
 + Response 201 (application/json)
 
-            
+
     + Body
 
-        
+
             {
                 "status": 201,
                 "data": [
@@ -259,18 +259,18 @@ Create a political party `/api/v1/parties/`
 Rename an existing political party `/api/v1/parties/<party-id>/name`
 
 + Request (application/json)
-        
+
         {
             "name": "new some people party"
         }
 
-            
+
 + Response 201 (application/json)
 
-            
+
     + Body
 
-        
+
             {
                 "status": 200,
                 "data": [
@@ -286,13 +286,13 @@ Rename an existing political party `/api/v1/parties/<party-id>/name`
 
 Delete an existing political party `/api/v1/parties/<party-id>`
 
-            
+
 + Response 200 (application/json)
 
-            
+
     + Body
 
-        
+
             {
                 "status": 200,
                 "data": [ "party deleted from record." ]
@@ -336,13 +336,13 @@ Get a specific office by id `/api/v1/offices/<office-id>/`
     + Headers
 
             Location: /api/v1/parties/<party-id>
-            
+
 + Response 200 (application/json)
 
-            
+
     + Body
 
-        
+
             {
                 "status": 200,
                 "data": [
@@ -363,20 +363,20 @@ Get a specific office by id `/api/v1/offices/<office-id>/`
 Create an Office `/api/v1/offices/`
 
 + Request (application/json)
-        
+
         {
             "name": "office 6",
             "type": "local",
             "logoUrl": "http://domain.com/image.png",
         }
 
-            
+
 + Response 201 (application/json)
 
-            
+
     + Body
 
-        
+
             {
                 "status": 201,
                 "data": [
@@ -425,20 +425,20 @@ Register a user as a candidate running for a political office.
 `/api/v1/office/register`
 
 + Request (application/json)
-        
+
         {
             "user": 821,
             "office": 8765,
             "party": 7654
         }
 
-            
+
 + Response 201 (application/json)
 
-            
+
     + Body
 
-        
+
             {
                 "status": 201,
                 "data": [
@@ -457,7 +457,7 @@ Register a user as a candidate running for a political office.
 ### Vote a candidate [POST]
 `/api/v1/vote/`
 + Request (application/json)
-        
+
             {
                 "voter": 821,
                 "office": 8765,
@@ -484,13 +484,13 @@ Register a user as a candidate running for a political office.
 
 Get Election Results
 `/api/v1/office/result`
-            
+
 + Response 200 (application/json)
 
-            
+
     + Body
 
-        
+
             {
                 "status": 200,
                 "data": [
@@ -512,13 +512,13 @@ Get Election Results
 
 Get Election Result for a specific office
 `/api/v1/office/<office-id>/result`
-            
+
 + Response 200 (application/json)
 
-            
+
     + Body
 
-        
+
             {
                 "status": 200,
                 "data": [
@@ -537,13 +537,13 @@ Get Election Result for a specific office
 
 Allow Users to file a new Petition
 `/api/v1/petition`
-            
+
 + Response 201 (application/json)
 
-            
+
     + Body
 
-        
+
             {
                 "status": 200,
                 "data": [
@@ -564,7 +564,7 @@ Allow Users to file a new Petition
 
 Get Election Result for a specific office
 `/api/v1/office/<office-id>/result`
-            
+
 
 + Request (application/json)
 
@@ -577,10 +577,10 @@ Get Election Result for a specific office
 
 + Response 200 (application/json)
 
-            
+
     + Body
 
-        
+
             {
                 "status": 200,
                 "data": [

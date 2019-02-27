@@ -51,7 +51,7 @@
 
       <section class="wrapper">
         <!-- singup form-->
-        <form onsubmit="submitForm(this); return false;" action="signup" class="form-fields hide" id="signup" method="post">
+        <form onsubmit="submitForm(this); return false;" action="signup" class="form-fields" id="signup" method="post">
           <fieldset class="fieldset">
             <legend>Create an Account Below</legend>
             <div class="response"></div>
@@ -109,7 +109,7 @@
         </form>
 
         <!-- login form -->
-        <form onsubmit="submitForm(this); return false;" action="signin" class="form-fields" id="signin" method="post">
+        <form onsubmit="submitForm(this); return false;" action="signin" class="form-fields hide" id="signin" method="post">
           <fieldset class="fieldset">
             <legend>Login Below</legend>
             <div class="response"></div>

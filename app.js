@@ -34,7 +34,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
 app.purge('/migrate', (req, res) => {
   init().then((response) => {
     res.status(200).json({ m: 'migrated', response });
@@ -46,7 +45,6 @@ app.purge('/migrate', (req, res) => {
 /**
  * main api routes
  */
-
 app.use('/doc', (req, res) => {
   res.sendFile(path.join(documentation, 'documentation.html'));
 });

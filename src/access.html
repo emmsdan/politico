@@ -5,6 +5,13 @@
     <link rel="canonical" href="./">
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="./img/favicon.png"/>
+    <!-- development only area-->
+
+    <meta http-equiv="Cache-Control" content="no-cache" />
+    <meta http-equiv="Pragma" content="no-cache" />
+
+    <!-- end of development only area-->
+
     <title> Signup || Politico</title>
     <link href="https://fonts.googleapis.com/css?family=Sarabun" rel="stylesheet">
     <link rel="stylesheet" href="./css/app.css" />
@@ -30,16 +37,12 @@
           </div>
         </div>
     </noscript>
+    <script src="./js/dexie.js"></script>
+    <script async defer src="./js/tools.js"></script>
+    <script async defer src="./js/app.js"></script>
+    <script async defer src="./js/accessControl.js"></script>
   </head>
   <body>
-    <div class="center load-overlay">
-      <div>
-        <div class="loader center">
-      </div>
-      <img src="./img/favicon.png" id="rotateImage"/>
-        please waiting am loading content...
-      </div>
-    </div>
     <header data-add-file="./header.txt"></header>
     <main>
       <section class="call-to-action">
@@ -51,78 +54,69 @@
 
       <section class="wrapper">
         <!-- singup form-->
-        <form onsubmit="submitForm(this); return false;" action="signup" class="form-fields hide" id="signup" method="post">
+        <form onsubmit="return false;" action="./pages/user_dashboard.html" class="form-fields" id="signup">
           <fieldset class="fieldset">
             <legend>Create an Account Below</legend>
-            <div class="response"></div>
+
             <div class="field">
-                <span class="error red-text" for="signup_firstName"></span>
-              <input type="text" name="signup_firstName" id="signup_firstName" placeholder="Emmanuel" required onkeyup="return validateName(this)">
-              <label for="signup_firstName">First Name:</label>
+              <input type="text" name="firstname" id="firstname" placeholder="Emmanuel" required>
+              <label for="firstname">First Name:</label>
             </div>
 
             <div class="field">
-                <span class="error red-text" for="signup_lastName"></span>
-              <input type="text" name="signup_lastName" id="signup_lastName" placeholder="Daniel" required onkeyup="return validateName(this)">
-              <label for="signup_lastName">Last Name:</label>
+              <input type="text" name="lastname" id="lastname" placeholder="Daniel" required>
+              <label for="lastname">Last Name:</label>
             </div>
 
             <div class="field">
-              <span class="error red-text" for="signup_email"></span>
-              <input type="email" name="signup_email" id="signup_email" placeholder="ecomje@gmail.com" required onkeyup="return validateEmail(this)">
-              <label for="signup_email">Email:</label>
+              <input type="email" name="email" id="email" placeholder="ecomje@gmail.com" required>
+              <label for="email">Email:</label>
             </div>
 
             <div class="field">
-              <span class="error red-text" for="signup_phoneNumber"></span>
-              <input type="phone" name="signup_phoneNumber" id="signup_phoneNumber" placeholder="phone: 08145467267" required onkeyup="return validatePhone(this)">
-              <label for="signup_phoneNumber">Phone Number:</label>
+              <input type="phone" name="phone" id="phone" placeholder="phone: 08145467267" required>
+              <label for="phone">Phone Number:</label>
             </div>
 
             <div class="field">
-              <span class="error red-text" for="signup_password"></span>
-              <input type="password" name="signup_password" id="signup_password" placeholder="enter password" required onkeyup="return isPassword(this, 'signup_password_confirm')">
+              <input type="password" name="password" id="password" placeholder="enter password" required>
               <label for="password">password</label>
             </div>
 
             <div class="field">
-              <span class="error red-text" for="signup_password_confirm"></span>
-              <input type="password" name="signup_password_confirm" id="signup_password_confirm" placeholder="re-enter password" required onkeyup="return isPasswordConfirm(this, 'signup_password')">
+              <input type="password" name="password2" id="password2" placeholder="re-enter password" required>
               <label for="password2">Confirm password</label>
             </div>
 
             <div class="field">
-                <span class="error red-text" for="signup_role"></span>
-              <select type="text" name="signup_role" id="signup_role" required>
+              <select type="text" name="userType" id="userType" required>
                 <option> Ordinary User</option>
                 <option> Politician</option>
               </select>
-              <label for="signup_role">Select User Type:</label>
+              <label for="userType">Select User Type:</label>
             </div>
             <div class="field">
                 <br/>
                <a href="./access.html?page=signin"> I have an Account, <u>Login Here</u></a>
-               <br/> <br/>
+               <br/>
               <button type="submit" class="button-bigger">Create Account</button>
             </div>
           </fieldset>
         </form>
 
         <!-- login form -->
-        <form onsubmit="submitForm(this); return false;" action="signin" class="form-fields" id="signin" method="post">
+        <form onsubmit="return false;" action="./pages/user_dashboard.html" class="form-fields hide" id="signin">
           <fieldset class="fieldset">
             <legend>Login Below</legend>
-            <div class="response"></div>
+
             <div class="field">
-              <span class="error red-text" for="login_username"></span>
-              <input type="text" name="login_username" id="login_username" placeholder="email or phone" required onkeyup="return validatePhoneOREmail(this)">
-              <label for="login_username">Username:</label>
+              <input type="text" name="username" id="username" placeholder="emmsdan" required>
+              <label for="fullname">Username:</label>
             </div>
 
             <div class="field">
-                <span class="error red-text" for="login_password"></span>
-              <input type="password" name="login_password" id="login_password" placeholder="enter password" required onkeyup="return isPassword(this, this)">
-              <label for="login_password">password</label>
+              <input type="password" name="password" id="password" placeholder="Uya73&gaCute" required>
+              <label for="password">password</label>
             </div>
 
             <div class="field">
@@ -132,7 +126,7 @@
 
             <div class="field">
                 <div>
-                  <a href="./access.html?page=signpassword">Forgot Password</a> <br/><br/>
+                  <a href="./access.html?page=signpassword">Forgot Password</a> <br/>
                   <a href="./access.html?page=signup">Create New Account</a>
                 </div>
                 <br/>
@@ -143,7 +137,7 @@
         </form>
 
         <!-- reset confirm form -->
-        <form onsubmit="submitForm(this); return false;" action="confirm-password" class="form-fields hide" id="signsuccess" method="post">
+        <form onsubmit="return false;" action="confirm-password.html" class="form-fields hide" id="signsuccess">
           <fieldset class="fieldset">
             <br/>
             <div class="placeholder">
@@ -154,14 +148,12 @@
         </form>
 
         <!-- reset password form -->
-        <form onsubmit="submitForm(this); return false;" action="reset" class="form-fields hide" id="signpassword" method="post">
+        <form onsubmit="return false;" action="confirm-password.html" class="form-fields hide" id="signpassword">
           <fieldset class="fieldset">
             <legend>Reset Your Below</legend>
-            <div class="response"></div>
             <div class="field">
-              <span class="error red-text" for="reset_email"></span>
-              <input type="text" name="reset_email" id="reset_email" placeholder="ecomje@gmail.com or 08145467267" required onkeyup="return validatePhoneOREmail(this)">
-              <label for="reset_email">Enter Email or Phone:</label>
+              <input type="text" name="username" id="username" placeholder="ecomje@gmail.com or 08145467267" required>
+              <label for="fullname">Enter Email or Phone:</label>
             </div>
             <div class="field">
                 <div>
@@ -169,7 +161,7 @@
                     <a href="./access.html?page=signup">Create New Account</a>
                 </div>
                 <br/>
-              <button type="submit" class="button button-bigger">Reset Password</button>
+              <button type="submit" class="button">Reset Password</button>
             </div>
           </fieldset>
         </form>
@@ -184,9 +176,6 @@
       <a href="https://github.com/emmsdan/politico/">Politico</a> powered by <a href="https://twitter.com/emmsdan">Emmanuel Daniel</a>
       </div>
     </footer>
-    <script async defer src="./js/tools.js"></script>
-    <script async defer src="./js/app.js"></script>
-    <script async defer src="./js/accessControl.js"></script>
-    <script async defer src="./js/validator.js"></script>
+
   </body>
 </html>

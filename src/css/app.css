@@ -4,6 +4,32 @@
   font-family: 'Varela Round', 'Sarabun', sans-serif;
   --background: rgba(228, 252, 227, 0.425);
 }
+/* customize scrollbar for webkit browsers */
+
+::-webkit-scrollbar {
+  width: 7px;
+  cursor: pointer;
+}
+::-webkit-scrollbar-track {
+  background: #78909c ;
+  cursor: pointer;
+}
+::-webkit-scrollbar-track:hover{
+  background: #006064  ;
+  cursor: pointer;
+}
+::-webkit-scrollbar-track:active{
+  background: #263238 ;
+  cursor: pointer;
+}
+::-webkit-scrollbar-thumb {
+  background: #80cbc4;
+  cursor: pointer;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00897b;
+  cursor: pointer;
+}
 
 /**
   * simple keyframes for animations
@@ -519,7 +545,7 @@ main {
 .field {
   display: flex;
   flex-flow: column-reverse;
-  margin-bottom: 5px;
+  margin-bottom: 1em;
 }
 label, input, option, select {
   transition: all 0.2s;
@@ -696,7 +722,7 @@ button.blue-gray {
 button.blue-gray:hover {
   color: #000 !important;
 }
-.red-text, .response {
+.red-text {
   color: #fd385f;
 }
 .blue {
@@ -706,15 +732,6 @@ button.blue-gray:hover {
   color: rgb(75, 121, 247);
 }
 
-.white {
-  background: rgb(255, 255, 255);
-}
-.white-text {
-  color: seagreen;
-}
-.inactive, .inactive a {
-  background: none !important;
-}
 img.profile-pix {
   max-width: 200px;
   max-height: 200px;
@@ -997,102 +1014,3 @@ a.grey-button, button.grey-button, .button.grey-button {
 .biggest-text {
   font-size: 40px;
 }
-.invalid, button.invalid, input.invalid, select.invalid {
-  border:1px solid red;
-}
-.valid, button.valid, input.valid, select.valid {
-  border-color: green;
-}
-.response {
-  text-align: center;
-  font-weight: 900;
-  max-width: 80%;
-  padding: 10px;
-  margin: 0 auto;
-}
-
-/** loading */
-
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* WebKit and Opera browsers */
-  @-webkit-keyframes rotate {
-    from { -webkit-transform: rotateY(0deg);    }
-    to   { -webkit-transform: rotateY(-360deg); }
-  }
-
-  /* all other browsers */
-  @keyframes rotate {
-    from {
-      -moz-transform: rotateY(0deg);
-      -ms-transform: rotateY(0deg);
-      transform: rotateY(0deg);
-    }
-    to {
-      -moz-transform: rotateY(-360deg);
-      -ms-transform: rotateY(-360deg);
-      transform: rotateY(-360deg);
-    }
-  }
-
-   #rotateImage {
-    -webkit-animation-name: rotate;
-    -webkit-animation-timing-function: linear;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-duration: 3s;
-
-    animation-name: rotate;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-duration: 3s;
-
-    -webkit-transform-style: preserve-3d;
-    -moz-transform-style: preserve-3d;
-    -ms-transform-style: preserve-3d;
-    transform-style: preserve-3d;
-  }
-
-  #rotateImage:hover {
-    -webkit-animation-play-state: paused;
-    animation-play-state: paused;
-  }
-  .load-overlay {
-    width: 100%;
-    height: 100%;
-    background: rgba(128, 252, 155, .7);
-    color: #123;
-    font-weight: 900;
-    margin: 0 auto;
-    position: fixed;
-    top: 0;
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .loader {
-    border: 2px solid rgba(255,255,255,.9);
-    border-radius: 50%;
-    border-top-color: #000;
-    border-top-style: dotted;
-    animation: spin 1s ease-in-out infinite;
-    -webkit-animation: spin 1s ease-in-out infinite;
-    width: 100px;
-    height: 100px;
-    background: #fff;
-  }
-  .load-overlay img {
-    position: absolute;
-    height: 90px;
-    left: 45.7%;
-    top: 41.5%;
-    border-radius: 100%;
-  }
