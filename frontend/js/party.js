@@ -7,17 +7,14 @@ document.querySelector('.load-overlay').style= 'display: flex;'
         return;
     }
     if (getParamaterId() !== undefined) {
-      partyProfile.innerHTML = `
-      <img src="${ partyInfo[0].logourl}" class="party-pix left">
+      partyProfile.innerHTML = `<img src="${ partyInfo[0].logourl}" class="party-pix left">
       <div class="profile-menu">
       <h2 class="title font-serif p-name">
         <span id="p-name">${partyInfo[0].name}</span>
       </h2>
       <div class="">
         <strong>Address:</strong> @<span id="p-address">${partyInfo[0].hqaddress} </span>
-      </div>
-    </div>
-      `;
+      </div> </div>`;
     } else {
       partyAll.innerHTML = '';
       partyInfo.forEach((party) => {

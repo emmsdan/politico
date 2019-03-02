@@ -941,7 +941,8 @@ td {
   background:#FFFFFF;
   vertical-align:middle;
   font-weight:300;
-  border-right: 1px solid #C1C3D1;
+  border: 1px solid #C1C3D1;
+  border-left: none;
 }
 td:last-child {
   border-right: none;

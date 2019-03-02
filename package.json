@@ -1,5 +1,5 @@
 {
-  "name": "politico-api",
+  "name": "politico",
   "version": "1.0.0",
   "description": "",
   "engines": {
@@ -47,6 +47,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
+    "core-js": "^2.6.5",
     "cors": "^2.8.5",
     "coveralls": "^3.0.2",
     "dotenv": "^6.2.0",
