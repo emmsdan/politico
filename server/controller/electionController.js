@@ -256,7 +256,7 @@ export default class electionController {
     return Election.viewCandidates()
       .then(resp => responseController.response(null, {
         status: 200,
-        message: resp
+        message: resp.rows
       }, response))
       .catch(error => responseController.response({
         status: 404,

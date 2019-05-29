@@ -44,12 +44,15 @@ export default class Election {
   }
 
   /**
-   * register a user as a candidate
+   * view users as a candidate
    * @param {object} option
    * @returns promise
    */
   static async viewCandidates() {
-    return Database.select(new Election().table.candidate);
+    return Database.rawSql(`SELECT parties.id as partyId, parties.logoUrl, offices.id as officeId, offices.name, offices.type, users.id as userid, users.firstname, users.lastname, users.passportUrl FROM candidates 
+    INNER JOIN users ON (candidates.userid = users.id)
+    INNER JOIN parties ON (candidates.party = parties.id)
+    INNER JOIN offices ON (candidates.office = offices.id);`);
   }
 
   /**

@@ -27,7 +27,7 @@ partyRouter.patch('/:partyID/name', jwtAuth.authentication, (req, res) => {
  * API: Fetch a specific political party record
  * @access :GET /api/v1/parties/<party-id>
  */
-partyRouter.get('/:partyID', jwtAuth.authentication, (req, res) => {
+partyRouter.get('/:partyID', (req, res) => {
   partyController.get(req, res);
 });
 
