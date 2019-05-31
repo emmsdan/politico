@@ -9,12 +9,10 @@
   "main": "app.js",
   "scripts": {
     "migrate": "babel-node migration.js init",
-    "build": "babel ./ -d build",
     "start": "nodemon --exec babel-node app.js",
     "serve": "node dist/app.js",
     "test": "nyc mocha --timeout 10000 test/ --compilers js:babel-core/register --exit && nyc report --reporter=text-lcov | coveralls",
-    "test:dev": "npm run migrate && npm run test",
-    "migrate": "npm run migrate"
+    "test:dev": "npm run migrate && npm run test"
   },
   "repository": {
     "type": "git",
