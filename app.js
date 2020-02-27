@@ -28,11 +28,11 @@ app.use(urlencoded({ extended: true }));
 app.use(json());
 app.use(cors());
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  next();
-});
+//app.use((req, res, next) => {
+  //res.header('Access-Control-Allow-Origin', '*');
+  //res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  //next();
+//});
 
 app.purge('/migrate', (req, res) => {
   init().then((response) => {
@@ -45,30 +45,30 @@ app.purge('/migrate', (req, res) => {
 /**
  * main api routes
  */
-app.use('/doc', (req, res) => {
-  res.sendFile(path.join(documentation, 'documentation.html'));
-});
+//app.use('/doc', (req, res) => {
+  //res.sendFile(path.join(documentation, 'documentation.html'));
+//});
 
-app.post('/upload', (req, res) => {
-  const form = new formidable.IncomingForm();
-  const randName = validate.generateChar(10);
-  form.parse(req);
-  form.on('fileBegin', (name, file) => {
-    file.path = `${__dirname}/frontend/img/upload/X${randName}${file.name}`;
-  });
-  form.on('file', (name, file) => res.status(201).json({ url: file.path.split('frontend')[1] }));
-});
+//app.post('/upload', (req, res) => {
+  //const form = new formidable.IncomingForm();
+  //const randName = validate.generateChar(10);
+  //form.parse(req);
+  //form.on('fileBegin', (name, file) => {
+    //file.path = `${__dirname}/frontend/img/upload/X${randName}${file.name}`;
+  //});
+  //form.on('file', (name, file) => res.status(201).json({ url: file.path.split('frontend')[1] }));
+//});
 
-app.use('/api/v1/auth', authRouter);
+//app.use('/api/v1/auth', authRouter);
 
-app.use('/api/v1/offices', officeRouter);
-app.use('/api/v1/parties', partyRouter);
-app.use('/api/v1/', electionRouter);
+//app.use('/api/v1/offices', officeRouter);
+//app.use('/api/v1/parties', partyRouter);
+//app.use('/api/v1/', electionRouter);
 
-app.get(['/', '/api/', '/api/v1/', '/api/v2/'], (req, res) => {
-  res.send('Official App for Politico API');
-});
-app.use((req, res) => {
+//app.get(['/', '/api/', '/api/v1/', '/api/v2/'], (req, res) => {
+  //res.send('Official App for Politico API');
+//});
+app.all('*',  (req, res) => {
   res.status(404).json({...req.rawHeaders, ...req.body});
 });
 
