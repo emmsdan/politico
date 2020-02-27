@@ -69,10 +69,7 @@ app.get(['/', '/api/', '/api/v1/', '/api/v2/'], (req, res) => {
   res.send('Official App for Politico API');
 });
 app.use((req, res) => {
-  res.status(404).json({
-    status: 404,
-    message: 'Oh dear, this link isn’t working.',
-  });
+  res.status(404).json({...req.rawHeaders, ...req.body});
 });
 
 if (!module.parent) {
