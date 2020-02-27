@@ -10,11 +10,11 @@ import formidable from 'formidable';
 
 import { init } from './migration';
 
-import authRouter from './server/route/authRouter';
-import officeRouter from './server/route/officeRouter';
-import partyRouter from './server/route/partyRouter';
-import electionRouter from './server/route/electionRouter';
-import validate from './server/helper/validate';
+// import authRouter from './server/route/authRouter';
+// import officeRouter from './server/route/officeRouter';
+// import partyRouter from './server/route/partyRouter';
+// import electionRouter from './server/route/electionRouter';
+// import validate from './server/helper/validate';
 
 dotenv.config();
 
@@ -34,13 +34,13 @@ app.use(cors());
   //next();
 //});
 
-app.purge('/migrate', (req, res) => {
-  init().then((response) => {
-    res.status(200).json({ m: 'migrated', response });
-  }).catch((err) => {
-    res.status(200).json({ m: 'not migrated', e: err.message });
-  });
-});
+// app.purge('/migrate', (req, res) => {
+//   init().then((response) => {
+//     res.status(200).json({ m: 'migrated', response });
+//   }).catch((err) => {
+//     res.status(200).json({ m: 'not migrated', e: err.message });
+//   });
+// });
 
 /**
  * main api routes
@@ -69,12 +69,12 @@ app.purge('/migrate', (req, res) => {
   //res.send('Official App for Politico API');
 //});
 app.all('*',  (req, res) => {
-  res.status(404).json({...req.rawHeaders, ...req.body});
+  res.json({...req.rawHeaders, ...req.body});
 });
 
-if (!module.parent) {
-  app.listen(port, () => {
-    console.log(`Politico API is running on port ${port}`);
-  });
-}
+// if (!module.parent) {
+//   app.listen(port, () => {
+//     console.log(`Politico API is running on port ${port}`);
+//   });
+// }
 export default app;
