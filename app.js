@@ -73,8 +73,8 @@ app.all('*',  (req, res) => {
 });
 
 // if (!module.parent) {
-//   app.listen(port, () => {
-//     console.log(`Politico API is running on port ${port}`);
-//   });
+  app.listen(port, () => {
+    console.log(`Politico API is running on port ${port}`);
+  });
 // }
 export default app;
